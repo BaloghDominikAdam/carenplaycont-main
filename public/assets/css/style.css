@@ -1,0 +1,556 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    outline: 0;
+    color: white;
+}
+
+
+
+.main-block{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(45deg, #0066ff, #08f, #26ab78, #08f,#0066ff);
+    backdrop-filter: blur(30px);
+    background-attachment: scroll;
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
+}
+
+
+
+@keyframes color{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+
+}
+
+@font-face {
+    font-family: FairyDustB;
+    src: url('Quenda-Medium.otf');
+
+}
+
+.content h1{
+    font-size: clamp(150px, calc(7vw + 1rem), 5rem);
+    font-family: FairyDustB;
+    color: white;
+    z-index: 1;
+    text-shadow: 1px 0.5px 45px #eeeeee00;
+}
+
+
+
+.content h5{
+    font-size: clamp(20px, calc(3vw + 1rem), 2rem);
+    text-align: center;
+    color: white;
+    font-style: italic ;
+    font-family: FairyDustB;
+    font-weight: normal;
+    opacity: 0;
+    animation: showa ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    text-shadow: 0.5px 0.5px 65px #eeeeee96;
+}
+
+@keyframes showa {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media only screen and (max-width: 1279px){
+    .content h1{
+        font-size: clamp(110px, calc(6vw + 1rem), 5rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+    .content h5{
+        font-size: clamp(10px, calc(2vw + 0.5rem), 1rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 861px){
+    .content h1{
+        font-size: clamp(80px, calc(4vw + 1.7rem), 2rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+    .content h5{
+        font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 635px){
+    .content h1{
+        font-size: clamp(80px, calc(4vw + 1.7rem), 2rem);
+        text-wrap: balance;
+
+    }
+    .content h5{
+        font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+}
+
+
+
+.navbar {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+        position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    margin-bottom: 30px;
+  }
+  .navbarbackground{
+    background-color: #00000081;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    animation: 1s akp linear;
+    filter: drop-shadow(5px 5px 25px #0f0f0f96);
+
+}
+
+@keyframes akp {
+    from{ opacity: 0;}
+    to {opacity: 1;}
+}
+
+
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease;
+    font-family: FairyDustB;
+    animation: showa ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+  }
+
+  .navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+
+  .imgg{
+    float: left;
+    width: 100px;
+    height: 100px;
+    background-color: none;
+  }
+
+
+  section{
+    display: grid;
+    place-items: center;
+    align-content: center;
+    min-height: 100vh;
+
+  }
+
+  section h2{
+    color: white;
+    font-size: clamp(40px, calc(4vw + 1.7rem), 2rem);
+    font-family: FairyDustB;
+
+
+  }
+
+
+  section h4{
+    font-size: 80px;
+    color: white;
+    text-align: center;
+    font-family: FairyDustB;
+    font-weight: normal;
+    opacity: 0;
+    animation: showa ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    text-shadow: 1px 0.5px 65px #eeeeee96;
+
+  }
+
+
+ @keyframes appearfromleft {
+    from{
+        opacity: 0;
+        scale: 0.5;
+        transform: translateX(-400px);
+    }
+    to{
+        opacity: 1;
+        scale: 1;
+        transform: translateX(0);
+
+    }
+
+ }
+ @keyframes appearfromright {
+    from{
+        opacity: 0;
+        scale: 0.5;
+        transform: translateX(+400px);
+    }
+    to{
+        opacity: 1;
+        scale: 1;
+        transform: translateX(0);
+
+    }
+
+ }
+
+
+
+ .hiddenc{
+    animation: appearfromleft linear;
+    animation-timeline: view();
+    animation-range: entry 0 cover 30%;
+    text-align: center;
+
+
+
+ }
+ .contentright{
+    animation: appearfromright linear;
+    animation-timeline: view();
+    animation-range: entry 0 cover 30%;
+ }
+
+  .align-left {
+    float:left;
+    margin-right:20px;
+      transform: translateX(-110%);
+  }
+
+  .align-right {
+    float:right;
+    margin-left:20px;
+    transform: translateX(110%);
+  }
+
+
+  .logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* Engedélyezd a flex-wrap-ot */
+    gap: 1rem; /* Hozzáadhatsz egy kis részt a logók között */
+    flex: 0 1 calc(50% - 1rem); /* 3 items per row with some margin */
+}
+
+.logo {
+    max-width: 350px; /* Maximális szélesség a logónak */
+    text-align: center; /* Írja be a szöveget középre */
+
+}
+
+.logo img {
+    width: 350px; /* A kép szélessége a konténer szélességének 100%-a */
+    height: 300px; /* Az arányos magasság a szélesség alapján */
+    object-fit: cover;
+    border-radius: 40px;
+    padding: 1rem;
+    filter: drop-shadow(5px 5px 25px #eeeeee96);
+    transition: transform 0.3s ease;
+}
+
+
+
+.logo img:hover{
+    transform: scale(1.1);
+
+}
+
+.logo:nth-child(2){
+    transition-delay: 200ms;
+}
+.logo:nth-child(3){
+    transition-delay: 400ms;
+}
+.logo:nth-child(4){
+    transition-delay: 600ms;
+}
+
+
+.company{
+    text-align: center;
+    font-size: 30px;
+    font-family: FairyDustB;
+    opacity: 0;
+    animation: showa ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    text-shadow: 1px 0.5px 45px #eeeeee96;
+}
+
+
+.rolunk{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b4b4b496;
+    border-radius: 60px;
+    box-shadow: 1px 1px 55px 1px #77777796;
+    margin: auto;
+    margin-top: 20px;
+    padding-top: 25px;
+}
+
+
+.rolunkbox{
+    width: 50%;
+    margin: 40px;
+
+}
+.rolunkbox img{
+    width: 500px;
+    height: 300px;
+    border-radius: 50px;
+    object-fit: cover;
+    box-shadow: 1px 1px 55px 1px #1a1a1a8c;
+
+}
+
+
+
+.rolunk p{
+    text-align: center;
+    font-size: 25px;
+    font-family: FairyDustB;
+    opacity: 0;
+    animation: showa ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    text-shadow: 1px 0.5px 45px #eeeeee96;
+}
+
+
+.regpage{
+    display: grid;
+    align-content: center;
+    min-height: 100vh;
+
+
+}
+.regpage h2{
+    font-size: clamp(80px, calc(3vw + 2rem), 2rem);
+    margin: auto;
+    text-align: center;
+    color: white;
+    opacity: 0;
+    font-family: FairyDustB;
+    text-shadow: 1px 0.5px 45px #eeeeee00;
+    margin-top: 40px;
+    animation: elotunik ease-in-out 1s;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+    overflow-wrap:break-word;
+}
+
+
+.formcard{
+    display: flex;
+    margin: auto;
+    width: 60%;
+    max-height: 700px;
+    height: auto;
+    background-color: #c2c2c296;
+    border-radius: 45px;
+    box-shadow: 1px 1px 55px 1px #c2c2c296;
+    transition: width 2s ease;
+    padding: 15px;
+}
+@media only screen and (max-width: 768px){
+    .formcard{
+        height: auto;
+        max-height: 1100px;
+    }
+
+}
+
+
+.leftreg{
+    margin-top: 15px;
+    opacity: 0;
+    animation: elotunik ease-in-out 1s;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+
+}
+
+.rightreg{
+    border-radius: 45px;
+    color: white;
+    text-align: center;
+    opacity: 0;
+
+    animation: elotunik ease-in-out 1s ;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+
+}
+
+.regpage .text-center{
+    animation: elotunik ease-in-out 1s ;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+    opacity: 0;
+}
+
+@keyframes elotunik{
+    from{
+        opacity: 0;
+
+    }
+    to{
+        opacity: 1;
+
+    }
+}
+.leftreg button{
+    text-align: center;
+}
+
+
+.rightreg h3{
+    color: white;
+    font-size: clamp(30px, calc(1vw + .6rem), 1rem);
+    font-family: FairyDustB;
+
+}
+.righregcontent{
+    margin: auto;
+}
+
+.form-control{
+    box-shadow: 1px 1px 25px 1px #c2c2c296;
+
+}
+
+.form-label, .form-control, .btn{
+    font-family: FairyDustB;
+    font-size: clamp(18px, calc(2vw + 1rem), 1rem);
+
+}
+.form-label{
+    text-align: start;
+}
+.btn{
+    color: white;
+}
+.btn:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+}
+
+.leftreg h3, p, a {
+    color: white;
+    font-size: clamp(35px, calc(1vw + .6rem), 1rem);
+    font-family: FairyDustB;
+}
+
+
+
+.row .col-md-6{
+    margin: auto;
+}
+
+.hidden{
+    width: 0;
+    height: 0;
+    overflow:hidden;
+}
+
+
+
+.content .card{
+    color: black;
+}
+
+@media only screen and (max-width: 1279px){
+
+    .rolunk{
+        display: grid;
+        text-align: center;
+    }
+    .rolunkbox{
+        width: 100%;
+        text-wrap: wrap;
+        padding: 45px;
+        margin: 0;
+        margin-bottom: 15px;
+    }
+    .rolunkbox img{
+        width: 95%;
+    }
+    .regpage h2{
+        font-size: clamp(50px, calc(2vw + 1rem), 1rem);
+    }
+}
+
+
+@media only screen and (max-width:1279px ) {
+
+    .hiddenc h4{
+        font-size: clamp(55px, calc(4vw + 1rem), 2rem);
+    }
+
+    .formcard {
+        margin-top: 80px;
+        margin-bottom: 80px;
+
+    }
+}
+
+@media only screen and (max-width:768px ) {
+    .logos{
+        display:block;
+    }
+    .regpage h2{
+        font-size: clamp(40px, calc(2vw + 2rem), 1rem);
+    }
+    .formcard {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+}
+
+@media only screen and (max-width:480px ) {
+    .logos{
+        width: 100%;
+    }
+}
+
+
+@media only screen and (max-height: 999px){
+    .content{
+        padding: 15px;
+    }
+}
