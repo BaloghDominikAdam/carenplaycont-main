@@ -5,19 +5,22 @@
     outline: 0;
     color: white;
 }
+main{
+    overflow-x: hidden;
+}
 
 
 
 .main-block{
     height: 100%;
     width: 100%;
-    background: linear-gradient(45deg, #0066ff, #08f, #26ab78, #08f,#0066ff);
+    background: linear-gradient(45deg, #74EBD5 0%, #9FACE6 100%);
     backdrop-filter: blur(30px);
     background-attachment: scroll;
     background-size: 300% 300%;
-    animation: color 12s ease-in-out infinite;
+     animation: color 12s ease-in-out infinite;
+    /* background-color: #15003d  ; */
 }
-
 
 
 @keyframes color{
@@ -38,18 +41,22 @@
     src: url('Quenda-Medium.otf');
 
 }
+@font-face {
+    font-family: kecske;
+    src: url('Fine\ Serif.ttf');
+}
 
-.content h1{
+.welcomeblade h1{
     font-size: clamp(150px, calc(7vw + 1rem), 5rem);
     font-family: FairyDustB;
     color: white;
     z-index: 1;
-    text-shadow: 1px 0.5px 45px #eeeeee00;
+    text-shadow: 1px 1px 45px #ffffff4d;
 }
 
 
 
-.content h5{
+.welcomeblade h5{
     font-size: clamp(20px, calc(3vw + 1rem), 2rem);
     text-align: center;
     color: white;
@@ -164,21 +171,31 @@
   }
 
 
-  section{
+  section, .section2{
     display: grid;
     place-items: center;
     align-content: center;
+
+  }
+  section{
     min-height: 100vh;
+  }
+  .section2{
+    min-height: 60vh;
+    position: relative;
+
+
 
   }
 
-  section h2{
-    color: white;
-    font-size: clamp(40px, calc(4vw + 1.7rem), 2rem);
-    font-family: FairyDustB;
-
+  .section2 h2{
+    color: black;
+    font-family: kecske;
+    text-align: center;
+    font-size: clamp(70px, calc(4vw + 1.7rem), 2rem);
 
   }
+
 
 
   section h4{
@@ -315,9 +332,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #b4b4b496;
+    background-color: #d8d8d85e;
+    box-shadow: 1px 1px 55px 1px #d8d8d83f;
     border-radius: 60px;
-    box-shadow: 1px 1px 55px 1px #77777796;
     margin: auto;
     margin-top: 20px;
     padding-top: 25px;
@@ -381,9 +398,9 @@
     width: 60%;
     max-height: 700px;
     height: auto;
-    background-color: #c2c2c296;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 55px 1px #eaeaea4d;
     border-radius: 45px;
-    box-shadow: 1px 1px 55px 1px #c2c2c296;
     transition: width 2s ease;
     padding: 15px;
 }
@@ -553,4 +570,133 @@
     .content{
         padding: 15px;
     }
+}
+.custom-shape-divider-bottom-1741029606 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    transform: rotate(180deg);
+
+
+}
+
+.custom-shape-divider-bottom-1741029606 svg {
+    position: relative;
+    display: block;
+    width: calc(132% + 1.3px);
+    height: 215px;
+
+}
+
+.custom-shape-divider-bottom-1741029606 .shape-fill {
+    fill: #FFFFFF;
+}
+.welcomeblade, .welcomeblade2{
+    height: 100%;
+    width: 100%;
+    background-color: #74EBD5;
+
+
+
+}
+.welcomeblade{
+    background-image: linear-gradient(0deg, #74EBD5 0%, #9FACE6 100%);
+
+}
+.welcomeblade2{
+    position: relative;
+    background-image: linear-gradient(180deg, #74EBD5 0%, #9FACE6 100%);
+    padding-bottom: 45px;
+}
+.sliding{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slidingcontainer{
+    position:absolute;
+    left: -800px;
+  }
+  .szoveg{
+    width: 100%;
+
+
+  }
+  .szovegsliding{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+    will-change: transform;
+  }
+  .szoveg-item{
+    font-weight: lighter;
+    font-size: 350%;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-transform: uppercase;
+
+  color: black;
+  }
+
+
+  .hiddenc .custom-shape-divider-top-1741025554{
+
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+
+.custom-shape-divider-top-1741025554 svg {
+    position: relative;
+    display: block;
+    width: calc(130% + 1.3px);
+    height: 215px;
+}
+
+.custom-shape-divider-top-1741025554 .shape-fill {
+    fill: #FFFFFF;
+}
+
+
+.blob{
+    padding: 150px;
+}
+
+
+.custom-shape-divider-top-1741034294 {
+    background: linear-gradient(180deg, #74EBD5 0%, #9FACE6 100%);
+    rotate: 180deg;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+
+}
+
+.custom-shape-divider-top-1741034294 svg {
+    position: relative;
+    display: block;
+    width: calc(147% + 1.3px);
+    height: 161px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1741034294 .shape-fill {
+    fill: #FFFFFF;
+}
+
+
+.divider {
+    width: 3px; /* Elválasztó szélessége */
+    height: 200px; /* Magasság, az igényeid szerint állítható */
+    background-color: black; /* Fekete szín */
 }

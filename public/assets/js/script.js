@@ -15,6 +15,15 @@ window.onscroll = (e) => {
 };
 
 
+let scroll = window.scrollY;
+    const updateScroll = () => {
+        scroll = window.scrollY / 1.5;
+        document.getElementById("tranc").style.transform = "translateX(-"+scroll+"px)";
+        document.getElementById("tranb").style.transform = "translateX(+"+scroll+"px)";
+        document.getElementById("trana").style.transform = "translateX(-"+scroll+"px)";
+    }
+    setInterval(updateScroll, 1);
+
 
 
 

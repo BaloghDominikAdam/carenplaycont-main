@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarenPlay</title>
+    <title>Care and Play</title>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
@@ -27,12 +27,18 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="/gamesMode">Játékok</a>
+                        <a class="nav-link" href="/gamesMode">Játszunk</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/profil">Profil</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/community">Közösség</a>
+                    </li>
                 @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="/community">Közösség</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/reg">Regisztráció</a>
                     </li>
