@@ -1,74 +1,71 @@
 @extends('layout')
 @section('content')
-    <main>
-        <section class="welcomeblade2">
-            <div class="comm">
-                <h1>Közösségi felület</h1>
-
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ujbej">
-                        Új bejegyzés hozzáadása!
-                      </button>
-                      <div class="modal fade" id="ujbej" tabindex="-1" aria-labelledby="ujbejModal" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="ujbej">Új bejegyzés posztolás!</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Bezárás</button>
-                                </div>
-                                <div class="modal-body">
+    <main class="main-block2">
+        <div class="section3 text-center">
+            <h1 class="pt-5">Közösségi felület</h1>
 
 
+            @if (Auth::check())
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ujbej">
+                    Új bejegyzés hozzáadása!
+                </button>
+                <div class="modal fade" id="ujbej" tabindex="-1" aria-labelledby="ujbejModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="ujbej">Új bejegyzés posztolás!</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/community" method="post">
+                                    @csrf
+                                    <div class="py-2">
+                                        <label for="message" id="message" class="form-label text-black">Üzenet:
+                                            <span class="text-danger">*</span></label>
+                                        <textarea name="message" id="message" rows="6" class="form-control"
+                                            placeholder="Ide tudod írni az üzenetet amit szertnél megosztani a közösséggel..."></textarea>
+                                        @error('message')
+                                            <p class="text-danger"><b>{{ $message }}</b></p>
+                                        @enderror
+                                    </div>
+                                    <div class="py-2">
+                                        <button type="submit" class="btn btn-info">Beküld</button>
+                                    </div>
 
-                                    @if (Auth::check())
-                                    <form action="/community" method="post">
-                                        @csrf
-                                        <div class="py-2">
-                                            <label for="nev" id="nev" class="form-label">Név: <span class="text-danger">*</span></label>
-                                            <input type="text" name="nev" id="nev" class="form-control">
-                                            @error('nev')
-                                                <p class="text-danger"><b>{{ $message }}</b></p>
-                                            @enderror
-                                        </div>
-                                        <div class="py-2">
-                                            <label for="email" id="email" class="form-label">E-mail: <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" name="email" id="email" class="form-control">
-                                            @error('email')
-                                                <p class="text-danger"><b>{{ $message }}</b></p>
-                                            @enderror
-                                        </div>
-                                        <div class="py-2">
-                                            <label for="message" id="message" class="form-label">Üzenet: <span
-                                                    class="text-danger">*</span></label>
-                                            <textarea name="message" id="message" rows="6" class="form-control"></textarea>
-                                            @error('message')
-                                                <p class="text-danger"><b>{{ $message }}</b></p>
-                                            @enderror
-                                        </div>
-                                        <div class="py-2">
-                                            <span class="text-danger" style="font-size: 15px">* kötelező megadni</span>
-                                        </div>
-                                        <div class="py-3">
-                                            <button type="submit" class="btn btn-outline-primary">Beküld</button>
-                                        </div>
-
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <hr>
             @else
                 <hr>
-                <h1 class="text-center py-2"> Ha szeretne a vendégkönybe írni akkor jelentkezzen be, vagy regisztráljon!</h1>
+                <h2 class="text-center py-2 text-white" style="font-family: FairyDustB;"> Ha szeretne a közösségi felültre
+                    írni akkor <a href="/login">jelentkezzen
+                        be</a>, vagy <a href="/reg">regisztráljon!</a>
+                </h2>
             @endif
-            </div>
 
-        </section>
+            <div class="container">
+                @foreach ($result as $row)
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <img src="{{ Storage::url(auth()->user()->user_profile_picture) }}" alt="Profilkép"
+                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit:cover;">
+                            <p>{{ $row->User_Name }} - <a href="mailto:{{ $row->User_Email }}">{{ $row->User_Email }}</a>
+                                -
+                                {{ date_format(date_create($row->User_Posted_Time), 'Y. m. d.') }}</p>
+                            <p>{{ $row->User_Message }}</p>
+                        </div>
+                    </div>
+                @endforeach
+
+
+
+            </div>
+        </div>
+
     </main>
 @endsection

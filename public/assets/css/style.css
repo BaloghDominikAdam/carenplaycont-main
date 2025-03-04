@@ -9,18 +9,21 @@ main{
     overflow-x: hidden;
 }
 
-
-
 .main-block{
+    backdrop-filter: blur(30px);
+}
+
+.main-block, .main-block2{
     height: 100%;
     width: 100%;
     background: linear-gradient(45deg, #74EBD5 0%, #9FACE6 100%);
-    backdrop-filter: blur(30px);
+
     background-attachment: scroll;
     background-size: 300% 300%;
      animation: color 12s ease-in-out infinite;
     /* background-color: #15003d  ; */
 }
+
 
 
 @keyframes color{
@@ -491,6 +494,7 @@ main{
 .btn:hover{
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 15px;
+
 }
 
 .leftreg h3, p, a {
@@ -721,3 +725,41 @@ main{
 .welcomeblade2 .comm{
     padding-top: 90px;
 }
+
+
+
+.section3
+{
+    height: 100vh;
+    padding-top: 75px;
+}
+
+.profbag{
+    display: flex;
+    margin: auto;
+    max-height: 700px;
+    height: auto;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 55px 1px #eaeaea4d;
+    border-radius: 45px;
+    padding: 55px;
+
+}
+
+.profbag h5{
+    font-size: 35px;
+    color: white;
+    font-family: FairyDustB;
+}
+
+.profbag p, a{
+    font-size: 25px;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+}
+
+

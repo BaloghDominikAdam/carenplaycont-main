@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -25,7 +26,8 @@ class UserController extends Controller
                 'nev'   => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => ['required', 'confirmed', Password::min(8)->numbers()->letters()->mixedCase()],
-                'password_confirmation'             => 'required'
+                'password_confirmation'             => 'required',
+                'user_profile_picture' => 'nullable|image|max:2048'
             ],[
                 'nev.required' => 'Kérem adja meg a nevét!',
                 'email.required' => 'Kérem adja meg az email címét!',
@@ -136,5 +138,45 @@ class UserController extends Controller
         }
 
     }
+
+    public function update(Request $request)
+{
+    $request->validate([
+        'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $user = auth()->user();
+    $path = $user->user_profile_picture;
+
+    if ($request->hasFile('profile_picture')) {
+        if ($user->user_profile_picture && $user->user_profile_picture !== 'default-avatar.jpg') {
+            Storage::delete('public/' . $user->user_profile_picture);
+        }
+
+        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+    }
+
+    $user->user_profile_picture = $path;
+    $user->save();
+
+    // Ellenőrzés
+
+    return redirect()->back()->with('success', 'Profilkép sikeresen frissítve!');
+}
+public function removeProfilePicture(Request $request)
+{
+    $user = auth()->user();
+
+    if ($user->user_profile_picture && $user->user_profile_picture !== 'default-avatar.jpg') {
+        Storage::delete('public/' . $user->user_profile_picture);
+    }
+
+
+    $user->user_profile_picture = 'default-avatar.jpg';
+    $user->save();
+
+    return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
+}
+
 
 }
