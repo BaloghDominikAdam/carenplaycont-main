@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GamesController;
+use App\Http\Controllers\CommunityFeedController;
 
 
 
@@ -30,5 +31,5 @@ Route::post('newpass', [UserController::class, 'NewpassData']);
 
 Route::get('gamesMode', [GamesController::class ,'gamesMode']);
 
-Route::get('community', [UserController::class, 'Community']);
-Route::post('community', [UserController::class, 'CommunityData']);
+Route::get('community', [CommunityFeedController::class, 'Community']);
+Route::post('community', [CommunityFeedController::class, 'CommunityData']);

@@ -80,12 +80,12 @@ main{
   }
 
   @media only screen and (max-width: 1279px){
-    .content h1{
+    .welcomeblade h1{
         font-size: clamp(110px, calc(6vw + 1rem), 5rem);
         text-wrap: wrap;
         text-align: center;
     }
-    .content h5{
+    .welcomeblade h5{
         font-size: clamp(10px, calc(2vw + 0.5rem), 1rem);
         text-wrap: wrap;
         text-align: center;
@@ -93,30 +93,36 @@ main{
 }
 
 @media only screen and (max-width: 861px){
-    .content h1{
+    .welcomeblade h1{
         font-size: clamp(80px, calc(4vw + 1.7rem), 2rem);
         text-wrap: wrap;
         text-align: center;
     }
-    .content h5{
+    .welcomeblade h5{
         font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
         text-wrap: wrap;
         text-align: center;
     }
 }
 @media only screen and (max-width: 635px){
-    .content h1{
+    .welcomeblade h1{
         font-size: clamp(80px, calc(4vw + 1.7rem), 2rem);
         text-wrap: balance;
 
     }
-    .content h5{
+    .welcomeblade h5{
         font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
         text-wrap: wrap;
         text-align: center;
     }
 }
 
+.welcomeblade2, h1{
+    font-size: clamp(70px, calc(7vw + 1rem), 5rem);
+    font-family: FairyDustB;
+    color: white;
+    text-shadow: 1px 1px 45px #ffffff4d;
+}
 
 
 .navbar {
@@ -695,8 +701,23 @@ main{
 }
 
 
+
 .divider {
     width: 3px; /* Elválasztó szélessége */
     height: 200px; /* Magasság, az igényeid szerint állítható */
     background-color: black; /* Fekete szín */
+}
+@media only screen and (max-width: 1466px){
+    .divider{
+        opacity: 0;
+    }
+}
+.fa-solid{
+    font-size:25px;
+}
+
+
+
+.welcomeblade2 .comm{
+    padding-top: 90px;
 }
