@@ -11,7 +11,8 @@ class CommunityFeedController extends Controller
 {
     public function Community(){
         return view('community', [
-            'result' => CommunityFeed::OrderBy('User_Posted_Time', 'DESC')
+            'result' => CommunityFeed::with('user')
+            ->OrderBy('User_Posted_Time', 'DESC')
             ->get(),
         ]);
     }
@@ -31,7 +32,7 @@ class CommunityFeedController extends Controller
             $data->User_Name = Auth::user()->username;
             $data->User_Email = Auth::user()->email;
             $data->User_Message = $req->message;
-            $data->User_Posted_Time = now();
+            $data->User_Posted_Time = now()->addHour();;
             $data->save();
             return redirect('/community')->with('success', 'A posztja kikerült a nagy világba.');
         } else{

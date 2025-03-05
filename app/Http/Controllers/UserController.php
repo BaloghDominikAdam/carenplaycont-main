@@ -159,8 +159,6 @@ class UserController extends Controller
     $user->user_profile_picture = $path;
     $user->save();
 
-    // Ellenőrzés
-
     return redirect()->back()->with('success', 'Profilkép sikeresen frissítve!');
 }
 public function removeProfilePicture(Request $request)
