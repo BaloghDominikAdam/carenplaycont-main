@@ -39,7 +39,10 @@ class CommunityFeedController extends Controller
             return redirect('/community');
         }
     }
-
+    public function showProfile(User $user)
+    {
+        return view('profil.show', compact('user'));
+    }
 
 
 

@@ -53,7 +53,8 @@
         <div class="row ">
             <div class="col-md-12">
                 <img src="{{ Storage::url($row->user->user_profile_picture) }}" alt="Profilkép"
-                    style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                    style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;float: left;">
+
                 <p>{{ $row->user->username }} - <a href="mailto:{{ $row->user->email }}">{{ $row->user->email }}</a>
                     - {{ date_format(date_create($row->User_Posted_Time), 'Y. m. d. H:i:s') }}</p>
                 <p>{{ $row->User_Message }}</p>

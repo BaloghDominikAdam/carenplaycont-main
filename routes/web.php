@@ -23,6 +23,9 @@ Route::post('/login', [UserController::class, 'LoginData']);
 Route::get('profil', [UserController::class, 'profil']);
 Route::post('/profil/update', [UserController::class, 'update'])->name('profil.update');
 Route::post('/profil/remove-picture', [UserController::class, 'removeProfilePicture'])->name('profil.removePicture');
+Route::get('profil/{user}', [UserController::class, 'showProfile'])->name('profil.show');
+
+
 
 Route::get('/logout', [UserController::class, 'Logout']);
 

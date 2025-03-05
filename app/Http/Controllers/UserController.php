@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Badge;
+use App\Models\UserBadge;
 
 class UserController extends Controller
 {
@@ -50,8 +52,17 @@ class UserController extends Controller
         } else{
             return view('profil');
         }
+        $badge = Badge::where('Badge_Name', 'Új Felhasználó')->first();
+
+        if ($badge) {
+            UserBadge::create([
+                'User_Id' => $user->id,
+                'Badge_Id' => $badge->id,
+            ]);
+        }
 
     }
+
 
     public function Login(){
         if(!Auth::check()){
@@ -92,6 +103,7 @@ class UserController extends Controller
                 'sv' => "Kérem lépjen be!"
             ]);
         }
+
     }
 
     public function Logout(){
@@ -175,6 +187,10 @@ public function removeProfilePicture(Request $request)
 
     return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
 }
+// UserController.php
+
+
+
 
 
 }
