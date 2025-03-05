@@ -401,15 +401,23 @@ main{
 }
 
 
-.formcard{
-    display: flex;
-    margin: auto;
-    width: 60%;
+.newpost{
+    width: 100%;
+    padding: 25px;
+}
+.formcard,.newpost{
+
     max-height: 700px;
     height: auto;
     background-color: #eaeaea3f;
     box-shadow: 1px 1px 55px 1px #eaeaea4d;
     border-radius: 45px;
+}
+
+.formcard{
+    display: flex;
+    margin: auto;
+    width: 60%;
     transition: width 2s ease;
     padding: 15px;
 }
@@ -761,5 +769,3 @@ main{
     align-items: center;
     padding-right: 15px;
 }
-
-

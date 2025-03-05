@@ -161,10 +161,12 @@ class UserController extends Controller
     $path = $user->user_profile_picture;
 
     if ($request->hasFile('profile_picture')) {
+        // Képet eltávolítjuk, ha van régi profilkép, és nem az alapértelmezett
         if ($user->user_profile_picture && $user->user_profile_picture !== 'default-avatar.jpg') {
             Storage::delete('public/' . $user->user_profile_picture);
         }
 
+        // Kép mentés a public könyvtárban
         $path = $request->file('profile_picture')->store('profile_pictures', 'public');
     }
 
