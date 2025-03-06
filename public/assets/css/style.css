@@ -399,7 +399,10 @@ main{
     animation-delay: 2s;
     overflow-wrap:break-word;
 }
-
+.newpostcontainer{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
 
 .newpost{
     width: 100%;

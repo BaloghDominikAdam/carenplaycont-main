@@ -6,9 +6,12 @@
 
 
             @if (Auth::check())
+            <div class="text-center">
                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ujbej">
                     Új bejegyzés hozzáadása!
                 </button>
+            </div>
+
                 <div class="modal fade" id="ujbej" tabindex="-1" aria-labelledby="ujbejModal" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -50,6 +53,7 @@
 
             <div class="container">
                 @foreach ($result as $row)
+                <div class="newpostcontainer">
                     <div class="row newpost">
                         <div class="col-md-12">
                             <img src="{{ Storage::url($row->user->user_profile_picture) }}" alt="Profilkép"
@@ -62,6 +66,8 @@
                             <p>{{ $row->User_Message }}</p>
                         </div>
                     </div>
+                </div>
+
                 @endforeach
 
 

@@ -61,12 +61,12 @@
 
 
 
+
                             <p><a class="btn btn-danger" href="/logout">Kilépés</a></p>
 
                         </div>
                     </div>
                     <div class="col-md-6">
-
                     </div>
                 </div>
             </div>

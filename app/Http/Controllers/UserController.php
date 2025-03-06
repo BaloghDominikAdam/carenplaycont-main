@@ -48,17 +48,10 @@ class UserController extends Controller
             $data->Email = $req->email;
             $data->password = Hash::make($req->password);
             $data->Save();
+
             return redirect('/')->with('success', 'Sikeres regisztráció!');
         } else{
             return view('profil');
-        }
-        $badge = Badge::where('Badge_Name', 'Új Felhasználó')->first();
-
-        if ($badge) {
-            UserBadge::create([
-                'User_Id' => $user->id,
-                'Badge_Id' => $badge->id,
-            ]);
         }
 
     }
@@ -189,7 +182,7 @@ public function removeProfilePicture(Request $request)
 
     return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
 }
-// UserController.php
+
 
 
 
