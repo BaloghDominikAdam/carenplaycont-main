@@ -16,7 +16,8 @@
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="d-grid">
-                            @if (auth()->user()->user_profile_picture && auth()->user()->user_profile_picture != 'default-avatar.jpg')
+                            @if (auth()->user()->user_profile_picture &&
+                                    auth()->user()->user_profile_picture != 'profile_pictures/default-avatar.jpg')
                                 <img src="{{ Storage::url(auth()->user()->user_profile_picture) }}" alt="Profilkép"
                                     style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit:cover;"
                                     onclick="document.getElementById('profile_picture').click();">
@@ -36,7 +37,8 @@
                                     </button>
                                 </form>
                             @else
-                                <img src="{{ asset('assets/img/default-avatar.jpg') }}" alt="Alapértelmezett profilkép"
+                                <img src="{{ Storage::url('profile_pictures/default-avatar.jpg') }}"
+                                    alt="Alapértelmezett profilkép"
                                     style="width: 100px; height: auto; border-radius: 50px; cursor: pointer;"
                                     onclick="document.getElementById('profile_picture').click();">
                                 <form action="{{ route('profil.update') }}" method="POST" enctype="multipart/form-data">
@@ -72,7 +74,7 @@
             </div>
 
         </div>
-    </div>
+        </div>
 
 
 

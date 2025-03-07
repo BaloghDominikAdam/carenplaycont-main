@@ -6,9 +6,12 @@
 
 
             @if (Auth::check())
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ujbej">
-                    Új bejegyzés hozzáadása!
-                </button>
+                <div class="text-center">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ujbej">
+                        Új bejegyzés hozzáadása!
+                    </button>
+                </div>
+
                 <div class="modal fade" id="ujbej" tabindex="-1" aria-labelledby="ujbejModal" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -48,18 +51,21 @@
                 <hr>
             @endif
 
-            <div class="container">
+            <div class="container ">
                 @foreach ($result as $row)
-                    <div class="row newpost">
-                        <div class="col-md-12">
-                            <img src="{{ Storage::url($row->user->user_profile_picture) }}" alt="Profilkép"
-                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
-                            <p style="font-size: 15px; font-style:italic; float: right;">
-                                {{ date_format(date_create($row->User_Posted_Time), 'Y. m. d. H:i:s') }}
-                            </p>
-                            <p class="py-3">{{ $row->user->username }}</p>
+                    <div class="py-3">
+                        <div class="row newpost">
+                            <div class="col-md-12">
+                                <a href="{{ route('profile.show', $row->User_Id) }}">
+                                    <img src="{{ Storage::url($row->user->user_profile_picture) }}" alt="Profilkép"
+                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                <p style="font-size: 15px; font-style:italic; float: right;">
+                                    {{ date_format(date_create($row->User_Posted_Time), 'Y. m. d. H:i:s') }}
+                                </p>
+                                <p class="py-3">{{ $row->user->username }}</p>
 
-                            <p>{{ $row->User_Message }}</p>
+                                <p>{{ $row->User_Message }}</p>
+                            </div>
                         </div>
                     </div>
                 @endforeach

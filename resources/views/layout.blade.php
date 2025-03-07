@@ -27,16 +27,15 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link" href="/community"><i class="fa-solid fa-globe"></i></a>
-                </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/gamesMode"><i class="fa-solid fa-gamepad"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profil"><i class="fa-solid fa-user" ></i></a>
+                        <a class="nav-link" href="/community"><i class="fa-solid fa-globe"></i></a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profil"><i class="fa-solid fa-user"></i></a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="/community">Közösség</a>

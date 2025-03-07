@@ -50,4 +50,8 @@ class User extends Authenticatable
     protected $primaryKey = 'User_id';
     public $timestamps = false;
 
+    public function communityfeed()
+{
+    return $this->hasMany(CommunityFeed::class, 'User_Id', 'User_id');
+}
 }

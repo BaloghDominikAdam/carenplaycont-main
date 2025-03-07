@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\CommunityFeed;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
@@ -52,14 +53,6 @@ class UserController extends Controller
         } else{
             return view('profil');
         }
-        $badge = Badge::where('Badge_Name', 'Új Felhasználó')->first();
-
-        if ($badge) {
-            UserBadge::create([
-                'User_Id' => $user->id,
-                'Badge_Id' => $badge->id,
-            ]);
-        }
 
     }
 
@@ -105,6 +98,14 @@ class UserController extends Controller
         }
 
     }
+
+public function showProfile($id)
+{
+    $user = User::findOrFail($id);
+    return view('profile.show', compact('user'));
+}
+
+
 
     public function Logout(){
         Auth::logout();
