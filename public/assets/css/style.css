@@ -769,3 +769,16 @@ main{
     align-items: center;
     padding-right: 15px;
 }
+
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}

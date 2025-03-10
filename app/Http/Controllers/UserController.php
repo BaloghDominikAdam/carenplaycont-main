@@ -11,6 +11,7 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Badge;
 use App\Models\UserBadge;
+use App\Events\UserRegistered;
 
 class UserController extends Controller
 {
@@ -49,6 +50,9 @@ class UserController extends Controller
             $data->Email = $req->email;
             $data->password = Hash::make($req->password);
             $data->Save();
+
+            event(new UserRegistered($data));
+
             return redirect('/')->with('success', 'Sikeres regisztráció!');
         } else{
             return view('profil');
@@ -99,11 +103,6 @@ class UserController extends Controller
 
     }
 
-public function showProfile($id)
-{
-    $user = User::findOrFail($id);
-    return view('profile.show', compact('user'));
-}
 
 
 
@@ -151,6 +150,16 @@ public function showProfile($id)
         }
 
     }
+
+
+
+    public function showProfile($id)
+    {
+        $user = User::findOrFail($id);
+        return view('profile.show', compact('user'));
+    }
+
+
 
     public function update(Request $request)
 {

@@ -54,4 +54,15 @@ class User extends Authenticatable
 {
     return $this->hasMany(CommunityFeed::class, 'User_Id', 'User_id');
 }
+
+
+public function messagesSent()
+{
+    return $this->hasMany(UserMessage::class, 'Sender_Id');
+}
+
+public function messagesReceived()
+{
+    return $this->hasMany(UserMessage::class, 'Receiver_Id');
+}
 }

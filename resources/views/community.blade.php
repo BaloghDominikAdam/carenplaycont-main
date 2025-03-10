@@ -56,7 +56,8 @@
                     <div class="py-3">
                         <div class="row newpost">
                             <div class="col-md-12">
-                                <a href="{{ route('profile.show', $row->User_Id) }}">
+                                <a
+                                    href="{{ $row->User_Id === auth()->id() ? route('profil') : route('profile.show', $row->User_Id) }}">
                                     <img src="{{ Storage::url($row->user->user_profile_picture) }}" alt="Profilkép"
                                         style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                 <p style="font-size: 15px; font-style:italic; float: right;">
