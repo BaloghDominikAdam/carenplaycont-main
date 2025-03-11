@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\CommunityFeed;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Badge;
 use App\Models\UserBadge;
+use App\Events\UserRegistered;
 
 class UserController extends Controller
 {
@@ -99,6 +101,9 @@ class UserController extends Controller
 
     }
 
+
+
+
     public function Logout(){
         Auth::logout();
         return redirect('/')->with('success', 'Kilépés sikeres volt!');
@@ -143,6 +148,16 @@ class UserController extends Controller
         }
 
     }
+
+
+
+    public function showProfile($id)
+    {
+        $user = User::findOrFail($id);
+        return view('profile.show', compact('user'));
+    }
+
+
 
     public function update(Request $request)
 {

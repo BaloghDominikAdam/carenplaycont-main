@@ -51,7 +51,7 @@
                 <hr>
             @endif
 
-            <div class="container">
+            <div class="container ">
                 @foreach ($result as $row)
                 <div class="newpostcontainer">
                     <div class="row newpost">
@@ -63,7 +63,8 @@
                             </p>
                             <p class="py-3">{{ $row->user->username }}</p>
 
-                            <p>{{ $row->User_Message }}</p>
+                                <p>{{ $row->User_Message }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
