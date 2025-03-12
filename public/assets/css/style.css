@@ -782,3 +782,44 @@ main{
 .text-left {
     text-align: left;
 }
+
+/* Kereső input stílus */
+.search-container {
+    margin: 10px;
+}
+
+#userSearch {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Felhasználói lista stílus */
+#userList {
+    margin-top: 10px;
+}
+
+.user-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.user-item a {
+    text-decoration: none;
+    color: #333;
+}
+
+.user-item a:hover {
+    background-color: #f0f0f0;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+

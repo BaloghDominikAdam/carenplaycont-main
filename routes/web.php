@@ -42,12 +42,8 @@ Route::get('community', [CommunityFeedController::class, 'Community']);
 Route::post('community', [CommunityFeedController::class, 'CommunityData']);
 
 
-Route::get('/messages/index', [MessageController::class, 'index'])->name('messages.index');
+Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+Route::get('/messages/{user}', [MessageController::class, 'show'])->name('messages.show');
 Route::post('/messages/send', [MessageController::class, 'send'])->name('messages.send');
 
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/send-message', [MessageController::class, 'sendMessage']);
-    Route::get('/get-messages/{userId}', [MessageController::class, 'getMessages']);
-});
 

@@ -34,7 +34,9 @@
                         <a class="nav-link" href="/community"><i class="fa-solid fa-globe"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/chatify"><i class="fa-solid fa-message"></i></a>
+                        <a class="nav-link" href="{{ route('messages.index') }}">
+                            <i class="fa-solid fa-comments"></i>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/profil"><i class="fa-solid fa-user"></i></a>
