@@ -51,7 +51,7 @@ class UserController extends Controller
             $data->password = Hash::make($req->password);
             $data->Save();
 
-            event(new UserRegistered($data));
+
 
             return redirect('/')->with('success', 'Sikeres regisztráció!');
         } else{

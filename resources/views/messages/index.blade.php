@@ -37,15 +37,44 @@
                     @if (isset($user))
                         <h3 class="text-center text-white">{{ $user->username }}</h3>
                         <div id="chat-box"
-                            style="height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+                            style="height: 750px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
                             @foreach ($messages as $message)
-                                <div class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
-                                    <strong>{{ $message->sender_id == auth()->id() ? 'You' : $user->username }}:</strong>
-                                    <p>{{ $message->message_text }}</p>
-                                    <small>{{ $message->created_at->format('H:i') }}</small>
-                                </div>
-                            @endforeach
+
+                                @if ($message->Receiver_Id == auth()->id())
+                                    <div class="p-3">
+                                        <div class="uzenet1 ms-auto">
+                                            <div class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
+                                                <small style="float: right"><i>{{date_format(date_create($message->created_at ),'Y-m-d H:m:s')}}</i></small>
+
+                                                        <p>Te: </p>
+
+
+
+                                            <p>{{ $message->Message_Text }} </p>
+                                            </div>
+                                        </div>
+                                @else
+                                <div class="p-3">
+                                    <div class="uzenet1 me-start">
+                                        <div class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
+                                            <small style="float: right"><i>{{date_format(date_create($message->created_at ),'Y-m-d H:m:s')}}</i></small>
+                                                @if ($message->sender_id == auth()->id())
+                                                    <p>Te: </p>
+                                                @else
+                                                    <p>{{$message->receiver->username}} </p>
+                                                @endif
+
+
+                                        <p>{{ $message->Message_Text }} </p>
+                                        </div>
+                                    </div>
+
+                                @endif
+
                         </div>
+                            @endforeach
+
+                </div>
                         <form action="{{ route('messages.send') }}" method="POST" class="mt-3">
                             @csrf
                             <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
