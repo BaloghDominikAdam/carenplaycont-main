@@ -11,22 +11,61 @@ use Illuminate\Support\Facades\Auth;
 class MessageController extends Controller
 {
     public function index()
-    {
-        $users = User::orderBy('username')->get();
-        return view('messages.index', compact('users'));
+{
+    $users = User::orderBy('username')->get();
+
+
+    $previousChats = Message::where('sender_id', auth()->id())
+                            ->orWhere('receiver_id', auth()->id())
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+
+    $chatUsers = collect();
+    foreach ($previousChats as $chat) {
+        $otherUserId = $chat->sender_id == auth()->id() ? $chat->receiver_id : $chat->sender_id;
+        $otherUser = User::find($otherUserId);
+
+        if ($otherUser && !$chatUsers->has($otherUserId)) {
+            $otherUser->lastMessage = $chat;
+            $chatUsers->put($otherUserId, $otherUser);
+        }
     }
 
-    public function show(User $user)
-    {
-        $users = User::orderBy('username')->get();
-        $messages = Message::where(function($query) use ($user) {
-            $query->where('sender_id', auth()->id())->where('receiver_id', $user->User_id);
-        })->orWhere(function($query) use ($user) {
-            $query->where('sender_id', $user->User_id)->where('receiver_id', auth()->id());
-        })->orderBy('created_at', 'asc')->get();
+    return view('messages.index', compact('users', 'chatUsers'));
+}
 
-        return view('messages.index', compact('users', 'messages', 'user'));
+public function show(User $user)
+{
+    $users = User::orderBy('username')->get();
+
+    $previousChats = Message::where('sender_id', auth()->id())
+                            ->orWhere('receiver_id', auth()->id())
+                            ->distinct()
+                            ->get(['sender_id', 'receiver_id']);
+
+
+    $chatUsers = collect();
+    foreach ($previousChats as $chat) {
+        $chatUsers->push(User::find($chat->sender_id == auth()->id() ? $chat->receiver_id : $chat->sender_id));
     }
+
+
+    $messages = Message::where(function($query) use ($user) {
+        $query->where('sender_id', auth()->id())->where('receiver_id', $user->User_id);
+    })->orWhere(function($query) use ($user) {
+        $query->where('sender_id', $user->User_id)->where('receiver_id', auth()->id());
+    })->orderBy('created_at', 'asc')->get();
+
+    $lastMessage = Message::where(function($query) use ($user) {
+                            $query->where('sender_id', auth()->id())->where('receiver_id', $user->User_id);
+                        })->orWhere(function($query) use ($user) {
+                            $query->where('sender_id', $user->User_id)->where('receiver_id', auth()->id());
+                        })
+                        ->latest('created_at')
+                        ->first();
+
+    return view('messages.index', compact('users', 'messages', 'user', 'chatUsers', 'lastMessage'));
+}
 
     public function send(Request $request)
     {
@@ -40,7 +79,7 @@ class MessageController extends Controller
         $data->receiver_id = $request->receiver_id;
         $data->message_text = $request->message_text;
         $data->Save();
-        
+
         return redirect()->route('messages.show', $request->receiver_id);
     }
 }
