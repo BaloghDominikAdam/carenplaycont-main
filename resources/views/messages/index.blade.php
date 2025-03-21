@@ -55,11 +55,16 @@
 
                 <div class="col-md-8">
                     @if (isset($user))
-                        <h3 class="text-center text-white">{{ $user->username }}</h3>
                         <div id="chat-box"
                             style="height: 750px; overflow-y: scroll; padding: 10px;background-color: #eaeaea3f;
                             box-shadow: 1px 1px 15px 1px #bdbdbd8d;
                             border-radius: 45px;">
+                            <div
+                                style="position:fixed; height:15px; background-color:rgba(152, 152, 152, 0.711); text-align:center">
+                                <h3 class="text-center text-white px-auto"> {{ $user->username }}</h3>
+                            </div>
+
+
                             @foreach ($messages as $message)
                                 @if ($message->Sender_Id == auth()->id())
                                     <div class="p-3">
