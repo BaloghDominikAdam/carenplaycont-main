@@ -57,7 +57,9 @@
                     @if (isset($user))
                         <h3 class="text-center text-white">{{ $user->username }}</h3>
                         <div id="chat-box"
-                            style="height: 750px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+                            style="height: 750px; overflow-y: scroll; padding: 10px;background-color: #eaeaea3f;
+                            box-shadow: 1px 1px 15px 1px #bdbdbd8d;
+                            border-radius: 45px;">
                             @foreach ($messages as $message)
                                 @if ($message->Sender_Id == auth()->id())
                                     <div class="p-3">
@@ -68,8 +70,6 @@
                                                     style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:m:s') }}</i></small>
 
                                                 <p>Te: </p>
-
-
 
                                                 <p>{{ $message->Message_Text }} </p>
                                             </div>
@@ -116,13 +116,12 @@
                 const userList = document.getElementById('user-list');
                 const noResults = document.getElementById('no-results');
                 const users = {!! json_encode($users) !!};
-                const loggedInUserId = {!! auth()->id() !!}; // Bejelentkezett felhasználó ID-ja
+                const loggedInUserId = {!! auth()->id() !!};
 
                 userList.innerHTML = '';
 
                 let hasResults = false;
                 users.forEach(user => {
-                    // Kiszűrjük a bejelentkezett felhasználót
                     if (user.User_id !== loggedInUserId && user.username.toLowerCase().includes(searchValue)) {
                         hasResults = true;
                         userList.innerHTML += `
