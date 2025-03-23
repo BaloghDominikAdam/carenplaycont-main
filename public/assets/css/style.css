@@ -410,7 +410,7 @@ main{
     max-height: 700px;
     height: auto;
     background-color: #eaeaea3f;
-    box-shadow: 1px 1px 55px 1px #eaeaea4d;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
     border-radius: 45px;
 }
 

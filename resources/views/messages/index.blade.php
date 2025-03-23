@@ -60,7 +60,7 @@
                             box-shadow: 1px 1px 15px 1px #bdbdbd8d;
                             border-radius: 45px;">
                             <div
-                                style="position:fixed; height:15px; background-color:rgba(152, 152, 152, 0.711); text-align:center">
+                                style="height:15px; background-color:rgba(152, 152, 152, 0.711); text-align:center; padding:0">
                                 <h3 class="text-center text-white px-auto"> {{ $user->username }}</h3>
                             </div>
 
