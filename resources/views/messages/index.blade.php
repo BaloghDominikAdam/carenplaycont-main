@@ -53,10 +53,10 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-8 position-relative">
                     @if (isset($user))
-                        <div id="chat-box"
-                            style="height: 750px; overflow-y: scroll; padding: 10px;background-color: #eaeaea3f;
+                        <div class="w-100" id="chat-box"
+                            style="height: 750px; overflow-y: scroll;background-color: #eaeaea3f;
                             box-shadow: 1px 1px 15px 1px #bdbdbd8d;
                             border-radius: 45px;">
                             <div
@@ -98,16 +98,26 @@
                                             </div>
                                 @endif
 
+
                         </div>
                     @endforeach
+                                <div class="conti px-5">    
+                                    <form action="{{ route('messages.send') }}" method="POST">
+                                        @csrf
+                                        <div class="d-flex justify-content-center p-3">
 
+                                                <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
+                                                <a class="btn mx-1" href="" ><i class="fa-solid fa-image"></i></a>
+                                                <textarea name="message_text" class="form-control rounded-pill w-75 mx-1" rows="1" required></textarea>
+                                                <button type="submit" class="btn mx-1">Küldés</button>
+
+
+                                        </div>
+
+                                    </form>
+                                </div>
                 </div>
-                <form action="{{ route('messages.send') }}" method="POST" class="mt-3">
-                    @csrf
-                    <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
-                    <textarea name="message_text" class="form-control" rows="3" required></textarea>
-                    <button type="submit" class="btn btn-primary mt-2">Küldés</button>
-                </form>
+
             @else
                 <h3 class="text-center "><b>Válassz egy felhasználót a beszélgetéshez</b></h3>
                 @endif

@@ -40,7 +40,7 @@ public function show(User $user)
 
     $previousChats = Message::where('sender_id', auth()->id())
                             ->orWhere('receiver_id', auth()->id())
-                            ->distinct()
+                            ->distinct() 
                             ->get(['sender_id', 'receiver_id']);
 
 
