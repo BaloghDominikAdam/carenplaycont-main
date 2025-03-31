@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,70 +11,107 @@ class MessageController extends Controller
 {
     public function index()
     {
-        // Összes felhasználó ABC sorrendben
-        $users = User::orderBy('username')->get();
+        $users = User::where('User_id', '!=', auth()->id())
+                   ->orderBy('username')
+                   ->get();
 
-        // Az utolsó üzenetek minden beszélgetéspartnerrel
-        $latestMessages = Message::whereIn('User_id', function($query) {
-            $query->selectRaw('MAX(User_id)')
-                  ->from('User_Messages')
-                  ->where('sender_id', auth()->id())
-                  ->orWhere('receiver_id', auth()->id())
-                  ->groupBy(Message::raw('LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)'));
-        })->get();
+        // Get all unique chat partners with their last message
+        $chatUsers = User::whereHas('sentMessages', function($query) {
+                        $query->where('receiver_id', auth()->id());
+                    })
+                    ->orWhereHas('receivedMessages', function($query) {
+                        $query->where('sender_id', auth()->id());
+                    })
+                    ->with(['sentMessages' => function($query) {
+                        $query->where('receiver_id', auth()->id())
+                              ->orderBy('created_at', 'desc')
+                              ->limit(1);
+                    }, 'receivedMessages' => function($query) {
+                        $query->where('sender_id', auth()->id())
+                              ->orderBy('created_at', 'desc')
+                              ->limit(1);
+                    }])
+                    ->get()
+                    ->map(function($user) {
+                        $lastSent = $user->sentMessages->first();
+                        $lastReceived = $user->receivedMessages->first();
 
-        // Beszélgetéspartnerek gyűjtése az utolsó üzenettel együtt
-        $chatUsers = collect();
-        foreach ($latestMessages as $message) {
-            $otherUserId = $message->sender_id == auth()->id() ? $message->receiver_id : $message->sender_id;
-            $otherUser = User::find($otherUserId);
+                        if ($lastSent && $lastReceived) {
+                            $user->lastMessage = $lastSent->created_at > $lastReceived->created_at
+                                ? $lastSent
+                                : $lastReceived;
+                        } elseif ($lastSent) {
+                            $user->lastMessage = $lastSent;
+                        } else {
+                            $user->lastMessage = $lastReceived;
+                        }
 
-            if ($otherUser) {
-                $otherUser->lastMessage = $message;
-                $chatUsers->put($otherUserId, $otherUser);
-            }
-        }
-
-        // Rendezés az utolsó üzenet dátuma szerint csökkenő sorrendben
-        $chatUsers = $chatUsers->sortByDesc(function($user) {
-            return $user->lastMessage->created_at;
-        });
+                        return $user;
+                    })
+                    ->sortByDesc(function($user) {
+                        return $user->lastMessage ? $user->lastMessage->created_at : null;
+                    });
 
         return view('messages.index', compact('users', 'chatUsers'));
     }
 
-public function show(User $user)
-{
-    $users = User::orderBy('username')->get();
+    public function show(User $user)
+    {
+        $users = User::where('User_id', '!=', auth()->id())
+                   ->orderBy('username')
+                   ->get();
 
-    $previousChats = Message::where('sender_id', auth()->id())
-                            ->orWhere('receiver_id', auth()->id())
-                            ->distinct()
-                            ->get(['sender_id', 'receiver_id']);
+        // Get chat partners with last message
+        $chatUsers = User::whereHas('sentMessages', function($query) {
+                        $query->where('receiver_id', auth()->id());
+                    })
+                    ->orWhereHas('receivedMessages', function($query) {
+                        $query->where('sender_id', auth()->id());
+                    })
+                    ->with(['sentMessages' => function($query) {
+                        $query->where('receiver_id', auth()->id())
+                              ->orderBy('created_at', 'desc')
+                              ->limit(1);
+                    }, 'receivedMessages' => function($query) {
+                        $query->where('sender_id', auth()->id())
+                              ->orderBy('created_at', 'desc')
+                              ->limit(1);
+                    }])
+                    ->get()
+                    ->map(function($user) {
+                        $lastSent = $user->sentMessages->first();
+                        $lastReceived = $user->receivedMessages->first();
 
+                        if ($lastSent && $lastReceived) {
+                            $user->lastMessage = $lastSent->created_at > $lastReceived->created_at
+                                ? $lastSent
+                                : $lastReceived;
+                        } elseif ($lastSent) {
+                            $user->lastMessage = $lastSent;
+                        } else {
+                            $user->lastMessage = $lastReceived;
+                        }
 
-    $chatUsers = collect();
-    foreach ($previousChats as $chat) {
-        $chatUsers->push(User::find($chat->sender_id == auth()->id() ? $chat->receiver_id : $chat->sender_id));
+                        return $user;
+                    })
+                    ->sortByDesc(function($user) {
+                        return $user->lastMessage ? $user->lastMessage->created_at : null;
+                    });
+
+        // Get messages with this user
+        $messages = Message::where(function($query) use ($user) {
+                        $query->where('sender_id', auth()->id())
+                              ->where('receiver_id', $user->User_id);
+                    })
+                    ->orWhere(function($query) use ($user) {
+                        $query->where('sender_id', $user->User_id)
+                              ->where('receiver_id', auth()->id());
+                    })
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+        return view('messages.index', compact('users', 'messages', 'user', 'chatUsers'));
     }
-
-
-    $messages = Message::where(function($query) use ($user) {
-        $query->where('sender_id', auth()->id())->where('receiver_id', $user->User_id);
-    })->orWhere(function($query) use ($user) {
-        $query->where('sender_id', $user->User_id)->where('receiver_id', auth()->id());
-    })->orderBy('created_at', 'asc')->get();
-
-    $lastMessage = Message::where(function($query) use ($user) {
-                            $query->where('sender_id', auth()->id())->where('receiver_id', $user->User_id);
-                        })->orWhere(function($query) use ($user) {
-                            $query->where('sender_id', $user->User_id)->where('receiver_id', auth()->id());
-                        })
-                        ->latest('created_at')
-                        ->first();
-
-    return view('messages.index', compact('users', 'messages', 'user', 'chatUsers', 'lastMessage'));
-}
 
     public function send(Request $request)
     {
@@ -84,11 +120,11 @@ public function show(User $user)
             'message_text' => 'required|string',
         ]);
 
-        $data = new Message;
-        $data->sender_id = auth()->id();
-        $data->receiver_id = $request->receiver_id;
-        $data->message_text = $request->message_text;
-        $data->Save();
+        Message::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $request->receiver_id,
+            'Message_Text' => $request->message_text, // Using your exact column name
+        ]);
 
         return redirect()->route('messages.show', $request->receiver_id);
     }
