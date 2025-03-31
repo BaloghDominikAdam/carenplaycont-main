@@ -11,28 +11,38 @@ use Illuminate\Support\Facades\Auth;
 class MessageController extends Controller
 {
     public function index()
-{
-    $users = User::orderBy('username')->get();
+    {
+        // Összes felhasználó ABC sorrendben
+        $users = User::orderBy('username')->get();
 
+        // Az utolsó üzenetek minden beszélgetéspartnerrel
+        $latestMessages = Message::whereIn('User_id', function($query) {
+            $query->selectRaw('MAX(User_id)')
+                  ->from('User_Messages')
+                  ->where('sender_id', auth()->id())
+                  ->orWhere('receiver_id', auth()->id())
+                  ->groupBy(Message::raw('LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)'));
+        })->get();
 
-    $previousChats = Message::where('sender_id', auth()->id())
-                            ->orWhere('receiver_id', auth()->id())
-                            ->orderBy('created_at', 'desc')
-                            ->get();
+        // Beszélgetéspartnerek gyűjtése az utolsó üzenettel együtt
+        $chatUsers = collect();
+        foreach ($latestMessages as $message) {
+            $otherUserId = $message->sender_id == auth()->id() ? $message->receiver_id : $message->sender_id;
+            $otherUser = User::find($otherUserId);
 
-    $chatUsers = collect();
-    foreach ($previousChats as $chat) {
-        $otherUserId = $chat->sender_id == auth()->id() ? $chat->receiver_id : $chat->sender_id;
-        $otherUser = User::find($otherUserId);
-
-        if ($otherUser && !$chatUsers->has($otherUserId)) {
-            $otherUser->lastMessage = $chat;
-            $chatUsers->put($otherUserId, $otherUser);
+            if ($otherUser) {
+                $otherUser->lastMessage = $message;
+                $chatUsers->put($otherUserId, $otherUser);
+            }
         }
-    }
 
-    return view('messages.index', compact('users', 'chatUsers'));
-}
+        // Rendezés az utolsó üzenet dátuma szerint csökkenő sorrendben
+        $chatUsers = $chatUsers->sortByDesc(function($user) {
+            return $user->lastMessage->created_at;
+        });
+
+        return view('messages.index', compact('users', 'chatUsers'));
+    }
 
 public function show(User $user)
 {
@@ -40,7 +50,7 @@ public function show(User $user)
 
     $previousChats = Message::where('sender_id', auth()->id())
                             ->orWhere('receiver_id', auth()->id())
-                            ->distinct() 
+                            ->distinct()
                             ->get(['sender_id', 'receiver_id']);
 
 

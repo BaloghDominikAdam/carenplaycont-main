@@ -24,23 +24,23 @@
                         @foreach ($chatUsers as $chatUser)
                             <div class="py-2">
                                 <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_id == $chatUser->User_id) active-user @endif">
-                                    <!-- Felhasználó profilképe -->
+
                                     <img src="{{ Storage::url($chatUser->user_profile_picture) }}" alt="Profilkép"
                                         style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit:cover;">
 
-                                    <!-- Felhasználó neve, utolsó üzenet és időpontja -->
+
                                     <a href="{{ route('messages.show', $chatUser->User_id) }}"
                                         class="list-group-item list-group-item-action">
                                         <div>
                                             <strong>{{ $chatUser->username }}</strong>
                                             @if (isset($chatUser->lastMessage))
                                                 <p class="mb-0 text-muted">
-                                                    {{ Str::limit($chatUser->lastMessage->message_text, 20) }}
-                                                    <!-- Az utolsó üzenet rövidítve -->
+                                                    {{ Str::limit($chatUser->lastMessage->Message_Text, 20) }}
+
                                                 </p>
                                                 <small class="text-muted">
                                                     {{ $chatUser->lastMessage->created_at->diffForHumans() }}
-                                                    <!-- Időpont formázva -->
+
                                                 </small>
                                             @else
                                                 <p class="mb-0 text-muted">Nincs üzenet</p>
@@ -89,7 +89,7 @@
                                                     @if ($message->sender_id == auth()->id())
                                                         <p>Te: </p>
                                                     @else
-                                                        <p>{{ $message->receiver->username }} </p>
+                                                        <p>{{ $message->username }} </p>
                                                     @endif
 
 
@@ -101,7 +101,7 @@
 
                         </div>
                     @endforeach
-                                <div class="conti px-5">    
+                                <div class="conti px-5">
                                     <form action="{{ route('messages.send') }}" method="POST">
                                         @csrf
                                         <div class="d-flex justify-content-center p-3">

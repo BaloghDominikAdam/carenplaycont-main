@@ -13,10 +13,17 @@ class Message extends Model
     protected $primaryKey = 'Message_Id';
     public $timestamps = false;
 
-    public function receiver()
-    {
-        return $this->belongsTo(User::class, 'Receiver_Id');
-    }
+    public function sentMessages()
+{
+    return $this->hasMany(Message::class, 'sender_id');
+}
+
+public function receivedMessages()
+{
+    return $this->hasMany(Message::class, 'receiver_id');
+}
+
+
 
 
     protected $fillable = ['Sender_Id', 'Receiver_Id', 'Message_Text'];
