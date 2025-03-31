@@ -31,7 +31,7 @@
                                         class="list-group-item list-group-item-action border-0 w-100">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <strong>{{ $chatUser->username }}</strong>
-                                            @if($chatUser->lastMessage)
+                                            @if ($chatUser->lastMessage)
                                                 <small class="text-muted">
                                                     {{ $chatUser->lastMessage->created_at->diffForHumans() }}
                                                 </small>
@@ -39,7 +39,7 @@
                                         </div>
                                         @if ($chatUser->lastMessage)
                                             <p class="mb-0 text-muted">
-                                                @if($chatUser->lastMessage->sender_id == auth()->id())
+                                                @if ($chatUser->lastMessage->sender_id == auth()->id())
                                                     <strong>Te:</strong>
                                                 @endif
                                                 {{ Str::limit($chatUser->lastMessage->Message_Text, 30) }}
@@ -87,7 +87,7 @@
                                                     class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
                                                     <small
                                                         style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:m:s') }}</i></small>
-                                                        <p>{{ $message->username }} </p>
+                                                    <p>{{ $message->username }} </p>
 
 
                                                     <p>{{ $message->Message_Text }} </p>
@@ -98,23 +98,22 @@
 
                         </div>
                     @endforeach
-                                <div class="conti px-5">
-                                    <form action="{{ route('messages.send') }}" method="POST">
-                                        @csrf
-                                        <div class="d-flex justify-content-center p-3">
+                    <div class="conti px-5">
+                        <form action="{{ route('messages.send') }}" method="POST">
+                            @csrf
+                            <div class="d-flex justify-content-center p-3">
 
-                                                <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
-                                                <a class="btn mx-1" href="" ><i class="fa-solid fa-image"></i></a>
-                                                <textarea name="message_text" class="form-control rounded-pill w-75 mx-1" rows="1" required></textarea>
-                                                <button type="submit" class="btn mx-1">Küldés</button>
+                                <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
+                                <a class="btn mx-1" href=""><i class="fa-solid fa-image"></i></a>
+                                <textarea name="message_text" class="form-control rounded-pill w-75 mx-1" rows="1" required></textarea>
+                                <button type="submit" class="btn mx-1">Küldés</button>
 
 
-                                        </div>
+                            </div>
 
-                                    </form>
-                                </div>
+                        </form>
+                    </div>
                 </div>
-
             @else
                 <h3 class="text-center "><b>Válassz egy felhasználót a beszélgetéshez</b></h3>
                 @endif

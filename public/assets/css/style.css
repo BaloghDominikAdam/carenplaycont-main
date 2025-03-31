@@ -451,7 +451,7 @@ main{
 
 }
 
-.regpage .text-center{
+.regpage{
     animation: elotunik ease-in-out 1s ;
     animation-fill-mode: forwards;
     animation-delay: 2s;
@@ -827,7 +827,7 @@ main{
     height: auto;
     max-width: 75%;
     background-color: #eaeaea3f;
-    box-shadow: 1px 1px 55px 1px #eaeaea4d;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
     border-radius: 45px;
     padding: 25px;
 }
@@ -901,4 +901,73 @@ main{
 
 .fa-solid:hover{
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.form-group{
+    z-index: 1000;
+}
+
+a{
+    text-decoration: none;
+    font-size: 45px;
+}
+
+
+.selectGame{
+    height: auto;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
+    border-radius: 45px;
+    padding: 25px;
+}
+
+.gamescontainer {
+    display: flex;
+    justify-content: center;
+    height: 700px;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
+    border-radius: 45px;
+    padding: 25px;
+  }
+
+
+
+
+.selectGame{
+    height: 125px;
+    width: 350px;
+    flex: 1;
+}
+
+.selectGame:hover{
+    animation: 1.3s sizing ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sizing {
+    from{
+        height: 125px;
+    }
+    to{
+        height: 100%;
+    }
+}
+
+
+.selectGame:not(:hover){
+    animation: 2s backsizing ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes backsizing {
+    from{
+        height: 100%;
+    }
+    to{
+
+        height: 125px;
+    }
 }

@@ -15,7 +15,6 @@ class MessageController extends Controller
                    ->orderBy('username')
                    ->get();
 
-        // Get all unique chat partners with their last message
         $chatUsers = User::whereHas('sentMessages', function($query) {
                         $query->where('receiver_id', auth()->id());
                     })
@@ -61,7 +60,6 @@ class MessageController extends Controller
                    ->orderBy('username')
                    ->get();
 
-        // Get chat partners with last message
         $chatUsers = User::whereHas('sentMessages', function($query) {
                         $query->where('receiver_id', auth()->id());
                     })
@@ -98,8 +96,8 @@ class MessageController extends Controller
                         return $user->lastMessage ? $user->lastMessage->created_at : null;
                     });
 
-        // Get messages with this user
-        $messages = Message::where(function($query) use ($user) {
+                    $messages = Message::with(['sender', 'receiver'])
+                    ->where(function($query) use ($user) {
                         $query->where('sender_id', auth()->id())
                               ->where('receiver_id', $user->User_id);
                     })
@@ -123,7 +121,7 @@ class MessageController extends Controller
         Message::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $request->receiver_id,
-            'Message_Text' => $request->message_text, // Using your exact column name
+            'Message_Text' => $request->message_text,
         ]);
 
         return redirect()->route('messages.show', $request->receiver_id);

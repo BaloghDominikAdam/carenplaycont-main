@@ -9,14 +9,22 @@
                         <hr>
                         <div class="col-md-6 leftreg p-5">
                             <div class="righregcontent">
-                                <span>{{ $solo->Game_Mode }}</span>
-                                <span>{{ $solotext->Game_Mode_Info }}</span>
+                                <div class="choose text-center">
+                                    <h3 class=" btn"><a href="/solo">{{ $solo->Game_Mode }}</a></h3>
+                                </div>
+                                <div class="descr">
+                                    <span>{{ $solotext->Game_Mode_Info }}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 rightreg p-5">
                             <div class="righregcontent text-center">
-                                <span>{{ $multi->Game_Mode }}</span>
-                                <span>{{ $multiinfo->Game_Mode_Info }}</span>
+                                <div class="choose text-center">
+                                    <h3 class="btn"><a href="/multi">{{ $multi->Game_Mode }}</a></h3>
+                                </div>
+                                <div class="descr">
+                                    <span>{{ $multiinfo->Game_Mode_Info }}</span>
+                                </div>
                             </div>
                         </div>
 
