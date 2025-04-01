@@ -28,8 +28,6 @@ Route::post('/profil/remove-picture', [UserController::class, 'removeProfilePict
 Route::get('/profile/{id}', [UserController::class, 'showProfile'])->name('profile.show');
 
 
-
-
 Route::get('/logout', [UserController::class, 'Logout']);
 
 Route::get('newpass', [UserController::class, 'Newpass']);
@@ -45,5 +43,8 @@ Route::post('community', [CommunityFeedController::class, 'CommunityData']);
 Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 Route::get('/messages/{user}', [MessageController::class, 'show'])->name('messages.show');
 Route::post('/messages/send', [MessageController::class, 'send'])->name('messages.send');
+
+Route::get('solo', [GamesController::class, 'solo']);
+
 
 

@@ -24,28 +24,29 @@
                         @foreach ($chatUsers as $chatUser)
                             <div class="py-2">
                                 <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_id == $chatUser->User_id) active-user @endif">
-                                    <!-- Felhasználó profilképe -->
                                     <img src="{{ Storage::url($chatUser->user_profile_picture) }}" alt="Profilkép"
                                         style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit:cover;">
 
-                                    <!-- Felhasználó neve, utolsó üzenet és időpontja -->
                                     <a href="{{ route('messages.show', $chatUser->User_id) }}"
-                                        class="list-group-item list-group-item-action">
-                                        <div>
+                                        class="list-group-item list-group-item-action border-0 w-100">
+                                        <div class="d-flex justify-content-between align-items-center">
                                             <strong>{{ $chatUser->username }}</strong>
-                                            @if (isset($chatUser->lastMessage))
-                                                <p class="mb-0 text-muted">
-                                                    {{ Str::limit($chatUser->lastMessage->message_text, 20) }}
-                                                    <!-- Az utolsó üzenet rövidítve -->
-                                                </p>
+                                            @if ($chatUser->lastMessage)
                                                 <small class="text-muted">
                                                     {{ $chatUser->lastMessage->created_at->diffForHumans() }}
-                                                    <!-- Időpont formázva -->
                                                 </small>
-                                            @else
-                                                <p class="mb-0 text-muted">Nincs üzenet</p>
                                             @endif
                                         </div>
+                                        @if ($chatUser->lastMessage)
+                                            <p class="mb-0 text-muted">
+                                                @if ($chatUser->lastMessage->sender_id == auth()->id())
+                                                    <strong>Te:</strong>
+                                                @endif
+                                                {{ Str::limit($chatUser->lastMessage->Message_Text, 30) }}
+                                            </p>
+                                        @else
+                                            <p class="mb-0 text-muted">Nincs üzenet</p>
+                                        @endif
                                     </a>
                                 </div>
                             </div>
@@ -53,11 +54,18 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-8 position-relative">
                     @if (isset($user))
-                        <h3 class="text-center text-white">{{ $user->username }}</h3>
-                        <div id="chat-box"
-                            style="height: 750px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+                        <div class="w-100" id="chat-box"
+                            style="height: 750px; overflow-y: scroll;background-color: #eaeaea3f;
+                            box-shadow: 1px 1px 15px 1px #bdbdbd8d;
+                            border-radius: 45px;">
+                            <div
+                                style="height:15px; background-color:rgba(152, 152, 152, 0.711); text-align:center; padding:0">
+                                <h3 class="text-center text-white px-auto"> {{ $user->username }}</h3>
+                            </div>
+
+
                             @foreach ($messages as $message)
                                 @if ($message->Sender_Id == auth()->id())
                                     <div class="p-3">
@@ -69,8 +77,6 @@
 
                                                 <p>Te: </p>
 
-
-
                                                 <p>{{ $message->Message_Text }} </p>
                                             </div>
                                         </div>
@@ -81,11 +87,7 @@
                                                     class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
                                                     <small
                                                         style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:m:s') }}</i></small>
-                                                    @if ($message->sender_id == auth()->id())
-                                                        <p>Te: </p>
-                                                    @else
-                                                        <p>{{ $message->receiver->username }} </p>
-                                                    @endif
+                                                    <p>{{ $message->username }} </p>
 
 
                                                     <p>{{ $message->Message_Text }} </p>
@@ -93,16 +95,25 @@
                                             </div>
                                 @endif
 
+
                         </div>
                     @endforeach
+                    <div class="conti px-5">
+                        <form action="{{ route('messages.send') }}" method="POST">
+                            @csrf
+                            <div class="d-flex justify-content-center p-3">
 
+                                <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
+                                <a class="btn mx-1" href=""><i class="fa-solid fa-image"></i></a>
+                                <textarea name="message_text" class="form-control rounded-pill w-75 mx-1" rows="1" required></textarea>
+                                <button type="submit" class="btn mx-1">Küldés</button>
+
+
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
-                <form action="{{ route('messages.send') }}" method="POST" class="mt-3">
-                    @csrf
-                    <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
-                    <textarea name="message_text" class="form-control" rows="3" required></textarea>
-                    <button type="submit" class="btn btn-primary mt-2">Küldés</button>
-                </form>
             @else
                 <h3 class="text-center "><b>Válassz egy felhasználót a beszélgetéshez</b></h3>
                 @endif
@@ -116,13 +127,12 @@
                 const userList = document.getElementById('user-list');
                 const noResults = document.getElementById('no-results');
                 const users = {!! json_encode($users) !!};
-                const loggedInUserId = {!! auth()->id() !!}; // Bejelentkezett felhasználó ID-ja
+                const loggedInUserId = {!! auth()->id() !!};
 
                 userList.innerHTML = '';
 
                 let hasResults = false;
                 users.forEach(user => {
-                    // Kiszűrjük a bejelentkezett felhasználót
                     if (user.User_id !== loggedInUserId && user.username.toLowerCase().includes(searchValue)) {
                         hasResults = true;
                         userList.innerHTML += `

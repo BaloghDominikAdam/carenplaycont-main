@@ -31,4 +31,8 @@ class GamesController extends Controller
             return view('login')->with('error', 'A kért oldal eléréshez jelentkezzen be!');
         }
     }
+
+    public function solo(){
+        return view('solo');
+    }
 }
