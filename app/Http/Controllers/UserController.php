@@ -51,6 +51,8 @@ class UserController extends Controller
             $data->password = Hash::make($req->password);
             $data->Save();
 
+
+
             return redirect('/')->with('success', 'Sikeres regisztráció!');
         } else{
             return view('profil');

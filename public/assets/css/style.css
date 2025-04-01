@@ -742,7 +742,7 @@ main{
 .section3
 {
     height: 100vh;
-    padding-top: 75px;
+    padding-top: 95px;
 }
 
 .profbag{
@@ -785,3 +785,112 @@ main{
 .text-left {
     text-align: left;
 }
+
+/* Kereső input stílus */
+.search-container {
+    margin: 10px;
+}
+
+#userSearch {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Felhasználói lista stílus */
+#userList {
+    margin-top: 10px;
+}
+
+.user-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.user-item a {
+    text-decoration: none;
+    color: #333;
+}
+
+.user-item a:hover {
+    background-color: #f0f0f0;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.uzenet1{
+    height: auto;
+    max-width: 75%;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 55px 1px #eaeaea4d;
+    border-radius: 45px;
+    padding: 25px;
+}
+
+
+.previouschats{
+    border-radius: 25px;
+    height: auto;
+    padding: 15px;
+    background: linear-gradient(45deg, #74EBD5 0%, #9FACE6 100%);
+
+}
+
+
+.active-user {
+    position: relative; /* A szülő elem pozicionálása szükséges a ::after és ::before pszeudo-elemekhez */
+}
+
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.active-user::after, .active-user::before{
+    --angle: 0deg;
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 10%, #0000008d);
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    border-radius: 25px;
+    animation: 3s spin linear infinite;
+    padding: 3px;
+}
+
+.active-user::before{
+    filter: blur(.5rem);
+    opacity: 1;
+}
+
+@keyframes spin{
+    from{
+        --angle: 0deg;
+    }
+    to{
+        --angle: 360deg;
+
+    }
+}
+
+
+.leftpanel{
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 55px 1px #bdbdbd8d;
+    border-radius: 45px;
+}
+
+
