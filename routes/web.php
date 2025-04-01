@@ -48,3 +48,5 @@ Route::get('solo', [GamesController::class, 'solo']);
 
 
 
+Route::get('/memorygame', [GamesController::class, 'memorygame']);
+Route::post('/memorygame', [GamesController::class, 'memorygameDATA']);

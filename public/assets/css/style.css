@@ -944,7 +944,7 @@ a{
     flex: 1;
 }
 
-.selectGame:hover{
+/* .selectGame:hover{
     animation: 1.3s sizing ease-in-out;
     animation-fill-mode: forwards;
 }
@@ -973,4 +973,179 @@ a{
 
         height: 125px;
     }
+} */
+
+
+.wrapper{
+    display: grid;
+    padding: 25px;
+    width: 50%;
+    margin: auto;
+    border-radius: 25px;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .cards, .card, .view{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cards{
+    height: 400px;
+    width: 400px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .cards .card{
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    height: calc(100% / 4 - 10px);
+    width: calc(100% / 4 - 10px);
+    border-radius: 15px;
+  }
+  .card.shake{
+    animation: shake 0.35s ease-in-out;
+  }
+  @keyframes shake {
+    0%, 100%{
+      transform: translateX(0);
+    }
+    20%{
+      transform: translateX(-13px);
+    }
+    40%{
+      transform: translateX(13px);
+    }
+    60%{
+      transform: translateX(-8px);
+    }
+    80%{
+      transform: translateX(8px);
+    }
+  }
+  .card .view{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 7px;
+    background: #fff;
+    pointer-events: none;
+    backface-visibility: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.25s linear;
+  }
+  .card .front-view img{
+    width: 19px;
+  }
+  .card .back-view img{
+    max-width: 45px;
+  }
+  .card .back-view{
+    transform: rotateY(-180deg);
+  }
+  .card.flip .back-view{
+    transform: rotateY(0);
+  }
+  .card.flip .front-view{
+    transform: rotateY(180deg);
+  }
+  @media screen and (max-width: 700px) {
+    .cards{
+      height: 350px;
+      width: 350px;
+    }
+    .card .front-view img{
+      width: 17px;
+    }
+    .card .back-view img{
+      max-width: 40px;
+    }
+  }
+  @media screen and (max-width: 530px) {
+    .cards{
+      height: 300px;
+      width: 300px;
+    }
+    .card .front-view img{
+      width: 15px;
+    }
+    .card .back-view img{
+      max-width: 35px;
+    }
+  }
+
+
+  .cont{
+    display: grid;
+  }
+  p{
+    text-align: center;
+  }
+
+  .modal {
+    display: none; /* Alapértelmezetten rejtve */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Fekete háttér áttetsző */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 25px;
+    height: 350px;
+    width: 600px;
+    text-align: center;
+}
+
+#points, #modal-points {
+  transition: all 0.2s ease-out;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#points.animating, #modal-points.animating {
+  transform: scale(1.1);
+  color: rgb(116, 52, 255);
+}
+
+.confetti {
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+
+}
+
+.confetti.active {
+  display:grid;
+  animation: confettiFade 4s forwards infinite;
+
+}
+
+@keyframes confettiFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+.gamemodal h2  p{
+    color: black;
 }

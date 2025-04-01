@@ -17,8 +17,6 @@ class Message extends Model
     public function sender()
     {
         return $this->belongsTo(User::class, 'Sender_Id', 'User_id');
-        // 'Sender_Id' az üzenet küldőjének azonosítója a messages táblában
-        // 'User_id' a users tábla elsődleges kulcsa
     }
 
     public function receiver()

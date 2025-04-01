@@ -2,12 +2,8 @@
 @section('content')
 
     <main class="main-block">
-
-
         <div class="section3 container">
             <div class="row">
-
-
                 <div class="col-md-4 leftpanel py-5 px-4">
                     <div class="form-group">
                         <input type="text" id="search" placeholder="Keresés a felhasználók között..."

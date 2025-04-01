@@ -288,8 +288,7 @@ address {
   line-height: inherit;
 }
 
-ol,
-ul {
+ol {
   padding-left: 2rem;
 }
 

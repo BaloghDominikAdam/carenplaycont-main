@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\game_mode;
+use App\Models\Player;
 
 class GamesController extends Controller
 {
@@ -35,4 +36,26 @@ class GamesController extends Controller
     public function solo(){
         return view('solo');
     }
+
+    public function memorygame(){
+        return view('memorygame');
+    }
+
+    public function memorygameDATA(Request $request)
+{
+
+    $user = Auth::user();
+
+
+    $data = new Player();
+    $data->Player_Id = auth()->id();
+    $data->Player_Username = $user->username;
+    $data->Player_Points = $request->points;
+    $data->Played_Game_Name = "Memória Játék";
+
+    $data->save();
+
+    return response()->json(['success' => true]);
+}
+
 }

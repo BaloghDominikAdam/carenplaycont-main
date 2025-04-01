@@ -50,4 +50,14 @@ class User extends Authenticatable
     protected $primaryKey = 'User_id';
     public $timestamps = false;
 
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id', 'User_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id', 'User_id');
+    }
+
 }
