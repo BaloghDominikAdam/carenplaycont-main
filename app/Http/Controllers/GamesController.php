@@ -46,7 +46,6 @@ class GamesController extends Controller
 
     $user = Auth::user();
 
-
     $data = new Player();
     $data->Player_Id = auth()->id();
     $data->Player_Username = $user->username;
@@ -55,7 +54,7 @@ class GamesController extends Controller
 
     $data->save();
 
-    return response()->json(['success' => true]);
+    return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
 }
 
 }

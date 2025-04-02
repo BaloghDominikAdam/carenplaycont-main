@@ -10,7 +10,9 @@
                     <p id="modal-points">Pontjaid: 0</p>
                     <form action="/memorygame" method="post">
                         @csrf
-                        <button class="btn" type="submit" id="save-btn">Mentés</button>
+                        <input type="hidden" name="points" id="hidden-points" value="0">
+                        <input type="hidden" name="game_name" value="Memória Játék">
+                        <button type="submit" class="btn" id="save-btn">Mentés</button>
                     </form>
 
                     <button class="btn" id="restart-btn">Újra játszani</button>
@@ -207,11 +209,11 @@
                         setTimeout(() => {
                             showModal();
                             const finalPoints = points;
-                            points = 0;
                             animatePoints(0, finalPoints, 'modal-points');
                             // Extra confetti a játék végén
                             setTimeout(showConfetti, 500);
-                            sendPointsToServer(points);
+                            sendPointsToServer(finalPoints);
+                            points = 0;
                         }, 1000);
                     }
                     cardOne.removeEventListener("click", flipCard);
@@ -268,31 +270,35 @@
                 document.getElementById('modal').style.display = 'block';
             }
 
-            function sendPointsToServer(points) {
-                fetch('/memorygame', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // CSRF token
-                        },
-                        body: JSON.stringify({
-                            points: points,
-                            game_name: 'Memória Játék' // Játék neve
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Pontszám sikeresen mentve: ' + points);
-                        } else {
-                            alert('Hiba történt a mentés során: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Hiba:', error);
-                        alert('Hiba történt a mentés során.');
-                    });
-            }
+            // function sendPointsToServer(points) {
+            //     fetch('/memorygame', {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // CSRF token
+            //             },
+            //             body: JSON.stringify({
+            //                 points: points,
+            //                 game_name: 'Memória Játék'
+            //             })
+            //         });
+            // }
+
+            function sendFormDataToLaravel() {
+    const formData = new FormData();
+    formData.append('score', 100);
+    formData.append('game', 'Memory Game');
+    formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+
+    fetch('/memorygame', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    });
+}
 
             function shuffleCard() {
                 matched = 0;
