@@ -115,13 +115,14 @@ class MessageController extends Controller
     {
         $request->validate([
             'receiver_id' => 'required|exists:users,User_id',
-            'message_text' => 'required|string',
-        ]);
+            'message_text' => 'required|max:255',
+        ], []);
 
         Message::create([
-            'sender_id' => auth()->id(),
-            'receiver_id' => $request->receiver_id,
+            'Sender_Id' => auth()->id(),
+            'Receiver_Id' => $request->receiver_id,
             'Message_Text' => $request->message_text,
+            'New_Message' => 1
         ]);
 
         return redirect()->route('messages.show', $request->receiver_id);

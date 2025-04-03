@@ -270,35 +270,10 @@
                 document.getElementById('modal').style.display = 'block';
             }
 
-            // function sendPointsToServer(points) {
-            //     fetch('/memorygame', {
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/json',
-            //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // CSRF token
-            //             },
-            //             body: JSON.stringify({
-            //                 points: points,
-            //                 game_name: 'Memória Játék'
-            //             })
-            //         });
-            // }
+            function sendPointsToServer(points) {                       // laravel backend + js api = fullstack
+                document.getElementById('hidden-points').value = points;
+            }
 
-            function sendFormDataToLaravel() {
-    const formData = new FormData();
-    formData.append('score', 100);
-    formData.append('game', 'Memory Game');
-    formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
-
-    fetch('/memorygame', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    });
-}
 
             function shuffleCard() {
                 matched = 0;

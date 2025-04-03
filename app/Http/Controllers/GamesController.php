@@ -51,7 +51,7 @@ class GamesController extends Controller
     $data->Player_Username = $user->username;
     $data->Player_Points = $request->points;
     $data->Played_Game_Name = "Memória Játék";
-
+    dd($data);
     $data->save();
 
     return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
