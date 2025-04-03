@@ -94,7 +94,8 @@ class UserController extends Controller
 
     public function Profil(){
         if(Auth::check()){
-            return view('profil');
+            $user = Auth::user();
+    return view('profil', compact('user'));
         } else{
             return redirect('/login', [
                 'sv' => "Kérem lépjen be!"

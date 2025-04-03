@@ -26,6 +26,9 @@
                                     <a href="{{ route('messages.show', $chatUser->User_id) }}"
                                         class="list-group-item list-group-item-action border-0 w-100">
                                         <div class="d-flex justify-content-between align-items-center">
+                                            @if ($chatUser->unread > 0)
+                                                <span class="badge bg-danger">{{ $partner->unread }}</span>
+                                            @endif
                                             <strong>{{ $chatUser->username }}</strong>
                                             @if ($chatUser->lastMessage)
                                                 <small class="text-muted">
@@ -84,7 +87,9 @@
                                                     <small
                                                         style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:m:s') }}</i></small>
                                                     <p>{{ $message->username }} </p>
-
+                                                    @if ($message->sender_id != auth()->id() && $message->new_message)
+                                                        <span class="unread-dot"></span>
+                                                    @endif
 
                                                     <p>{{ $message->Message_Text }} </p>
                                                 </div>

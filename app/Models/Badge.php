@@ -9,9 +9,19 @@ class Badge extends Model
 {
     use HasFactory;
 
-    // A táblának megfelelő neve
-    protected $table = 'badges';
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 
 
+    public function usersb()
+{
+    return $this->belongsToMany(User::class)
+                ->withPivot('unlocked_at')
+                ->withTimestamps();
+}
 
+    protected $table = 'User_Badges';
+    protected $primaryKey = 'Badges_Id';
 }

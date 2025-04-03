@@ -104,7 +104,8 @@
                         </li>
                         <li class="card">
                             <div class="view front-view">
-                                <img src="{{ asset('assets/img/memorygame/quest.png') }}" alt="icon" class="w-100 p-4">
+                                <img src="{{ asset('assets/img/memorygame/quest.png') }}" alt="icon"
+                                    class="w-100 p-4">
                             </div>
                             <div class="view back-view">
                                 <img src="{{ asset('assets/img/memorygame/img-4.png') }}" alt="card-img">
@@ -270,7 +271,7 @@
                 document.getElementById('modal').style.display = 'block';
             }
 
-            function sendPointsToServer(points) {                       // laravel backend + js api = fullstack
+            function sendPointsToServer(points) { // laravel backend + js api = fullstack
                 document.getElementById('hidden-points').value = points;
             }
 

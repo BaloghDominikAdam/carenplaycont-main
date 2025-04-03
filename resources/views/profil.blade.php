@@ -69,6 +69,23 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        {{-- <div class="achievements">
+                            <h2>Elért Kitűzők</h2>
+
+                            @forelse ($user->achievements as $achievement)
+                                <div class="badge">
+                                    <img src="{{ asset('storage/'.$achievement->image_path) }}"
+                                         alt="{{ $achievement->name }}"
+                                         title="{{ $achievement->description }}">
+                                    <div class="badge-info">
+                                        <h4>{{ $achievement->name }}</h4>
+                                        <small>{{ $achievement->pivot->unlocked_at->format('Y.m.d') }}</small>
+                                    </div>
+                                </div>
+                            @empty
+                                <p>Még nincs elért kitűződ 😢</p>
+                            @endforelse
+                        </div> --}}
                     </div>
                 </div>
             </div>

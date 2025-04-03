@@ -1086,9 +1086,6 @@ a{
   .cont{
     display: grid;
   }
-  p{
-    text-align: center;
-  }
 
   .modal {
     display: none; /* Alapértelmezetten rejtve */
@@ -1148,4 +1145,41 @@ a{
 
 .gamemodal h2  p{
     color: black;
+}
+
+
+.unread-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.badge {
+    margin-left: 8px;
+    font-size: 0.8rem;
+}
+
+
+.achievements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.badge {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.badge img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
 }

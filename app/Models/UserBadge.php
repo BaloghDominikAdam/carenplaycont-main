@@ -9,7 +9,9 @@ class UserBadge extends Model
 {
     use HasFactory;
 
-    protected $table = 'user_badges'; 
+    protected $table = 'user_achieved_badges';
+    protected $primaryKey = 'User_Achieved_Id';
+
 
 
 }
