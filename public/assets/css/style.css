@@ -1169,17 +1169,14 @@ a{
     gap: 20px;
 }
 
+
 .badge {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 10px;
-    width: 200px;
+    display: inline-block;
     text-align: center;
+    margin: 10px;
 }
 
 .badge img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    margin-bottom: 10px;
+    width: 50px; /* Méret beállítása */
+    height: 50px; /* Méret beállítása */
 }

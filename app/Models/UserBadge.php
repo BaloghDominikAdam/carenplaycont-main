@@ -12,6 +12,6 @@ class UserBadge extends Model
     protected $table = 'user_achieved_badges';
     protected $primaryKey = 'User_Achieved_Id';
 
-
+    public $timestamps = false;
 
 }

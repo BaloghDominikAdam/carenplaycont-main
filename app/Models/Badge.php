@@ -9,19 +9,18 @@ class Badge extends Model
 {
     use HasFactory;
 
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class)->withTimestamps();
+    // }
+
+
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_achieved_badges', 'badge_id', 'user_id');
     }
 
-
-    public function usersb()
-{
-    return $this->belongsToMany(User::class)
-                ->withPivot('unlocked_at')
-                ->withTimestamps();
-}
-
-    protected $table = 'User_Badges';
+    protected $table = 'user_badges';
     protected $primaryKey = 'Badges_Id';
+    public $timestamps = false;
 }

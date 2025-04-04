@@ -11,7 +11,6 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Badge;
 use App\Models\UserBadge;
-use App\Events\UserRegistered;
 
 class UserController extends Controller
 {
@@ -49,6 +48,16 @@ class UserController extends Controller
             $data->username = $req->nev;
             $data->Email = $req->email;
             $data->password = Hash::make($req->password);
+            $data->Save();
+
+            $utolsouser = User::select('User_Id')
+                            ->orderBy('User_Id', 'DESC')
+                            ->first();
+
+
+            $data = new UserBadge;
+            $data->User_Id = $utolsouser->User_Id;
+            $data->Achieved_At = now();
             $data->Save();
 
 
@@ -95,7 +104,10 @@ class UserController extends Controller
     public function Profil(){
         if(Auth::check()){
             $user = Auth::user();
-    return view('profil', compact('user'));
+            $achievedBadges = $user->badges()->get(); // Az elért badge-ék lekérdezése
+        $allBadges = Badge::all(); // Minden badge lekérdezése
+    return view('profil', compact('user', 'achievedBadges', 'allBadges'));
+
         } else{
             return redirect('/login', [
                 'sv' => "Kérem lépjen be!"

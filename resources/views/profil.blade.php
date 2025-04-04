@@ -69,24 +69,22 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        {{-- <div class="achievements">
-                            <h2>Elért Kitűzők</h2>
 
-                            @forelse ($user->achievements as $achievement)
-                                <div class="badge">
-                                    <img src="{{ asset('storage/'.$achievement->image_path) }}"
-                                         alt="{{ $achievement->name }}"
-                                         title="{{ $achievement->description }}">
-                                    <div class="badge-info">
-                                        <h4>{{ $achievement->name }}</h4>
-                                        <small>{{ $achievement->pivot->unlocked_at->format('Y.m.d') }}</small>
-                                    </div>
-                                </div>
-                            @empty
-                                <p>Még nincs elért kitűződ 😢</p>
-                            @endforelse
-                        </div> --}}
-                    </div>
+                        <div class="badges-section">
+                            <h2>Badge-ek</h2>
+<div class="badges">
+    @foreach($allBadges as $badge)
+        <div class="badge">
+            @if($achievedBadges->contains($badge))
+                <img src="{{ $badge->Badge_Image_Path }}" alt="{{ $badge->Badge_Name }}" />
+            @else
+                <img src="{{ $badge->Badge_Image_Path }}" style="filter: grayscale(100%);" alt="{{ $badge->Badge_Name }}" />
+            @endif
+            <p>{{ $badge->Badge_Name }}</p>
+            <p>{{ $badge->Badge_Description }}</p>
+        </div>
+    @endforeach
+</div>
                 </div>
             </div>
 

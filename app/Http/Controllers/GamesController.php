@@ -47,11 +47,10 @@ class GamesController extends Controller
     $user = Auth::user();
 
     $data = new Player();
-    $data->Player_Id = auth()->id();
+    $data->User_Id = auth()->id();
     $data->Player_Username = $user->username;
     $data->Player_Points = $request->points;
     $data->Played_Game_Name = "Memória Játék";
-    dd($data);
     $data->save();
 
     return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');

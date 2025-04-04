@@ -61,4 +61,9 @@ class User extends Authenticatable
     }
 
 
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'user_achieved_badges', 'User_Id', 'Badges_Id');
+    }
+
 }
