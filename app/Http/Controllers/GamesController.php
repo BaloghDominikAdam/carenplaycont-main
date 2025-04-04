@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\game_mode;
 use App\Models\Player;
+use App\Models\UserBadge;
 
 class GamesController extends Controller
 {
@@ -52,6 +53,14 @@ class GamesController extends Controller
     $data->Player_Points = $request->points;
     $data->Played_Game_Name = "Memória Játék";
     $data->save();
+
+    $data = new UserBadge;
+    $data->User_Id = auth()->id();
+    $data->Badges_Id = 2;
+    $data->Achieved_At = now();
+    $data->Save();
+
+
 
     return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
 }

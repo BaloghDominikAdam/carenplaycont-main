@@ -57,6 +57,7 @@ class UserController extends Controller
 
             $data = new UserBadge;
             $data->User_Id = $utolsouser->User_Id;
+            $data->Badges_Id = 1;
             $data->Achieved_At = now();
             $data->Save();
 

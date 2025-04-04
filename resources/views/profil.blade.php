@@ -13,7 +13,7 @@
         @endif
         <div class="section3 container">
             <div class="profbag">
-                <div class="row">
+                <div class="row w-100">
                     <div class="col-md-6 ">
                         <div class="d-grid">
                             @if (auth()->user()->user_profile_picture &&
@@ -71,17 +71,22 @@
                     <div class="col-md-6">
 
                         <div class="badges-section">
-                            <h2>Badge-ek</h2>
+                            <h2 class="text-center text-white">Badge-ek</h2>
 <div class="badges">
     @foreach($allBadges as $badge)
         <div class="badge">
-            @if($achievedBadges->contains($badge))
+
+                @if($achievedBadges->contains($badge))
                 <img src="{{ $badge->Badge_Image_Path }}" alt="{{ $badge->Badge_Name }}" />
             @else
                 <img src="{{ $badge->Badge_Image_Path }}" style="filter: grayscale(100%);" alt="{{ $badge->Badge_Name }}" />
             @endif
+
+            <div class="dropbox">
             <p>{{ $badge->Badge_Name }}</p>
             <p>{{ $badge->Badge_Description }}</p>
+            </div>
+
         </div>
     @endforeach
 </div>
