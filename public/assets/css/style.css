@@ -1175,6 +1175,7 @@ a{
 
 }
 
+
 .badge img {
     width: 100px;
     height: 100px;
@@ -1184,6 +1185,6 @@ a{
     display: none;
 }
 
-.badge img:hover  + .dropbox{
-    display: grid;
-}
+/* .badge img:hover  + .dropbox{
+    display: block;
+} */

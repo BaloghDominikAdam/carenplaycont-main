@@ -54,15 +54,27 @@ class GamesController extends Controller
     $data->Played_Game_Name = "Memória Játék";
     $data->save();
 
-    $data = new UserBadge;
-    $data->User_Id = auth()->id();
-    $data->Badges_Id = 2;
-    $data->Achieved_At = now();
-    $data->Save();
+
+    $letezobadge = UserBadge::where('User_Id', $user->id)
+                            ->where('Badges_Id', 2)
+                            ->exists();
+
+    if(!$letezobadge){
+        $data = new UserBadge;
+        $data->User_Id = auth()->id();
+        $data->Badges_Id = 2;
+        $data->Achieved_At = now();
+        $data->Save();
+        return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+    }
+
+    else{
+        return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
+    }
 
 
 
-    return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
+
 }
 
 }

@@ -56,9 +56,10 @@
                     <div class="newpostcontainer">
                         <div class="row newpost">
                             <div class="col-md-12">
+                                <a href="/profile/{{$row->User_Id}}">
                                 <img src="{{ Storage::url($row->user->user_profile_picture) }}" alt="Profilkép"
                                     style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
-                                <p style="font-size: 15px; font-style:italic; float: right;">
+                                <p style="font-size: 15px; font-style:italic; float: right;"></a>
                                     {{ date_format(date_create($row->User_Posted_Time), 'Y. m. d. H:i:s') }}
                                 </p>
                                 <p class="py-3">{{ $row->user->username }}</p>

@@ -22,25 +22,27 @@
 
                     </div>
                     <div class="col-md-6">
-                        
+
                     </div>
 
                 </div>
 
             </div>
             <h5 class="text-white py-3 text-center display-6" style="font-family:FairyDustB">Bejegyzések</h5>
-            @foreach ($user->communityfeed as $row)
-                <div class="row newpost">
-                    <div class="col-md-12">
-                        <div class="post">
-                            <p style="font-size: 15px; font-style:italic; float: right;">
-                                {{ date_format(date_create($row->User_Posted_Time), 'Y. m. d. H:i:s') }}
-                            </p>
-                            <p class="my-auto">{{ $row->User_Message }}</p>
-
-                        </div>
+            @foreach ($posts as $post)
+            <div class="row newpost">
+                <div class="col-md-12">
+                    <div class="post">
+                        <img src="{{ Storage::url($post->user->user_profile_picture) }}" alt="Profilkép"
+                                    style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                <p style="font-size: 15px; font-style:italic; float: right;">
+                        <p style="font-size: 15px; font-style:italic; float: right;">
+                            {{ date_format(date_create($post['User_Posted_Time']), 'Y. m. d. H:i:s') }}
+                        </p>
+                        <p class="my-auto">{{ $post['User_Message'] }}</p>
                     </div>
                 </div>
+            </div>
             @endforeach
 
         </div>

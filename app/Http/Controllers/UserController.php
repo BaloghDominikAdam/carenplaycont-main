@@ -170,7 +170,10 @@ class UserController extends Controller
     public function showProfile($id)
     {
         $user = User::findOrFail($id);
-        return view('profile.show', compact('user'));
+        $posts = CommunityFeed::where('User_Id', $id)
+            ->orderBy('User_Posted_Time', 'desc')
+             ->get();
+        return view('profile.show', compact('user', 'posts'));
     }
 
 
