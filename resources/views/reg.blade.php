@@ -15,7 +15,7 @@
                                         class="form-control w-100 rounded-pill" placeholder="Pl. Gipsz Jakab"
                                         value={{ old('nev') }}>
                                     @error('nev')
-                                        <p class="text-danger"> {{ $message }}</p>
+                                        <p class="text-danger fs-5"> {{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="py-3">
@@ -24,7 +24,7 @@
                                         class="form-control w-100 rounded-pill" placeholder="Pl. gipszjakab2@gmail.com"
                                         value={{ old('email') }}>
                                     @error('email')
-                                        <p class="text-danger"> {{ $message }}</p>
+                                        <p class="text-danger fs-5"> {{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="py-3">
@@ -32,7 +32,7 @@
                                     <input type="password" name="password" id="password"
                                         class="form-control w-100 rounded-pill" placeholder="Pl. GipszJakab01.">
                                     @error('password')
-                                        <p class="text-danger"> {{ $message }}</p>
+                                        <p class="text-danger fs-5"> {{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="py-3">
@@ -41,7 +41,7 @@
                                     <input type="password" name="password_confirmation" id="password_confirmation"
                                         class="form-control w-100 rounded-pill" placeholder="Pl. GipszJakab01.">
                                     @error('password_confirmation')
-                                        <p class="text-danger"> {{ $message }}</p>
+                                        <p class="text-danger fs-5"> {{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="py-3 text-center">

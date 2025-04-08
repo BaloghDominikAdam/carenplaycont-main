@@ -6,16 +6,16 @@
             <div id="modal" class="modal">
                 <div class="modal-content gamemodal">
                     <h2>Gratulálok!</h2>
-                    <p>Minden párt megtaláltál!</p>
-                    <p id="modal-points">Pontjaid: 0</p>
+                    <h5>Minden párt megtaláltál!</h5>
+                    <h5 id="modal-points">Pontjaid: 0</h5>
                     <form action="/memorygame" method="post">
                         @csrf
                         <input type="hidden" name="points" id="hidden-points" value="0">
                         <input type="hidden" name="game_name" value="Memória Játék">
-                        <button type="submit" class="btn" id="save-btn">Mentés</button>
+                        <button type="submit" class="btn btn-info" id="save-btn">Mentés</button>
                     </form>
 
-                    <button class="btn" id="restart-btn">Újra játszani</button>
+                    <button class="btn-info" id="restart-btn">Újra játszani</button>
                 </div>
             </div>
 
