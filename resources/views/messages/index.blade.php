@@ -138,7 +138,7 @@
                         hasResults = true;
                         userList.innerHTML += `
                     <a href="{{ route('messages.show', '') }}/${user.User_id}" class="list-group-item list-group-item-action">
-                        <img src="{{ Storage::url('') }}/${user.user_profile_picture}" alt="Profilkép" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
+                        <img src="{{ Storage::url('') }}/${user.user_profile_picture}" alt="Profilkép" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
                         ${user.username}
                     </a>
                 `;
