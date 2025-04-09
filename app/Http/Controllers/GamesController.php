@@ -119,4 +119,22 @@ public function multi(){
     }
 
 
+    public function wordlegame(){
+        return view('wordlegame');
+    }
+
+    public function wordlegameDATA(Request $request){
+        $user = Auth::user();
+
+    $data = new Player();
+    $data->User_Id = auth()->id();
+    $data->Player_Username = $user->username;
+    $data->Player_Points = $request->points;
+    $data->Played_Game_Name = "Wordle játék";
+    $data->save();
+
+    return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
+    }
+
+
 }

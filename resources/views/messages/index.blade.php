@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
 
+
     <main class="main-block">
         <div class="section3 container">
             <div class="row">
@@ -20,6 +21,14 @@
                         @foreach ($chatUsers as $chatUser)
                             <div class="py-2">
                                 <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_id == $chatUser->User_id) active-user @endif">
+
+                                    @if ($chatUser->unread > 0)
+                                        <span
+                                            class="position-absolute top-0 start-0 translate-middle iconka rounded-pill bg-danger">
+                                            {{ $chatUser->unread }}
+                                        </span>
+                                    @endif
+
                                     <img src="{{ Storage::url($chatUser->user_profile_picture) }}" alt="Profilkép"
                                         style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit:cover;">
 
@@ -27,12 +36,12 @@
                                         class="list-group-item list-group-item-action border-0 w-100">
                                         <div class="d-flex justify-content-between align-items-center">
                                             @if ($chatUser->unread > 0)
-                                                <span class="badge bg-danger">{{ $partner->unread }}</span>
+                                                <span class="badge bg-danger">{{ $unread->unread }}</span>
                                             @endif
                                             <strong>{{ $chatUser->username }}</strong>
                                             @if ($chatUser->lastMessage)
-                                                <small class="text-muted">
-                                                    {{ $chatUser->lastMessage->created_at->diffForHumans() }}
+                                                <small class="text-white fs-5 mr-auto">
+                                                    {{ $chatUser->lastMessage->created_at }}
                                                 </small>
                                             @endif
                                         </div>
@@ -41,7 +50,7 @@
                                                 @if ($chatUser->lastMessage->sender_id == auth()->id())
                                                     <strong>Te:</strong>
                                                 @endif
-                                                {{ Str::limit($chatUser->lastMessage->Message_Text, 30) }}
+                                                {{ Str::limit($chatUser->lastMessage->Message_Text, 10) }}
                                             </p>
                                         @else
                                             <p class="mb-0 text-muted">Nincs üzenet</p>
@@ -50,6 +59,8 @@
                                 </div>
                             </div>
                         @endforeach
+
+
                     </div>
                 </div>
 
@@ -72,7 +83,7 @@
                                             <div
                                                 class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
                                                 <small
-                                                    style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:m:s') }}</i></small>
+                                                    style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
 
                                                 <p>Te: </p>
 
@@ -85,7 +96,7 @@
                                                 <div
                                                     class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
                                                     <small
-                                                        style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:m:s') }}</i></small>
+                                                        style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
                                                     <p>{{ $message->username }} </p>
                                                     @if ($message->sender_id != auth()->id() && $message->new_message)
                                                         <span class="unread-dot"></span>

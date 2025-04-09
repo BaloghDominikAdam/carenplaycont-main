@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=DynaPuff:wght@400..700&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -751,11 +754,26 @@ main{
     max-height: 700px;
     height: auto;
     background-color: #eaeaea3f;
-    box-shadow: 1px 1px 55px 1px #eaeaea4d;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
     border-radius: 45px;
     padding: 55px;
 
 }
+
+@media only screen and (max-width: 992px) {
+    .profbag{
+        display: grid;
+        margin: auto;
+        max-height: 700px;
+        height: auto;
+        background-color: #eaeaea3f;
+        box-shadow: 1px 1px 15px 1px #a4a4a48d;
+        border-radius: 45px;
+        padding: 55px;
+
+    }
+}
+
 
 .profbag h5{
     font-size: 35px;
@@ -1164,6 +1182,8 @@ a{
     gap: 20px;
 }
 
+
+
 .badges{
     display: flex;
 }
@@ -1185,13 +1205,22 @@ a{
     display: none;
 }
 
+
+@media only screen and(max-width: 1200px) {
+    .badge img {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+    }
+
+}
+
 /* .badge img:hover  + .dropbox{
     display: block;
 } */
 
 
 
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=DynaPuff:wght@400..700&display=swap');
 
 
 
@@ -1423,4 +1452,110 @@ a{
 .result-container .try-again-btn{
     margin-top: 30px;
     padding: 12px 20px;
+}
+
+
+:root {
+    --default: #121213;
+    --empty: #3a3a3c;
+    --wrong: #b59f3b;
+    --right: #538d4e;
+  }
+
+  #game {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-top: 5rem;
+    width: 100%;
+    height: 72vh;
+  }
+  .wordle-container{
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
+    border-radius: 45px;
+    width: 450px;
+    height: 500px;
+    margin: auto;
+  }
+
+
+  .gride {
+    display: grid;
+    grid-template-rows: repeat(6, auto);
+    grid-template-columns: repeat(5, auto);
+    margin-top: 50px;
+  }
+
+  .box {
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--empty);
+    margin: 4px;
+    color: white;
+    text-transform: uppercase;
+    display: grid;
+    place-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.4rem;
+  }
+
+  .box.empty {
+    background: var(--empty);
+  }
+
+  .box.wrong {
+    background: var(--wrong);
+  }
+
+  .box.right {
+    background: var(--right);
+  }
+
+  .animated{
+    animation: flip 0.5s ease;
+  }
+
+  @keyframes flip{
+    0% {
+      transform: scaleY(1);
+    }
+    50%{
+      transform: scaleY(0);
+    }
+    100%{
+      transform: scaleY(1);
+    }
+  }
+
+
+
+.iconka {
+    font-size: 0.75em;
+    min-width: 1.5em;
+    padding: 0.25em 0.5em;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.top-0 {
+    top: 0;
+}
+
+.start-100 {
+    left: 100%;
+}
+
+.start-0 {
+    left: 0;
+}
+
+.translate-middle {
+    transform: translate(-50%, -50%);
 }

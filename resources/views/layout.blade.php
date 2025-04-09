@@ -39,7 +39,17 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('messages.index') }}">
-                            <i class="fa-solid fa-comments"></i>
+
+                            @if ($totalUnread > 0)
+                                <i class="fa-solid fa-comments"><span
+                                        class=" translate-middle iconka rounded-pill bg-danger fs-5">
+                                        {{ $totalUnread }}
+                                        <span class="visually-hidden">Olvasatlan üzenetek</span></i>
+
+                                </span>
+                            @else
+                                <i class="fa-solid fa-comments"></i>
+                            @endif
                         </a>
                     </li>
                     <li class="nav-item">

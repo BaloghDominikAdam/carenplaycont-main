@@ -15,9 +15,11 @@
                             </a>
                         </div>
                         <div class="col game2 ">
-                            <div class="selectGame py-2 text-center">
-                                <p>2</p>
-                            </div>
+                            <a href="/wordlegame">
+                                <div class="selectGame py-2 text-center">
+                                    <p>Wordle Game</p>
+                                </div>
+                            </a>
                         </div>
                         <div class="col game3 ">
                             <div class="selectGame py-2 text-center">

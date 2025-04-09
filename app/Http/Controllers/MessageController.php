@@ -51,11 +51,17 @@ class MessageController extends Controller
                         return $user->lastMessage ? $user->lastMessage->created_at : null;
                     });
 
+
         return view('messages.index', compact('users', 'chatUsers'));
     }
 
     public function show(User $user)
 {
+
+
+    Message::where('receiver_id', auth()->id())
+        ->where('sender_id', $user->User_id)
+        ->update(['new_message' => 0]);
     // 1. Olvasottá jelöljük az aktuális user által fogadott üzeneteket
     Message::where('receiver_id', auth()->id())
         ->where('sender_id', $user->User_id)
@@ -69,42 +75,46 @@ class MessageController extends Controller
 
     // 3. Chat partnerek összeállítása
     $chatUsers = User::whereHas('sentMessages', function($query) {
-                    $query->where('receiver_id', auth()->id());
-                })
-                ->orWhereHas('receivedMessages', function($query) {
-                    $query->where('sender_id', auth()->id());
-                })
-                ->with(['sentMessages' => function($query) {
-                    $query->where('receiver_id', auth()->id())
-                          ->orderBy('created_at', 'desc')
-                          ->limit(1);
-                }, 'receivedMessages' => function($query) {
-                    $query->where('sender_id', auth()->id())
-                          ->orderBy('created_at', 'desc')
-                          ->limit(1);
-                }])
-                ->get()
-                ->map(function($user) {
-                    // Olvasatlan üzenetek száma
-                    $user->unread = Message::where('receiver_id', auth()->id())
-                        ->where('sender_id', $user->User_id)
-                        ->where('new_message', 1)
-                        ->count();
+        $query->where('receiver_id', auth()->id());
+    })
+    ->orWhereHas('receivedMessages', function($query) {
+        $query->where('sender_id', auth()->id());
+    })
+    ->with(['sentMessages' => function($query) {
+        $query->where('receiver_id', auth()->id())
+              ->orderBy('created_at', 'desc')
+              ->limit(1);
+    }, 'receivedMessages' => function($query) {
+        $query->where('sender_id', auth()->id())
+              ->orderBy('created_at', 'desc')
+              ->limit(1);
+    }])
+    ->get()
+    ->map(function($user) {
+        // Olvasatlan üzenetek
+        $user->unread = Message::where('receiver_id', auth()->id())
+            ->where('sender_id', $user->User_id)
+            ->where('new_message', 1)
+            ->count();
 
-                    // Utolsó üzenet logika
-                    $lastSent = $user->sentMessages->first();
-                    $lastReceived = $user->receivedMessages->first();
+        // Utolsó üzenet logika
+        $lastMessage = Message::where(function($q) use ($user) {
+                $q->where('sender_id', $user->User_id)
+                  ->where('receiver_id', auth()->id());
+            })
+            ->orWhere(function($q) use ($user) {
+                $q->where('sender_id', auth()->id())
+                  ->where('receiver_id', $user->User_id);
+            })
+            ->latest()
+            ->first();
 
-                    $user->lastMessage = collect([$lastSent, $lastReceived])
-                        ->filter()
-                        ->sortByDesc('created_at')
-                        ->first();
-
-                    return $user;
-                })
-                ->sortByDesc(function($user) {
-                    return $user->lastMessage ? $user->lastMessage->created_at : now()->subYear();
-                });
+        $user->lastMessage = $lastMessage;
+        return $user;
+    })
+    ->sortByDesc(function($user) {
+        return $user->lastMessage ? $user->lastMessage->created_at : now()->subYear();
+    });
 
     // 4. Üzenetek lekérése
     $messages = Message::where(function($query) use ($user) {
