@@ -45,8 +45,14 @@ Route::get('/messages/{user}', [MessageController::class, 'show'])->name('messag
 Route::post('/messages/send', [MessageController::class, 'send'])->name('messages.send');
 
 Route::get('solo', [GamesController::class, 'solo']);
+Route::get('multi', [GamesController::class, 'multi']);
 
 
 
 Route::get('/memorygame', [GamesController::class, 'memorygame']);
 Route::post('/memorygame', [GamesController::class, 'memorygameDATA']);
+
+
+Route::get('/quizgame', [GamesController::class, 'quizgame']);
+Route::post('/quizgame', [GamesController::class, 'quizgameDATA']);
+
