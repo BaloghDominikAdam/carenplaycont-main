@@ -48,7 +48,7 @@
                                             @endif
                                         </div>
                                         @if ($chatUser->lastMessage)
-                                            <p class="mb-0 text-muted">
+                                            <p class="mb-0 text-muted fs-3">
                                                 @if ($chatUser->lastMessage->sender_id == auth()->id())
                                                     <strong>Te:</strong>
                                                 @endif
