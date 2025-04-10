@@ -42,7 +42,7 @@ class UserController extends Controller
                 'password.numbers' => 'A jelszóban szerepeljenek számok a fokozott biztonság érdekében!',
                 'password.letters' => 'A jelszóban szerepeljenek betűk a fokozott biztonság érdekében!',
                 'password.mixedCase' => 'A jelszóban szerepeljenek kis- és nagybetűk a fokozott biztonság érdekében!',
-                'password_confrimation.required' => 'A jelszót kötelező mégegyszer megadni!'
+                'password_confirmation.required' => 'A jelszót kötelező mégegyszer megadni!'
             ]);
             $data = new User;
             $data->username = $req->nev;
@@ -105,8 +105,8 @@ class UserController extends Controller
     public function Profil(){
         if(Auth::check()){
             $user = Auth::user();
-            $achievedBadges = $user->badges()->get(); // Az elért badge-ék lekérdezése
-        $allBadges = Badge::all(); // Minden badge lekérdezése
+            $achievedBadges = $user->badges()->get();
+        $allBadges = Badge::all();
     return view('profil', compact('user', 'achievedBadges', 'allBadges'));
 
         } else{
@@ -179,47 +179,40 @@ class UserController extends Controller
 
 
     public function update(Request $request)
-{
-    $request->validate([
-        'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    {
+        dd($request->all());
 
-    $user = auth()->user();
-    $path = $user->user_profile_picture;
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    if ($request->hasFile('profile_picture')) {
-        // Képet eltávolítjuk, ha van régi profilkép, és nem az alapértelmezett
-        if ($user->user_profile_picture && $user->user_profile_picture !== 'default-avatar.jpg') {
-            Storage::delete('public/' . $user->user_profile_picture);
+        $user = auth()->user();
+
+        if ($request->hasFile('profile_picture')) {
+            dd($request->file('profile_picture'));
+            if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
+                Storage::disk('public')->delete($user->user_profile_picture);
+            }
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            dd($path);
+            $user->user_profile_picture = $path;
+            $user->save();
         }
 
-        // Kép mentés a public könyvtárban
-        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+        return redirect()->back()->with('success', 'Profilkép sikeresen frissítve!');
     }
 
-    $user->user_profile_picture = $path;
-    $user->save();
+    public function removeProfilePicture(Request $request)
+    {
+        $user = auth()->user();
 
-    return redirect()->back()->with('success', 'Profilkép sikeresen frissítve!');
-}
-public function removeProfilePicture(Request $request)
-{
-    $user = auth()->user();
+        if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
+            Storage::disk('public')->delete($user->user_profile_picture);
+        }
 
-    if ($user->user_profile_picture && $user->user_profile_picture !== 'default-avatar.jpg') {
-        Storage::delete('public/' . $user->user_profile_picture);
+        $user->user_profile_picture = 'assets/img/default-avatar.jpg';
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
     }
-
-
-    $user->user_profile_picture = 'default-avatar.jpg';
-    $user->save();
-
-    return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
-}
-
-
-
-
-
-
 }

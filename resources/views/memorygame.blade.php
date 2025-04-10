@@ -3,8 +3,8 @@
     <main class="main-block">
         <div class="section3 container">
 
-            <div id="modal" class="modal">
-                <div class="modal-content gamemodal">
+            <div id="modal2" class="modal2">
+                <div class="modal2-content gamemodal">
                     <h2>Gratulálok!</h2>
                     <h5>Minden párt megtaláltál!</h5>
                     <h5 id="modal-points">Pontjaid: 0</h5>

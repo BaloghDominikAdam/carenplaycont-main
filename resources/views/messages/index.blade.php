@@ -4,7 +4,7 @@
 
     <main class="main-block">
         <div class="section3 container">
-            <div class="row">
+            <div class="row rowchat">
                 <div class="col-md-4 leftpanel py-5 px-4">
                     <div class="form-group">
                         <input type="text" id="search" placeholder="Keresés a felhasználók között..."
@@ -28,6 +28,8 @@
                                             {{ $chatUser->unread }}
                                         </span>
                                     @endif
+
+
 
                                     <img src="{{ Storage::url($chatUser->user_profile_picture) }}" alt="Profilkép"
                                         style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit:cover;">
@@ -64,7 +66,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-8 position-relative">
+                <div class="col-md-8 position-relative rightpanel">
                     @if (isset($user))
                         <div class="w-100" id="chat-box"
                             style="height: 750px; overflow-y: scroll;background-color: #eaeaea3f;

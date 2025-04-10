@@ -26,7 +26,7 @@
                                         <input type="text" name="credentials" id="credentials"
                                             class="form-control w-100 rounded-pill" value={{ old('credentials') }}>
                                         @error('credentials')
-                                            <p class="text-danger">{{ $message }}</p>
+                                            <p class="text-danger fs-5">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="py-3">
@@ -34,7 +34,7 @@
                                         <input type="password" name="password" id="password"
                                             class="form-control w-100 rounded-pill">
                                         @error('password')
-                                            <p class="text-danger">{{ $message }}</p>
+                                            <p class="text-danger fs-5">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="py-3 text-center">

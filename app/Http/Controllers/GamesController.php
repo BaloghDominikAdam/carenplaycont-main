@@ -100,22 +100,22 @@ public function multi(){
     return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
 
 
-    // $letezobadge = UserBadge::where('User_Id', $user->id)
-    //                         ->where('Badges_Id', 2)
-    //                         ->exists();
+    $letezobadge = UserBadge::where('User_Id', $user->id)
+                            ->where('Badges_Id', 2)
+                            ->exists();
 
-    // if(!$letezobadge){
-    //     $data = new UserBadge;
-    //     $data->User_Id = auth()->id();
-    //     $data->Badges_Id = 2;
-    //     $data->Achieved_At = now();
-    //     $data->Save();
-    //     return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
-    // }
+    if(!$letezobadge){
+        $data = new UserBadge;
+        $data->User_Id = auth()->id();
+        $data->Badges_Id = 2;
+        $data->Achieved_At = now();
+        $data->Save();
+        return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+    }
 
-    // else{
-    //     return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
-    // }
+    else{
+        return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
+    }
     }
 
 

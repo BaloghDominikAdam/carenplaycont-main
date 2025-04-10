@@ -413,7 +413,7 @@ main{
 }
 .formcard,.newpost{
 
-    max-height: 700px;
+    max-height: 1500px;
     height: auto;
     background-color: #eaeaea3f;
     box-shadow: 1px 1px 15px 1px #a4a4a48d;
@@ -424,9 +424,13 @@ main{
     display: flex;
     margin: auto;
     width: 60%;
-    transition: width 2s ease;
     padding: 15px;
+
 }
+
+
+
+
 @media only screen and (max-width: 768px){
     .formcard{
         height: auto;
@@ -456,6 +460,8 @@ main{
     animation-delay: 2s;
 
 }
+
+
 
 .regpage{
     animation: elotunik ease-in-out 1s ;
@@ -911,6 +917,27 @@ main{
     border-radius: 45px;
 }
 
+.rightpanel{
+    max-height: 1200px;
+    height: auto;
+}
+
+@media only screen and (max-width: 1200px) {
+    .rowchat{
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+    .leftpanel{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .rightpanel{
+        width: 100%;
+        height: auto;
+    }
+}
+
 
 .conti{
     position: sticky;
@@ -1105,7 +1132,7 @@ a{
     display: grid;
   }
 
-  .modal {
+  .modal2 {
     display: none;
     position: fixed;
     z-index: 1;
@@ -1117,7 +1144,7 @@ a{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
+.modal2-content {
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
@@ -1206,13 +1233,13 @@ a{
 }
 
 
-@media only screen and(max-width: 1200px) {
-    .badge img {
-        width: 50px;
-        height: 50px;
-        border-radius: 15px;
+@media only screen and (max-width: 1200px) {
+    .badgesek{
+        display: grid;
     }
-
+    .profw{
+        width: 100%;
+    }
 }
 
 /* .badge img:hover  + .dropbox{

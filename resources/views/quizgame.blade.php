@@ -3,8 +3,8 @@
     <main class="main-block">
         <div class="section3 container">
 
-            <div id="modal" class="modal">
-                <div class="modal-content gamemodal ">
+            <div id="modal2" class="modal2">
+                <div class="modal2-content gamemodal ">
                     <h2>Quiz játék teljesítve!</h2>
                     <h5 id="modal-points">Eltalált kérdések: 0/0</h5>
                     <div class="d-flex justify-content-between align-items-center">

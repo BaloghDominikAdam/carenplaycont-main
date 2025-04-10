@@ -3,8 +3,8 @@
     <main class="main-block">
         <div class="section3 container">
 
-            <div id="modal" class="modal">
-                <div class="modal-content gamemodal ">
+            <div id="modal2" class="modal2">
+                <div class="modal2-content gamemodal ">
                     <h2>Wordle játék teljesítve!</h2>
                     <h5 id="modal-points">50 pontot szereztél ezzel a játékkal!</h5>
                     <div class="d-flex justify-content-between align-items-center">
@@ -179,7 +179,7 @@
             startup();
 
             function showModal(message, finalpoints) {
-                const modal = document.getElementById('modal');
+                const modal = document.getElementById('modal2');
                 const modalPoints = document.getElementById('modal-points');
                 const hiddenPoints = document.getElementById('hidden-points');
 
@@ -189,7 +189,7 @@
             }
 
             document.getElementById('restart-btn').addEventListener('click', function() {
-                document.getElementById('modal').style.display = 'none';
+                document.getElementById('modal2').style.display = 'none';
             });
         </script>
     </main>
