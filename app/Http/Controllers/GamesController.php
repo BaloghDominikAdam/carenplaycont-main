@@ -83,9 +83,17 @@ public function multi(){
 
 
     public function quizgame(){
-        return view('quizgame');
+        return view('quizgame', [
+            'top'   => Player::select('Player_Username', 'Player_Points', 'users.user_profile_picture', 'users.User_Id')
+                            ->join('users', 'users.User_Id', 'player.User_Id')
+                            ->where('Played_Game_Name', 'Quiz Játék')
+                            ->orderBy('Player_Points', 'DESC')
+                            ->get()
+                            ->map(function ($item, $key) {
+                                $item->position = $key + 1;
+                                return $item; })
+        ]);
     }
-
 
     public function quizgameDATA(Request $request){
     $user = Auth::user();
@@ -120,7 +128,13 @@ public function multi(){
 
 
     public function wordlegame(){
-        return view('wordlegame');
+
+
+
+        return view('wordlegame', [
+
+
+        ]);
     }
 
     public function wordlegameDATA(Request $request){

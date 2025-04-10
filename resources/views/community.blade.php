@@ -57,19 +57,36 @@
                         <div class="row newpost">
                             <div class="col-md-12">
                                 @if (auth()->id() == $row->User_Id)
-                                    <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}" style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
-                                @else
-                                <a href="/profile/{{$row->User_Id}}">
+                                    @if ($row->user->user_profile_picture == 'assets/img/default-avatar.jpg')
+                                        <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                    @else
+                                        <a href="/profil"><img src="{{ Storage::url($row->user->user_profile_picture) }}"
+                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                    @endif
+                                @elseif (auth()->id() !== $row->User_Id)
+                                    @if ($row->user->user_profile_picture == 'assets/img/default-avatar.jpg')
+                                        <a href="/profile/{{ $row->User_Id }}"><img
+                                                src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                    @else
+                                        <a href="/profile/{{ $row->User_Id }}"><img
+                                                src="{{ Storage::url($row->user->user_profile_picture) }}"
+                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                    @endif
                                 @endif
 
 
 
-                                    @if ($row->user->user_profile_picture == "assets/img/default-avatar.jpg")
 
-                                    @else
+
+                                {{-- @if ($row->user->user_profile_picture == 'assets/img/default-avatar.jpg' && $row->user->User_Id !== auth()->id())
+                                    <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                            style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                @else
                                     <img src="{{ Storage::url($row->user->user_profile_picture) }}" alt="Profilkép"
-                                    style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
-                                    @endif
+                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                @endif --}}
 
 
                                 <p style="font-size: 15px; font-style:italic; float: right;"></a>

@@ -170,17 +170,17 @@ class UserController extends Controller
     public function showProfile($id)
     {
         $user = User::findOrFail($id);
+        $achievedBadges = $user->badges()->get();
         $posts = CommunityFeed::where('User_Id', $id)
             ->orderBy('User_Posted_Time', 'desc')
              ->get();
-        return view('profile.show', compact('user', 'posts'));
+        return view('profile.show', compact('user', 'posts', 'achievedBadges'));
     }
 
 
 
     public function update(Request $request)
     {
-        dd($request->all());
 
         $request->validate([
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -189,12 +189,10 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($request->hasFile('profile_picture')) {
-            dd($request->file('profile_picture'));
             if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
                 Storage::disk('public')->delete($user->user_profile_picture);
             }
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            dd($path);
             $user->user_profile_picture = $path;
             $user->save();
         }

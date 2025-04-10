@@ -3,7 +3,7 @@
     <main class="main-block">
         <div class="section3 container">
 
-            <div id="modal2" class="modal2">
+            <div id="modal2" class="modal">
                 <div class="modal2-content gamemodal ">
                     <h2>Quiz játék teljesítve!</h2>
                     <h5 id="modal-points">Eltalált kérdések: 0/0</h5>
@@ -20,69 +20,184 @@
                 </div>
             </div>
 
+            <div class="row w-100 py-4">
+                <div class="col-4" id="leaderboard">
+                    <div class="topcontainer d-grid">
+                        <p class="text-center text-black my-auto">Legjobb eredményed</p>
+                        <hr class="text-black w-100">
+                        @foreach ($top as $scoreboard)
+                            <div class="topscorerow w-100">
+                                <p class="text-black px-2">{{ $scoreboard->Player_Username }} -
+                                    {{ $scoreboard->Player_Points }}
+                                </p>
+                            </div>
+                        @endforeach
 
-            <div class="config-container">
-                <h2 class="config-title">Quiz Játék</h2>
-
-
-                <div class="config-option">
-                    <h4 class="config-title">Válassz kategóriát!</h4>
-                    <div class="category-options">
-                        <button class="category-option active">Programozás</button>
-                        <button class="category-option">Földrajz</button>
-                        <button class="category-option">Matematika</button>
                     </div>
                 </div>
-                <div class="config-option">
-                    <h4 class="config-title">Kérdések száma legyen:</h4>
-                    <div class="question-options">
-                        <button class="question-option">5</button>
-                        <button class="question-option active">10</button>
-                        <button class="question-option">15</button>
-                        <button class="question-option">20</button>
-                        <button class="question-option">25</button>
+                <div class="col-4">
+                    <div class="config-container">
+                        <h2 class="config-title">Quiz Játék</h2>
+
+
+                        <div class="config-option">
+                            <h4 class="config-title">Válassz kategóriát!</h4>
+                            <div class="category-options">
+                                <button class="category-option active">Programozás</button>
+                                <button class="category-option">Földrajz</button>
+                                <button class="category-option">Matematika</button>
+                            </div>
+                        </div>
+                        <div class="config-option">
+                            <h4 class="config-title">Kérdések száma legyen:</h4>
+                            <div class="question-options">
+                                <button class="question-option">5</button>
+                                <button class="question-option active">10</button>
+                                <button class="question-option">15</button>
+                                <button class="question-option">20</button>
+                                <button class="question-option">25</button>
+                            </div>
+
+
+
+                            <button class="start-quiz-btn">Kezdjük!</button>
+                        </div>
                     </div>
 
+                    <div class="quiz-container">
+                        <header class="quiz-header">
+                            <h2 class="quiz-title">Quiz Játék</h2>
+                            <h5 id="points" class="text-center fs-3">Pontszám: <span class="points-number">0</span></h5>
+                            <div class="quiz-timer d-flex">
+
+                                <span class="material-symbols-outlined my-auto">
+                                    timer
+                                </span>
+                                <p class="time-duration fs-5 my-auto">15mp</p>
+                            </div>
+                        </header>
 
 
-                    <button class="start-quiz-btn">Kezdjük!</button>
-                </div>
-            </div>
+                        <div class="quiz-content">
+                            <h1 class="question-text text-black" id="question-text"></h1>
+                            <ul class="answer-options">
 
-            <div class="quiz-container">
-                <header class="quiz-header">
-                    <h2 class="quiz-title">Quiz Játék</h2>
-                    <h5 id="points" class="text-center fs-3">Pontszám: <span class="points-number">0</span></h5>
-                    <div class="quiz-timer d-flex">
-
-                        <span class="material-symbols-outlined my-auto">
-                            timer
-                        </span>
-                        <p class="time-duration fs-5 my-auto">15mp</p>
+                            </ul>
+                        </div>
+                        <div class="quiz-footer">
+                            <p class="question-status text-black"></p>
+                            <button class="next-question my-auto">Következő ->
+                            </button>
+                        </div>
                     </div>
-                </header>
 
-
-                <div class="quiz-content">
-                    <h1 class="question-text text-black" id="question-text"></h1>
-                    <ul class="answer-options">
-
-                    </ul>
+                    <div class="result-container">
+                        <img src="auto.jpg" alt="quiz-over.png" class="result-img">
+                        <h2 class="result-title">Quiz teljesítve!</h2>
+                        <p class="result-message"></p>
+                        <button class="save-again-btn">Mentés</button>
+                        <button class="try-again-btn">Újra játszom</button>
+                    </div>
                 </div>
-                <div class="quiz-footer">
-                    <p class="question-status text-black"></p>
-                    <button class="next-question my-auto">Következő ->
-                    </button>
+                <div class="col-4" id="leaderboard">
+                    <div class="topcontainer d-grid">
+                        <p class="text-center text-black my-auto">Eredményjelző tábla</p>
+                        <hr class="text-black w-100">
+                        @foreach ($top as $scoreboard)
+                            <div class="topscorerow w-100 ">
+                                <div class="ember d-flex px-3 w-100">
+                                    <div class="profinfo d-flex w-50">
+                                        {{-- <p class="text-black my-auto px-2 ps-1">{{ $scoreboard->position }}</p> --}}
+                                        @if (auth()->id() == $scoreboard->User_Id)
+                                            @if ($scoreboard->user_profile_picture == 'assets/img/default-avatar.jpg')
+                                                <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                                        style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @else
+                                                <a href="/profil"><img
+                                                        src="{{ Storage::url($scoreboard->user_profile_picture) }}"
+                                                        style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @endif
+                                        @elseif (auth()->id() !== $scoreboard->User_Id)
+                                            @if ($scoreboard->user_profile_picture == 'assets/img/default-avatar.jpg')
+                                                <a href="/profile/{{ $scoreboard->User_Id }}"><img
+                                                        src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                                        style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @else
+                                                <a href="/profile/{{ $scoreboard->User_Id }}"><img
+                                                        src="{{ Storage::url($scoreboard->user_profile_picture) }}"
+                                                        style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @endif
+                                        @endif
+                                        <p class="text-black my-auto ms-3 fs-3">
+                                            {{ Str::limit($scoreboard->Player_Username, 10) }} <br>
+                                            {{ $scoreboard->Player_Points }} <span class="fs-5 text-muted">pont</span>
+                                        </p>
+                                    </div>
+                                    <div class="iconok d-flex w-50">
+                                        @if ($scoreboard->position === 1)
+                                            <img src="{{ asset('assets/img/firstplace.jpg') }}" alt="1. helyezett"
+                                                class="m-auto p-auto"
+                                                style="width: 50px; height: 50px; border-radius: 50px; object-fit: cover;">
+                                        @elseif($scoreboard->position === 2)
+                                            <img src="{{ asset('assets/img/secondplace.jpg') }}" alt="2. helyezett"
+                                                class="mx-auto my-auto"
+                                                style="width: 50px; height: 50px; border-radius: 50px; object-fit: cover;">
+                                        @elseif($scoreboard->position === 3)
+                                            <img src="{{ asset('assets/img/thirdplace.jpg') }}" alt="3. helyezett"
+                                                class="mx-auto my-auto"
+                                                style="width: 50px; height: 50px; border-radius: 50px; object-fit: cover;">
+                                        @endif
+                                    </div>
+
+
+
+                                </div>
+                                <hr class="text-black w-100">
+                            </div>
+                        @endforeach
+
+                    </div>
                 </div>
             </div>
+            {{-- <div class="row " id="leaderboard">
+                <div class="col-12 topcontainer py-4 ">
+                    <div class="row row-cols-1 row-cols-md-1 row-cols-l-2 row-cols-xl-3 ">
 
-            <div class="result-container">
-                <img src="auto.jpg" alt="quiz-over.png" class="result-img">
-                <h2 class="result-title">Quiz teljesítve!</h2>
-                <p class="result-message"></p>
-                <button class="save-again-btn">Mentés</button>
-                <button class="try-again-btn">Újra játszom</button>
-            </div>
+                        <div class="top1">
+                            @foreach ($top1 as $elso)
+                                <div class="col elso">
+                                    <p class="p-5">{{ $elso->Player_Username }} - {{ $elso->Player_Points }} pontot ért
+                                        el</p>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="top2">
+                            @foreach ($top2 as $masodik)
+                                <div class="col  masodik">
+                                    <p class="p-5">{{ $masodik->Player_Username }} - {{ $masodik->Player_Points }} pontot
+                                        ért el</p>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="top3">
+                            @foreach ($top3 as $harmadik)
+                                <div class="col  harmadik">
+                                    <p class="p-5">{{ $harmadik->Player_Username }} - {{ $harmadik->Player_Points }}
+                                        pontot ért el</p>
+                                </div>
+                            @endforeach
+                        </div>
+
+
+                        @foreach ($top as $legjobbak)
+                            <div class="col mx-5 topbox">
+                                <p>{{ $legjobbak->Player_Username }} - {{ $legjobbak->Player_Points }} pontot ért el</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div> --}}
+
 
 
 
@@ -97,6 +212,7 @@
             const questionStatus = document.querySelector(".question-status");
             const timerDisplay = document.querySelector(".time-duration");
             const resultContainer = document.querySelector(".result-container");
+            const leaderboard = document.querySelector(".leaderboard");
 
             const QUIZ_TIME_LIMIT = 15;
             let timer = null;
@@ -132,7 +248,7 @@
 
             const showQuizResult = () => {
                 quizContainer.style.display = "none";
-                const modal = document.getElementById('modal');
+                const modal = document.getElementById('modal2');
                 const modalPoints = document.getElementById('modal-points');
 
                 modal.style.display = "block";
@@ -665,12 +781,22 @@
                 resetTimerStyle();
             };
 
+            function hideScoreboard() {
+                leaderboard.style.display = "none";
+            }
+
+
+            function showModal() {
+                document.getElementById('modal2').style.display = 'block';
+            }
+
             const renderQuestion = () => {
                 currentQuestion = getRandomQuestion();
                 if (!currentQuestion) return;
 
                 resetTimer();
                 startTimer();
+
 
                 answerOptions.innerHTML = "";
                 nextQuestionBth.style.visibility = "hidden"
@@ -693,11 +819,20 @@
                 configContainer.style.display = "none";
                 quizContainer.style.display = "block";
 
+
+
                 quizCategory = configContainer.querySelector(".category-option.active").textContent;
                 numberOfQuestions = parseInt(configContainer.querySelector(".question-option.active").textContent);
 
+
+
+
+
                 renderQuestion();
+
+
             }
+
 
 
             document.querySelectorAll(".category-option, .question-option").forEach(option => {

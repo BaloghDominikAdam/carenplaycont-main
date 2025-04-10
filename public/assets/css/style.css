@@ -1252,7 +1252,7 @@ a{
 
 
 
-:where(.config-container, .quiz-container, .result-container) {
+:where(.config-container, .quiz-container, .result-container, .topcontainer) {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.13);
@@ -1260,7 +1260,6 @@ a{
 
 .config-container{
     display: block;
-
     width: 415px;
     padding: 25px;
     margin: auto;
@@ -1586,3 +1585,38 @@ a{
 .translate-middle {
     transform: translate(-50%, -50%);
 }
+
+.topcontainer{
+    margin-top: 50px;
+    height: 385px;
+    overflow-y: scroll;
+}
+
+/* .elso, .masodik, .harmadik{
+    max-width: 450px;
+    width: auto;
+    background-color: #eaeaea3f;
+    border-radius: 45px;
+    height: auto;
+    padding: auto;
+}
+
+
+.elso{
+
+    box-shadow: 1px 2px 15px 4px #ffe6008d;
+}
+
+.masodik{
+    box-shadow: 1px 2px 15px 4px #9797978d;
+}
+
+.harmadik{
+    box-shadow: 1px 2px 15px 4px #ff7e068d;
+}
+ */
+
+
+ #leaderboard{
+    display: block;
+ }
