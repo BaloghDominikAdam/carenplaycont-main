@@ -60,6 +60,12 @@ return [
             'report' => false,
         ],
 
+        'profile_pictures' => [
+            'driver' => 'local',
+            'root' => public_path('assets/img/profile_picture'),
+            'url' => env('APP_URL').'/assets/img/profile_picture',
+            'visibility' => 'public',
+    ]
     ],
 
     /*

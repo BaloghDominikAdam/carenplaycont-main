@@ -31,8 +31,18 @@
 
 
 
-                                    <img src="{{ Storage::url($chatUser->user_profile_picture) }}" alt="Profilkép"
-                                        style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit:cover;">
+                                    @if ($chatUser->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                        <a href="/profile/{{ $chatUser->User_Id }}"><img
+                                                src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
+                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                    @else
+                                        <a href="/profile/{{ $chatUser->User_Id }}"><img
+                                                src="{{ asset('assets/img/profile_picture/' . $chatUser->user_profile_picture) }}"
+                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                    @endif
+                                    {{-- <img src="{{ asset('assets/img/profile_picture/' . $chatUser->user_profile_picture) }}"
+                                        alt="Profilkép"
+                                        style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit:cover;"> --}}
 
                                     <a href="{{ route('messages.show', $chatUser->User_id) }}"
                                         class="list-group-item list-group-item-action border-0 w-100">
@@ -144,17 +154,33 @@
                 const loggedInUserId = {!! auth()->id() !!};
 
                 userList.innerHTML = '';
+                //  && user.user_profile_picture == "assets/img/profile_picture/default-avatar.jpg" //
 
                 let hasResults = false;
                 users.forEach(user => {
                     if (user.User_id !== loggedInUserId && user.username.toLowerCase().includes(searchValue)) {
-                        hasResults = true;
-                        userList.innerHTML += `
+
+                        if (user.user_profile_picture == "assets/img/profile_picture/default-avatar.jpg") {
+                            hasResults = true;
+                            userList.innerHTML += `
                     <a href="{{ route('messages.show', '') }}/${user.User_id}" class="list-group-item list-group-item-action">
-                        <img src="{{ Storage::url('') }}/${user.user_profile_picture}" alt="Profilkép" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
+                        <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}" alt="Profilkép" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
                         ${user.username}
                     </a>
-                `;
+                `
+                        } else {
+                            hasResults = true;
+                            userList.innerHTML += `
+                    <a href="{{ route('messages.show', '') }}/${user.User_id}" class="list-group-item list-group-item-action">
+                        <img src="{{ asset('assets/img/profile_picture/${user.user_profile_picture}') }}" alt="Profilkép" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
+                        ${user.username}
+                    </a>
+                `
+                        }
+
+
+
+                        ;
                     }
                 });
 

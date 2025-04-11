@@ -114,7 +114,7 @@
                                                         style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                             @else
                                                 <a href="/profil"><img
-                                                        src="{{ Storage::url($scoreboard->user_profile_picture) }}"
+                                                        src="{{ asset('assets/img/profile_picture/' . $scoreboard->user_profile_picture) }}"
                                                         style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                             @endif
                                         @elseif (auth()->id() !== $scoreboard->User_Id)
@@ -124,7 +124,7 @@
                                                         style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                             @else
                                                 <a href="/profile/{{ $scoreboard->User_Id }}"><img
-                                                        src="{{ Storage::url($scoreboard->user_profile_picture) }}"
+                                                        src="{{ asset('assets/img/profile_picture/' . $scoreboard->user_profile_picture) }}"
                                                         style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                             @endif
                                         @endif

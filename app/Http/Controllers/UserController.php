@@ -179,38 +179,78 @@ class UserController extends Controller
 
 
 
+    // public function update(Request $request)
+    // {
+
+    //     $request->validate([
+    //         'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     $user = auth()->user();
+
+    //     if ($request->hasFile('profile_picture')) {
+    //         if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
+    //             Storage::disk('public')->delete($user->user_profile_picture);
+    //         }
+    //         $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+    //         $user->user_profile_picture = $path;
+    //         $user->save();
+    //     }
+
+    //     return redirect()->back()->with('success', 'Profilkép sikeresen frissítve!');
+    // }
+
+    // public function removeProfilePicture(Request $request)
+    // {
+    //     $user = auth()->user();
+
+    //     if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
+    //         Storage::disk('public')->delete($user->user_profile_picture);
+    //     }
+
+    //     $user->user_profile_picture = 'assets/img/default-avatar.jpg';
+    //     $user->save();
+
+    //     return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
+    // }
+
+
     public function update(Request $request)
-    {
+{
+    $request->validate([
+        'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $request->validate([
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+    $user = auth()->user();
 
-        $user = auth()->user();
-
-        if ($request->hasFile('profile_picture')) {
-            if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
-                Storage::disk('public')->delete($user->user_profile_picture);
-            }
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $user->user_profile_picture = $path;
-            $user->save();
-        }
-
-        return redirect()->back()->with('success', 'Profilkép sikeresen frissítve!');
-    }
-
-    public function removeProfilePicture(Request $request)
-    {
-        $user = auth()->user();
-
+    if ($request->hasFile('profile_picture')) {
+        // Régi kép törlése (ha nem az alapértelmezett)
         if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
-            Storage::disk('public')->delete($user->user_profile_picture);
+            Storage::disk('profile_pictures')->delete($user->user_profile_picture);
         }
 
-        $user->user_profile_picture = 'assets/img/default-avatar.jpg';
+        // Új kép mentése
+        $path = $request->file('profile_picture')->store('', 'profile_pictures'); // Üres string = root mappa
+        $user->user_profile_picture = $path;
         $user->save();
-
-        return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
     }
+
+    return redirect()->back()->with('success', 'Profilkép frissítve!');
+}
+
+public function removeProfilePicture(Request $request)
+{
+    $user = auth()->user();
+
+    // Kép törlése (ha nem az alapértelmezett)
+    if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
+        Storage::disk('profile_pictures')->delete($user->user_profile_picture);
+    }
+
+    // Alapértelmezett kép beállítása
+    $user->user_profile_picture = 'assets/img/default-avatar.jpg';
+    $user->save();
+
+    return redirect()->back()->with('success', 'Profilkép eltávolítva!');
+}
 }

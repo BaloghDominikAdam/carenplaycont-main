@@ -61,7 +61,8 @@
                                         <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}"
                                                 style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                     @else
-                                        <a href="/profil"><img src="{{ Storage::url($row->user->user_profile_picture) }}"
+                                        <a href="/profil"><img
+                                                src="{{ asset('assets/img/profile_picture/' . auth()->user()->user_profile_picture) }}"
                                                 style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                     @endif
                                 @elseif (auth()->id() !== $row->User_Id)
@@ -71,7 +72,7 @@
                                                 style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                     @else
                                         <a href="/profile/{{ $row->User_Id }}"><img
-                                                src="{{ Storage::url($row->user->user_profile_picture) }}"
+                                                src="{{ asset('assets/img/profile_picture/' . $row->user->user_profile_picture) }}"
                                                 style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                     @endif
                                 @endif

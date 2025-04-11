@@ -11,7 +11,7 @@
                                 <img src="{{ asset('assets/img/default-avatar.jpg') }}"
                                     style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
                             @else
-                                <img src="{{ Storage::url($user->user_profile_picture) }}"
+                                <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}"
                                     style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
                             @endif
 
@@ -62,7 +62,8 @@
                             <div class="row py-2">
                                 <div class="col-md-6 d-flex ">
                                     @if ($user->user_profile_picture !== 'assets/img/default-avatar.jpg')
-                                        <img src="{{ Storage::url($user->user_profile_picture) }}" alt="Profilkép"
+                                        <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}"
+                                            alt="Profilkép"
                                             style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit:cover;">
                                     @else
                                         <img src="{{ asset('assets/img/default-avatar.jpg') }}"
