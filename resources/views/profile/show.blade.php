@@ -7,8 +7,8 @@
                     <div class="col-md-6 profw">
                         <div class="d-grid">
 
-                            @if ($user->user_profile_picture == 'assets/img/default-avatar.jpg')
-                                <img src="{{ asset('assets/img/default-avatar.jpg') }}"
+                            @if ($user->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
                                     style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
                             @else
                                 <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}"
@@ -61,12 +61,12 @@
                         <div class="post">
                             <div class="row py-2">
                                 <div class="col-md-6 d-flex ">
-                                    @if ($user->user_profile_picture !== 'assets/img/default-avatar.jpg')
+                                    @if ($user->user_profile_picture !== 'assets/img/profile_picture/default-avatar.jpg')
                                         <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}"
                                             alt="Profilkép"
                                             style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit:cover;">
                                     @else
-                                        <img src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                        <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
                                             alt="Alapértelmezett profilkép"
                                             style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit:cover;">
                                     @endif

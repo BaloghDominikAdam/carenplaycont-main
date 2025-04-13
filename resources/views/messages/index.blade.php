@@ -20,8 +20,7 @@
                     <div class="previouschatscont py-5">
                         @foreach ($chatUsers as $chatUser)
                             <div class="py-2">
-                                <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_id == $chatUser->User_id) active-user @endif">
-
+                                <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_Id == $chatUser->User_Id) active-user @endif">
                                     @if ($chatUser->unread > 0)
                                         <span
                                             class="position-absolute top-0 start-0 translate-middle iconka rounded-pill bg-danger">
@@ -29,50 +28,45 @@
                                         </span>
                                     @endif
 
-
-
+                                    {{-- Profilkép --}}
                                     @if ($chatUser->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
-                                        <a href="/profile/{{ $chatUser->User_Id }}"><img
-                                                src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
-                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                        <a href="/profile/{{ $chatUser->User_Id }}">
+                                            <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
+                                                style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                        </a>
                                     @else
-                                        <a href="/profile/{{ $chatUser->User_Id }}"><img
-                                                src="{{ asset('assets/img/profile_picture/' . $chatUser->user_profile_picture) }}"
-                                                style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                        <a href="/profile/{{ $chatUser->User_Id }}">
+                                            <img src="{{ asset('assets/img/profile_picture/' . $chatUser->user_profile_picture) }}"
+                                                style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                        </a>
                                     @endif
-                                    {{-- <img src="{{ asset('assets/img/profile_picture/' . $chatUser->user_profile_picture) }}"
-                                        alt="Profilkép"
-                                        style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit:cover;"> --}}
 
+                                    {{-- Üzenet adatok --}}
                                     <a href="{{ route('messages.show', $chatUser->User_id) }}"
-                                        class="list-group-item list-group-item-action border-0 w-100">
+                                        class="list-group-item list-group-item-action border-0 w-100 px-3 my-auto">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            @if ($chatUser->unread > 0)
-                                                <span class="badge bg-danger">{{ $unread->unread }}</span>
-                                            @endif
-                                            <strong>{{ $chatUser->username }}</strong>
+                                            <strong class="fs-3">{{ $chatUser->username }}</strong>
                                             @if ($chatUser->lastMessage)
-                                                <small class="text-white fs-5 mr-auto">
+                                                <small class="text-white fs-6 mr-auto">
                                                     {{ $chatUser->lastMessage->created_at }}
                                                 </small>
                                             @endif
                                         </div>
+
                                         @if ($chatUser->lastMessage)
-                                            <p class="mb-0 text-muted fs-3">
-                                                @if ($chatUser->lastMessage->sender_id == auth()->id())
+                                            <p class="mb-0 text-muted fs-5">
+                                                @if ($chatUser->lastMessage->Sender_Id == auth()->id())
                                                     <strong>Te:</strong>
+                                                @else
+                                                    <strong class="fs-5">{{ $chatUser->username }}:</strong>
                                                 @endif
-                                                {{ Str::limit($chatUser->lastMessage->Message_Text, 10) }}
+                                                {{ Str::limit($chatUser->lastMessage->Message_Text, 20) }}
                                             </p>
-                                        @else
-                                            <p class="mb-0 text-muted">Nincs üzenet</p>
                                         @endif
                                     </a>
                                 </div>
                             </div>
                         @endforeach
-
-
                     </div>
                 </div>
 
@@ -82,20 +76,29 @@
                             style="height: 750px; overflow-y: scroll;background-color: #eaeaea3f;
                             box-shadow: 1px 1px 15px 1px #bdbdbd8d;
                             border-radius: 45px;">
-                            <div
-                                style="height:15px; background-color:rgba(152, 152, 152, 0.711); text-align:center; padding:0">
-                                <h3 class="text-center text-white px-auto"> {{ $user->username }}</h3>
+                            <div class="topconti p-3">
+                                <h2 class="text-center text-white px-auto"> {{ $user->username }}</h2>
                             </div>
 
 
-                            @foreach ($messages as $message)
+                            {{-- @foreach ($messages as $message)
                                 @if ($message->Sender_Id == auth()->id())
                                     <div class="p-3">
                                         <div class="uzenet1 ms-auto">
+                                            <small
+                                                style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
+                                            @if ($message->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                                <a href="/profil"><img
+                                                        src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
+                                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @else
+                                                <a href="/profil"><img
+                                                        src="{{ asset('assets/img/profile_picture/' . $message->user_profile_picture) }}"
+                                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @endif
                                             <div
                                                 class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
-                                                <small
-                                                    style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
+
 
                                                 <p>Te: </p>
 
@@ -105,10 +108,20 @@
                                     @else
                                         <div class="p-3">
                                             <div class="uzenet1 me-start">
+                                                <small
+                                                    style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
+                                                @if ($message->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                                    <a href="/profile/{{ $message->User_Id }}"><img
+                                                            src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
+                                                            style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                                @else
+                                                    <a href="/profile/{{ $message->User_Id }}"><img
+                                                            src="{{ asset('assets/img/profile_picture/' . $message->receiver_user_profile_picture) }}"
+                                                            style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                                @endif
                                                 <div
                                                     class="{{ $message->sender_id == auth()->id() ? 'text-right' : 'text-left' }}">
-                                                    <small
-                                                        style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
+
                                                     <p>{{ $message->username }} </p>
                                                     @if ($message->sender_id != auth()->id() && $message->new_message)
                                                         <span class="unread-dot"></span>
@@ -121,28 +134,88 @@
 
 
                         </div>
-                    @endforeach
-                    <div class="conti px-5">
-                        <form action="{{ route('messages.send') }}" method="POST">
-                            @csrf
-                            <div class="d-flex justify-content-center p-3">
+                    @endforeach --}}
 
-                                <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
-                                <a class="btn mx-1" href=""><i class="fa-solid fa-image"></i></a>
-                                <textarea name="message_text" class="form-control rounded-pill w-75 mx-1" rows="1" required></textarea>
-                                <button type="submit" class="btn mx-1">Küldés</button>
+                            @foreach ($messages as $message)
+                                @if ($message->Sender_Id == auth()->id())
+                                    {{-- Saját üzenet --}}
+                                    <div class="p-3">
+                                        <div class="uzenet1 ms-auto">
+                                            <small
+                                                style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
+
+                                            @if ($message->sender->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                                <a href="/profil">
+                                                    <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
+                                                        style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                                </a>
+                                            @else
+                                                <a href="/profil">
+                                                    <img src="{{ asset('assets/img/profile_picture/' . $message->sender->user_profile_picture) }}"
+                                                        style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                                </a>
+                                            @endif
+
+                                            <div class="text-left">
+                                                <p>Te: </p>
+                                                <p>{{ $message->Message_Text }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    {{-- Másik felhasználó üzenete --}}
+                                    <div class="p-3">
+                                        <div class="uzenet1 me-start">
+                                            <small
+                                                style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
+
+                                            @if ($message->sender->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                                <a href="/profile/{{ $message->sender->User_Id }}">
+                                                    <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
+                                                        style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                                </a>
+                                            @else
+                                                <a href="/profile/{{ $message->sender->User_Id }}">
+                                                    <img src="{{ asset('assets/img/profile_picture/' . $message->sender->user_profile_picture) }}"
+                                                        style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                                </a>
+                                            @endif
+
+                                            <div class="text-left">
+                                                <p>{{ $message->sender->username }} </p>
+                                                @if ($message->new_message)
+                                                    <span class="unread-dot"></span>
+                                                @endif
+                                                <p>{{ $message->Message_Text }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
 
 
+
+                            <div class="conti px-5">
+                                <form action="{{ route('messages.send') }}" method="POST">
+                                    @csrf
+                                    <div class="d-flex justify-content-center align-items-center p-3 ps-5 ms-5 ">
+
+                                        <input type="hidden" name="receiver_id" value="{{ $user->User_id }}">
+                                        {{-- <a class="btn mx-1" href=""><i class="fa-solid fa-image"></i></a> --}}
+                                        <textarea name="message_text" class="form-control rounded-pill w-75 mx-1" rows="1" required></textarea>
+                                        <button type="submit" class="btn mx-1">Küldés</button>
+
+
+                                    </div>
+
+                                </form>
                             </div>
-
-                        </form>
-                    </div>
+                        </div>
+                    @else
+                        <h3 class="text-center "><b>Válassz egy felhasználót a beszélgetéshez</b></h3>
+                    @endif
                 </div>
-            @else
-                <h3 class="text-center "><b>Válassz egy felhasználót a beszélgetéshez</b></h3>
-                @endif
             </div>
-        </div>
         </div>
 
         <script>

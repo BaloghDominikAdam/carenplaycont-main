@@ -169,12 +169,20 @@ class UserController extends Controller
 
     public function showProfile($id)
     {
+
+        if($id == auth()->id())
+        return redirect('/profil');
+    else{
         $user = User::findOrFail($id);
         $achievedBadges = $user->badges()->get();
         $posts = CommunityFeed::where('User_Id', $id)
             ->orderBy('User_Posted_Time', 'desc')
              ->get();
         return view('profile.show', compact('user', 'posts', 'achievedBadges'));
+    }
+
+
+
     }
 
 

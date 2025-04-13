@@ -344,8 +344,8 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #d8d8d85e;
-    box-shadow: 1px 1px 55px 1px #d8d8d83f;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
     border-radius: 60px;
     margin: auto;
     margin-top: 20px;
@@ -940,8 +940,16 @@ main{
 
 
 .conti{
-    position: sticky;
+    position: absolute;
     bottom: 0;
+    backdrop-filter: blur(5px);
+    width: 95%;
+    border-radius: 45px;
+}
+
+.topconti{
+    position: sticky;
+    top: 0;
     backdrop-filter: blur(5px);
     width: 100%;
     border-radius: 45px;

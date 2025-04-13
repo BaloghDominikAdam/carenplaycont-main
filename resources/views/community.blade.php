@@ -66,9 +66,9 @@
                                                 style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                     @endif
                                 @elseif (auth()->id() !== $row->User_Id)
-                                    @if ($row->user->user_profile_picture == 'assets/img/default-avatar.jpg')
+                                    @if ($row->user->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
                                         <a href="/profile/{{ $row->User_Id }}"><img
-                                                src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                                src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
                                                 style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                     @else
                                         <a href="/profile/{{ $row->User_Id }}"><img

@@ -52,12 +52,12 @@ class User extends Authenticatable
 
     public function sentMessages()
     {
-        return $this->hasMany(Message::class, 'sender_id', 'User_id');
+        return $this->hasMany(Message::class, 'Sender_Id', 'User_Id');
     }
 
     public function receivedMessages()
     {
-        return $this->hasMany(Message::class, 'receiver_id', 'User_id');
+        return $this->hasMany(Message::class, 'Receiver_Id', 'User_Id');
     }
 
 
