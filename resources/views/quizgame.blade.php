@@ -21,7 +21,7 @@
             </div>
 
             <div class="row w-100 py-4">
-                <div class="col-4" id="leaderboard">
+                <div class="col-4" id="leaderboard1">
                     <div class="topcontainer d-grid">
                         <p class="text-center text-black my-auto">Legjobb eredményed</p>
                         <hr class="text-black w-100">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="quiz-container">
+                    <div class="quiz-container" id="main">
                         <header class="quiz-header">
                             <h2 class="quiz-title">Quiz Játék</h2>
                             <h5 id="points" class="text-center fs-3">Pontszám: <span class="points-number">0</span></h5>
@@ -99,7 +99,7 @@
                         <button class="try-again-btn">Újra játszom</button>
                     </div>
                 </div>
-                <div class="col-4" id="leaderboard">
+                <div class="col-4" id="leaderboard2">
                     <div class="topcontainer d-grid">
                         <p class="text-center text-black my-auto">Eredményjelző tábla</p>
                         <hr class="text-black w-100">
@@ -781,9 +781,6 @@
                 resetTimerStyle();
             };
 
-            function hideScoreboard() {
-                leaderboard.style.display = "none";
-            }
 
 
             function showModal() {
@@ -814,11 +811,18 @@
                 });
             }
 
+            function hideLeaderboard() {
+                document.getElementById('leaderboard2').style.display = 'none';
+                document.getElementById('leaderboard1').style.display = 'none';
+
+
+            }
 
             const startQuiz = () => {
+                hideLeaderboard();
                 configContainer.style.display = "none";
-                quizContainer.style.display = "block";
-
+                quizContainer.style.display = "grid";
+                quizContainer.classList.add("m-auto");
 
 
                 quizCategory = configContainer.querySelector(".category-option.active").textContent;

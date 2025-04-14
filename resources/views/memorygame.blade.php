@@ -268,7 +268,7 @@
             }
 
             function showModal() {
-                document.getElementById('modal').style.display = 'block';
+                document.getElementById('modal2').style.display = 'block';
             }
 
             function sendPointsToServer(points) { // laravel backend + js api = fullstack
