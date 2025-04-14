@@ -23,7 +23,7 @@
                         </div>
 
                         <div class="profile-info">
-                            <p><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></p>
+                            <p><a class="fs-2" href="mailto:{{ $user->email }}">{{ $user->email }}</a></p>
                         </div>
 
                     </div>
@@ -44,8 +44,8 @@
                                         @endif
 
                                         <div class="dropbox">
-                                            <p>{{ $badge->Badge_Name }}</p>
-                                            <p>{{ $badge->Badge_Description }}</p>
+                                            <h5 class="fw-bold mb-2 fs-3">{{ $badge->Badge_Name }}</h5>
+                                            <p class="small fs-5 text-wrap">{{ $badge->Badge_Description }}</p>
                                         </div>
 
                                     </div>
@@ -57,46 +57,69 @@
                 </div>
 
             </div>
-            <h5 class="text-white py-3 text-center display-6" style="font-family:FairyDustB">Bejegyzések</h5>
+            <h5 class="text-white py-3 text-center display-6" style="font-family:FairyDustB">Véleményei</h5>
             @foreach ($posts as $post)
                 <div class="row newpost">
                     <div class="col-md-12">
                         <div class="post">
                             <div class="row py-2">
-                                <div class="col-md-6 d-flex ">
-                                    @if ($user->user_profile_picture !== 'assets/img/profile_picture/default-avatar.jpg')
-                                        <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}"
-                                            alt="Profilkép"
-                                            style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit:cover;">
-                                    @else
-                                        <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
-                                            alt="Alapértelmezett profilkép"
-                                            style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit:cover;">
-                                    @endif
-                                    <p class="my-auto ms-3">{{ $post->user->username }}</p>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <p style="font-size: 15px; font-style:italic; float: right; margin-top: 0;">
-                                        {{ date_format(date_create($post['User_Posted_Time']), 'Y. m. d. H:i:s') }}
-                                    </p>
-                                </div>
+                                <div class="col-md-12">
+                                    <div class="rating-display d-flex" style="float: right; font-style:italic">
+                                        <div class="star-rating" data-rating="{{ $post->Games_Review }}"></div>
+                                        <span class="rating-text my-auto">({{ $post->Games_Review }} /5)</span>
+                                    </div>
+                                    <div class="personal d-flex ">
+                                        @if (auth()->id() == $post->Games_Review_User_Id)
+                                            @if ($post->user->user_profile_picture == 'assets/img/default-avatar.jpg')
+                                                <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @else
+                                                <a href="/profil"><img
+                                                        src="{{ asset('assets/img/profile_picture/' . auth()->user()->user_profile_picture) }}"
+                                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @endif
+                                        @elseif (auth()->id() !== $post->Games_Review_User_Id)
+                                            @if ($post->user->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                                <a href="/profile/{{ $post->Games_Review_User_Id }}"><img
+                                                        src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
+                                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @else
+                                                <a href="/profile/{{ $post->Games_Review_User_Id }}"><img
+                                                        src="{{ asset('assets/img/profile_picture/' . $post->user->user_profile_picture) }}"
+                                                        style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
+                                            @endif
+                                        @endif
 
 
+
+
+
+                                        <div class="d-grid">
+                                            <p class="px-3">{{ $post->user->username }}</p>
+                                            <p style="font-size: 15px; font-style:italic;" class="text-muted px-3">
+                                                {{ date_format(date_create($post->User_Posted_Time), 'Y. m. d. H:i:s') }}
+                                            </p>
+                                        </div>
+
+
+                                    </div>
+                                    <p class="my-3" style="font-style: italic">{{ $post->Game_Review_Name }}</p>
+                                    <p>{{ $post->Games_Review_Text }}</p>
+
+
+                                </div>
                             </div>
-                            <div class="row py-2">
-                                <div class="col">
-                                    <p class="my-auto">{{ $post['User_Message'] }}</p>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             @endforeach
 
         </div>
     </main>
+
+    <script>
+        document.querySelectorAll('.star-rating').forEach(element => {
+            const rating = parseInt(element.dataset.rating);
+            element.innerHTML = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        });
+    </script>
 @endsection
 
 

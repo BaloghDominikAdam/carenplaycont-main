@@ -1212,34 +1212,84 @@ a{
 }
 
 
-.achievements {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+.badges-section {
+    max-width: 100%;
+    /* overflow-x: auto; */
+    padding: 20px 0;
 }
 
-
-
-.badges{
+.badges {
     display: flex;
+    gap: 15px;
+    padding: 10px;
+    /* width: max-content; */
 }
 
 .badge {
-    display: inline-block;
+    position: relative;
     text-align: center;
-    margin: 10px;
-
+    min-width: 80px; /* Megegyezik a kép méretével */
+    transition: transform 0.3s ease;
 }
 
+.badge:hover {
+    transform: scale(1.1);
+}
 
 .badge img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 15px;
+    cursor: pointer;
+    transition: filter 0.3s ease;
 }
-.dropbox{
-    display: none;
+
+.badge img:hover {
+    filter: brightness(1.1) drop-shadow(0 0 5px rgba(0,0,0,0.3));
 }
+
+/* Dropbox stílusok */
+.dropbox {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #eaeaea3f;
+    box-shadow: 1px 1px 15px 1px #a4a4a48d;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.badge:hover .dropbox {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+/* Görgetősáv stílus (opcionális) */
+.badges-section::-webkit-scrollbar {
+    height: 8px;
+}
+
+.badges-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.badges-section::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.badges-section::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 
 
 @media only screen and (max-width: 1200px) {
@@ -1251,15 +1301,10 @@ a{
     }
 }
 
-/* .badge img:hover  + .dropbox{
-    display: block;
-} */
+.badge img:hover + .dropbox{
+    visibility:visible;
 
-
-
-
-
-
+}
 
 :where(.config-container, .quiz-container, .result-container, .topcontainer) {
     background-color: white;
@@ -1304,8 +1349,6 @@ a{
     padding: 0 30px;
     justify-content: center;
 }
-
-
 
 .config-option button{
     padding:12px;
@@ -1629,3 +1672,39 @@ a{
  #leaderboard{
     display: block;
  }
+
+ .card{
+    width: 25rem;
+    border-radius: 15px;
+ }
+ .card-title, .card-text{
+    text-align: center;
+    color: black;
+ }
+
+ .card video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.rounded-top-only {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+.rating-display {
+    font-size: 34px;
+}
+.star-rating{
+    color: gold;
+}
+.rating-display .rating-text {
+    font-size: 14px;
+    color: #666;
+    margin-left: 8px;
+    vertical-align: middle;
+}

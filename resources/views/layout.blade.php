@@ -37,7 +37,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/community"><i class="fa-solid fa-globe"></i></a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('messages.index') }}">
 
                             @if ($totalUnread > 0)
@@ -47,6 +47,20 @@
                                         <span class="visually-hidden">Olvasatlan üzenetek</span></i>
 
                                 </span>
+                            @else
+                                <i class="fa-solid fa-comments"></i>
+                            @endif
+                        </a>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ $messagesUrl ?? route('messages.index') }}">
+                            @if ($totalUnread > 0)
+                                <i class="fa-solid fa-comments">
+                                    <span class="translate-middle iconka rounded-pill bg-danger fs-5">
+                                        {{ $totalUnread }}
+                                        <span class="visually-hidden">Olvasatlan üzenetek</span>
+                                    </span>
+                                </i>
                             @else
                                 <i class="fa-solid fa-comments"></i>
                             @endif

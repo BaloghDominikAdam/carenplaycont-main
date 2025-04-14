@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\CommunityFeed;
+use App\Models\Reviews;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
@@ -107,7 +107,12 @@ class UserController extends Controller
             $user = Auth::user();
             $achievedBadges = $user->badges()->get();
         $allBadges = Badge::all();
-    return view('profil', compact('user', 'achievedBadges', 'allBadges'));
+
+        $posts = Reviews::with('user')
+            ->where('Games_Review_User_Id', auth()->id())
+            ->OrderBy('User_Posted_Time', 'DESC')
+            ->get();
+    return view('profil', compact('user', 'achievedBadges', 'allBadges', 'posts'));
 
         } else{
             return redirect('/login', [
@@ -175,7 +180,9 @@ class UserController extends Controller
     else{
         $user = User::findOrFail($id);
         $achievedBadges = $user->badges()->get();
-        $posts = CommunityFeed::where('User_Id', $id)
+
+
+        $posts = Reviews::where('Games_Review_User_Id', $id)
             ->orderBy('User_Posted_Time', 'desc')
              ->get();
         return view('profile.show', compact('user', 'posts', 'achievedBadges'));

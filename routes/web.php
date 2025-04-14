@@ -59,3 +59,9 @@ Route::post('/quizgame', [GamesController::class, 'quizgameDATA']);
 
 Route::get('/wordlegame', [GamesController::class, 'wordlegame']);
 Route::post('/wordlegame', [GamesController::class, 'wordlegameDATA']);
+
+Route::get('/husznegyvennyolc', [GamesController::class, 'husznegyvennyolc']);
+Route::post('/husznegyvennyolc', [GamesController::class, 'husznegyvennyolcDATA']);
+
+
+

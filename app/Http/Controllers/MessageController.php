@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\User;
+use App\Models\UserBadge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -76,25 +77,23 @@ public function index()
                 }])
                 ->get()
                 ->map(function($user) {
-                    // Összes üzenet egyesítése és rendezése
-                    $allMessages = $user->sentMessages
-                        ->merge($user->receivedMessages)
-                        ->sortByDesc('created_at');
+                    $lastMessage = Message::where(function($q) use ($user) {
+                        $q->where('sender_id', $user->User_id)
+                          ->where('receiver_id', auth()->id());
+                    })
+                    ->orWhere(function($q) use ($user) {
+                        $q->where('sender_id', auth()->id())
+                          ->where('receiver_id', $user->User_id);
+                    })
+                    ->latest()
+                    ->first();
 
-                    $user->lastMessage = $allMessages->first();
-
-                    // Olvasatlan üzenetek számolása
-                    $user->unread = $user->receivedMessages
-                        ->where('sender_id', $user->User_Id)
-                        ->where('receiver_id', auth()->id())
-                        ->where('is_read', false)
-                        ->count();
-
-                    return $user;
-                })
-                ->sortByDesc(function($user) {
-                    return $user->lastMessage ? $user->lastMessage->created_at : null;
-                });
+                $user->lastMessage = $lastMessage;
+                return $user;
+            })
+            ->sortByDesc(function($user) {
+                return $user->lastMessage ? $user->lastMessage->created_at : now()->subYear();
+            });
 
     return view('messages.index', compact('users', 'chatUsers'));
 }
@@ -161,18 +160,7 @@ public function index()
         return $user->lastMessage ? $user->lastMessage->created_at : now()->subYear();
     });
 
-    // 4. Üzenetek lekérése
-    // $messages = Message::with(['sender', 'receiver'])
-    // ->where(function($query) use ($user) {
-    //     $query->where('sender_id', auth()->id())
-    //           ->where('receiver_id', $user->User_id);
-    // })
-    // ->orWhere(function($query) use ($user) {
-    //     $query->where('sender_id', $user->User_id)
-    //           ->where('receiver_id', auth()->id());
-    // })
-    // ->orderBy('created_at', 'asc')
-    // ->get();
+
 
     $messages = Message::with([
         'sender:User_Id,username,user_profile_picture',
@@ -204,8 +192,43 @@ public function index()
             'Receiver_Id' => $request->receiver_id,
             'Message_Text' => $request->message_text,
             'New_Message' => 1
+
         ]);
 
-        return redirect()->route('messages.show', $request->receiver_id);
+        $dbuzenet = Message::where('Sender_Id', auth()->id())
+        ->count();
+
+        if($dbuzenet == 10){
+            $data = new UserBadge;
+            $data->User_Id = auth()->id();
+            $data->Badges_Id = 4;
+            $data->Achieved_At = now();
+            $data->Save();
+            return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+        }
+
+
+        $letezobadge = UserBadge::where('User_Id', auth()->id())
+        ->where('Badges_Id', 3)
+        ->exists();
+
+        if(!$letezobadge){
+            $data = new UserBadge;
+            $data->User_Id = auth()->id();
+            $data->Badges_Id = 3;
+            $data->Achieved_At = now();
+            $data->Save();
+            return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+        }
+        else{
+            return redirect()->route('messages.show', $request->receiver_id);
+        }
+
+
+
+
+
+
+
     }
 }

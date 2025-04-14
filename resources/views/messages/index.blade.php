@@ -8,15 +8,16 @@
                 <div class="col-md-4 leftpanel py-5 px-4">
                     <div class="form-group">
                         <div id="user-list-container">
-                        <input type="text" id="search" placeholder="Keresés a felhasználók között..."
-                            class="form-control w-100 rounded-pill" autocomplete="off">
-                        <div id="user-list" class="list-group mt-2" style="display: none;">
-                            <ul id="user-list" class="list-group">
+                            <input type="text" id="search" placeholder="Keresés a felhasználók között..."
+                                class="form-control w-100 rounded-pill" autocomplete="off">
+                            <div id="user-list" class="list-group mt-2" style="display: none;">
+                                <ul id="user-list" class="list-group">
 
-                            </ul>
-                        </div>
-                        <div id="no-results" class="text-muted mt-2 text-danger text-center" style="display: none;">Nincs
-                            ilyen felhasználó</div>
+                                </ul>
+                            </div>
+                            <div id="no-results" class="text-muted mt-2 text-danger text-center" style="display: none;">
+                                Nincs
+                                ilyen felhasználó</div>
                         </div>
                     </div>
                     <div class="previouschatscont py-5">
@@ -24,11 +25,11 @@
                             <div class="py-2">
                                 <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_id == $chatUser->User_id) active-user @endif">
                                     @if ($chatUser->unread > 0)
-                                        <span
-                                            class="position-absolute top-0 start-0 translate-middle iconka rounded-pill bg-danger">
+                                        <span class="h-25 iconka rounded-pill bg-danger">
                                             {{ $chatUser->unread }}
                                         </span>
                                     @endif
+
 
                                     {{-- Profilkép --}}
                                     @if ($chatUser->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
@@ -43,16 +44,14 @@
                                         </a>
                                     @endif
 
+
                                     {{-- Üzenet adatok --}}
                                     <a href="{{ route('messages.show', $chatUser->User_id) }}"
                                         class="list-group-item list-group-item-action border-0 w-100 px-3 my-auto">
-                                        <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-grid justify-content-between align-items-center">
                                             <strong class="fs-3">{{ $chatUser->username }}</strong>
-                                            @if ($chatUser->lastMessage)
-                                                <small class="text-white fs-6 mr-auto">
-                                                    {{ $chatUser->lastMessage->created_at }}
-                                                </small>
-                                            @endif
+
+
                                         </div>
 
                                         @if ($chatUser->lastMessage)
@@ -63,8 +62,12 @@
                                                     <strong class="fs-5">{{ $chatUser->username }}:</strong>
                                                 @endif
                                                 {{ Str::limit($chatUser->lastMessage->Message_Text, 20) }}
+                                                <small class="text-white fs-6 mr-auto" style="float: right">
+                                                    {{ $chatUser->lastMessage->created_at }}
+                                                </small>
                                             </p>
                                         @endif
+
                                     </a>
                                 </div>
                             </div>
@@ -168,8 +171,7 @@
                                     {{-- Másik felhasználó üzenete --}}
                                     <div class="p-3">
                                         <div class="uzenet1 me-start">
-                                            <small
-                                                style="float: right"><i>{{ date_format(date_create($message->created_at), 'Y-m-d H:i:s') }}</i></small>
+                                            <small style="float: right"><i>{{ $message->created_at }}</i></small>
 
                                             @if ($message->sender->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
                                                 <a href="/profile/{{ $message->sender->User_Id }}">
@@ -185,7 +187,7 @@
 
                                             <div class="text-left">
                                                 <p>{{ $message->sender->username }} </p>
-                                                @if ($message->new_message)
+                                                @if ($message->New_Message)
                                                     <span class="unread-dot"></span>
                                                 @endif
                                                 <p>{{ $message->Message_Text }} </p>
@@ -305,19 +307,25 @@
         </script>
         <style>
             #user-list-container {
-                position: relative; /* This establishes a positioning context */
+                position: relative;
+                /* This establishes a positioning context */
             }
 
             #user-list {
-                position: absolute; /* Takes the element out of normal document flow */
-                width: 100%; /* Matches the width of its container */
+                position: absolute;
+                /* Takes the element out of normal document flow */
+                width: 100%;
+                /* Matches the width of its container */
                 max-height: 300px;
                 overflow-y: auto;
                 border: 1px solid #ddd;
                 border-radius: 4px;
-                background: white; /* Important for overlapping content */
-                z-index: 1000; /* Ensures it appears above other content */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds visual depth */
+                background: white;
+                /* Important for overlapping content */
+                z-index: 1000;
+                /* Ensures it appears above other content */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                /* Optional: adds visual depth */
             }
 
             #user-list .list-group-item {

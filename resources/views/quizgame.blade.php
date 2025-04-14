@@ -25,17 +25,19 @@
                     <div class="topcontainer d-grid">
                         <p class="text-center text-black my-auto">Legjobb eredményed</p>
                         <hr class="text-black w-100">
-                        @foreach ($top as $scoreboard)
-                            <div class="topscorerow w-100">
-                                <p class="text-black px-2">{{ $scoreboard->Player_Username }} -
-                                    {{ $scoreboard->Player_Points }}
+                        <div class="topscorerow w-100">
+
+                            @foreach ($ownbest as $tied)
+                                <p class="text-black text-center px-2">
+                                    {{ $tied->Player_Points }} <span class="fs-5 text-muted">pont</span>
                                 </p>
-                            </div>
-                        @endforeach
+                            @endforeach
+
+                        </div>
 
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4" id="mainquizs">
                     <div class="config-container">
                         <h2 class="config-title">Quiz Játék</h2>
 
@@ -66,8 +68,9 @@
 
                     <div class="quiz-container" id="main">
                         <header class="quiz-header">
-                            <h2 class="quiz-title">Quiz Játék</h2>
-                            <h5 id="points" class="text-center fs-3">Pontszám: <span class="points-number">0</span></h5>
+                            <h2 class="quiz-title w-25">Quiz Játék</h2>
+                            <h5 id="points" class="text-center fs-4">Pontszám: <span
+                                    class="points-number text-center text-black fs-4">0</span></h5>
                             <div class="quiz-timer d-flex">
 
                                 <span class="material-symbols-outlined my-auto">
@@ -109,8 +112,9 @@
                                     <div class="profinfo d-flex w-50">
                                         {{-- <p class="text-black my-auto px-2 ps-1">{{ $scoreboard->position }}</p> --}}
                                         @if (auth()->id() == $scoreboard->User_Id)
-                                            @if ($scoreboard->user_profile_picture == 'assets/img/default-avatar.jpg')
-                                                <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                            @if ($scoreboard->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
+                                                <a href="/profil"><img
+                                                        src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
                                                         style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                             @else
                                                 <a href="/profil"><img
@@ -118,9 +122,9 @@
                                                         style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                             @endif
                                         @elseif (auth()->id() !== $scoreboard->User_Id)
-                                            @if ($scoreboard->user_profile_picture == 'assets/img/default-avatar.jpg')
+                                            @if ($scoreboard->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
                                                 <a href="/profile/{{ $scoreboard->User_Id }}"><img
-                                                        src="{{ asset('assets/img/default-avatar.jpg') }}"
+                                                        src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
                                                         style="width: 50px; height: 50px; border-radius: 50px; cursor: pointer; object-fit: cover;"></a>
                                             @else
                                                 <a href="/profile/{{ $scoreboard->User_Id }}"><img
@@ -253,7 +257,7 @@
 
                 modal.style.display = "block";
                 modalPoints.textContent = `Pontszám: ${points} (${correctAnswerCount}/${numberOfQuestions} kérdés)`;
-                document.getElementById('hidden-points').value = points; // Send points to server
+                document.getElementById('hidden-points').value = points; 
             };
 
 
@@ -814,6 +818,11 @@
             function hideLeaderboard() {
                 document.getElementById('leaderboard2').style.display = 'none';
                 document.getElementById('leaderboard1').style.display = 'none';
+                document.getElementById('leaderboard2').classList.remove('col-4');
+                document.getElementById('leaderboard1').classList.remove('col-4');
+                document.getElementById('mainquizs').classList.remove('col-4');
+                document.getElementById('mainquizs').classList.add('col-12');
+
 
 
             }
