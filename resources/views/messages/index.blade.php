@@ -7,6 +7,7 @@
             <div class="row rowchat">
                 <div class="col-md-4 leftpanel py-5 px-4">
                     <div class="form-group">
+                        <div id="user-list-container">
                         <input type="text" id="search" placeholder="Keresés a felhasználók között..."
                             class="form-control w-100 rounded-pill" autocomplete="off">
                         <div id="user-list" class="list-group mt-2" style="display: none;">
@@ -16,11 +17,12 @@
                         </div>
                         <div id="no-results" class="text-muted mt-2 text-danger text-center" style="display: none;">Nincs
                             ilyen felhasználó</div>
+                        </div>
                     </div>
                     <div class="previouschatscont py-5">
                         @foreach ($chatUsers as $chatUser)
                             <div class="py-2">
-                                <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_Id == $chatUser->User_Id) active-user @endif">
+                                <div class="previouschats d-flex p-3 @if (isset($user) && $user->User_id == $chatUser->User_id) active-user @endif">
                                     @if ($chatUser->unread > 0)
                                         <span
                                             class="position-absolute top-0 start-0 translate-middle iconka rounded-pill bg-danger">
@@ -30,12 +32,12 @@
 
                                     {{-- Profilkép --}}
                                     @if ($chatUser->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
-                                        <a href="/profile/{{ $chatUser->User_Id }}">
+                                        <a href="/profile/{{ $chatUser->User_id }}">
                                             <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
                                                 style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
                                         </a>
                                     @else
-                                        <a href="/profile/{{ $chatUser->User_Id }}">
+                                        <a href="/profile/{{ $chatUser->User_id }}">
                                             <img src="{{ asset('assets/img/profile_picture/' . $chatUser->user_profile_picture) }}"
                                                 style="width: 75px; height: 75px; border-radius: 50px; cursor: pointer; object-fit: cover;">
                                         </a>
@@ -302,11 +304,20 @@
             });
         </script>
         <style>
+            #user-list-container {
+                position: relative; /* This establishes a positioning context */
+            }
+
             #user-list {
+                position: absolute; /* Takes the element out of normal document flow */
+                width: 100%; /* Matches the width of its container */
                 max-height: 300px;
                 overflow-y: auto;
                 border: 1px solid #ddd;
                 border-radius: 4px;
+                background: white; /* Important for overlapping content */
+                z-index: 1000; /* Ensures it appears above other content */
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds visual depth */
             }
 
             #user-list .list-group-item {

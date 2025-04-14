@@ -14,9 +14,12 @@
                                 <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}"
                                     style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
                             @endif
+                            <a href="{{ route('messages.show', $user->User_id) }}"><i class="fa-solid fa-comments"></i></a>
 
 
                             <h5 class="pt-3 text-nowrap">{{ $user->username }} Profilja</h5>
+
+
                         </div>
 
                         <div class="profile-info">

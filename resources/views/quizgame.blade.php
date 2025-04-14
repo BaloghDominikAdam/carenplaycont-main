@@ -43,19 +43,19 @@
                         <div class="config-option">
                             <h4 class="config-title">Válassz kategóriát!</h4>
                             <div class="category-options">
-                                <button class="category-option active">Programozás</button>
-                                <button class="category-option">Földrajz</button>
-                                <button class="category-option">Matematika</button>
+                                <button class="category-option text-black active">Programozás</button>
+                                <button class="category-option text-black">Földrajz</button>
+                                <button class="category-option text-black">Matematika</button>
                             </div>
                         </div>
                         <div class="config-option">
                             <h4 class="config-title">Kérdések száma legyen:</h4>
-                            <div class="question-options">
-                                <button class="question-option">5</button>
-                                <button class="question-option active">10</button>
-                                <button class="question-option">15</button>
-                                <button class="question-option">20</button>
-                                <button class="question-option">25</button>
+                            <div class="question-options ">
+                                <button class="question-option text-black">5</button>
+                                <button class="question-option text-black active">10</button>
+                                <button class="question-option text-black">15</button>
+                                <button class="question-option text-black">20</button>
+                                <button class="question-option text-black">25</button>
                             </div>
 
 
