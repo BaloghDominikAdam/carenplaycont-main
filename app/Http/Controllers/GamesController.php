@@ -17,16 +17,19 @@ class GamesController extends Controller
 
 
 
-        UserBadge::where('User_Id', auth()->id())
-                            ->where('Badges_Id',5)
-                            ->exists();
-
         $count = Player::where('User_Id', $userId)
                      ->whereIn('Played_Game_Name', $requiredGames)
                      ->distinct('Played_Game_Name')
                      ->count();
 
-        return $count === count($requiredGames);
+
+                     if($count == 4){
+                        $count == true;
+                     }
+                     else{
+                        $count == false;
+                     }
+
     }
 
 
@@ -54,9 +57,6 @@ class GamesController extends Controller
         }
     }
 
-    public function solo(){
-        return view('solo');
-    }
 
     public function memorygame(){
         return view('memorygame');
@@ -74,11 +74,27 @@ class GamesController extends Controller
     $data->Played_Game_Name = "Memória Játék";
     $data->save();
 
+
+
+
+    $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
+
+    $count = Player::where('User_Id', auth()->id())
+                 ->whereIn('Played_Game_Name', $requiredGames)
+                 ->distinct('Played_Game_Name')
+                 ->count();
+
+
+                 if($count == 4){
+                    $count == true;
+                 }
+                 else{
+                    $count == false;
+                 }
+
     $existingBadge = UserBadge::where('User_Id', auth()->id())
     ->where('Badges_Id', 5)
     ->exists();
-
-
 
 
     $letezobadge = UserBadge::where('User_Id', auth()->id())
@@ -93,7 +109,7 @@ class GamesController extends Controller
         $data->Save();
         return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
     }
-    elseif($this->checkAllGamesBadge(auth()->id()) && !$existingBadge && $letezobadge) {
+    elseif($count == true && $letezobadge && !$existingBadge) {
         $data = new UserBadge;
         $data->User_Id = auth()->id();
         $data->Badges_Id = 5;
@@ -145,34 +161,50 @@ public function multi(){
     $data->Played_Game_Name = "Quiz Játék";
     $data->save();
 
+    $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
+
+    $count = Player::where('User_Id', auth()->id())
+                 ->whereIn('Played_Game_Name', $requiredGames)
+                 ->distinct('Played_Game_Name')
+                 ->count();
+
+
+                 if($count == 4){
+                    $count == true;
+                 }
+                 else{
+                    $count == false;
+                 }
+
     $existingBadge = UserBadge::where('User_Id', auth()->id())
     ->where('Badges_Id', 5)
     ->exists();
+
 
     $letezobadge = UserBadge::where('User_Id', auth()->id())
                             ->where('Badges_Id', 2)
                             ->exists();
 
-                            if(!$letezobadge){
-                                $data = new UserBadge;
-                                $data->User_Id = auth()->id();
-                                $data->Badges_Id = 2;
-                                $data->Achieved_At = now();
-                                $data->Save();
-                                return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
-                            }
-                            elseif($this->checkAllGamesBadge(auth()->id()) && !$existingBadge && $letezobadge) {
-                                $data = new UserBadge;
-                                $data->User_Id = auth()->id();
-                                $data->Badges_Id = 5;
-                                $data->Achieved_At = now();
-                                $data->Save();
-                                return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
-                            }
+    if(!$letezobadge){
+        $data = new UserBadge;
+        $data->User_Id = auth()->id();
+        $data->Badges_Id = 2;
+        $data->Achieved_At = now();
+        $data->Save();
+        return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+    }
+    elseif($count == true && $letezobadge && !$existingBadge) {
+        $data = new UserBadge;
+        $data->User_Id = auth()->id();
+        $data->Badges_Id = 5;
+        $data->Achieved_At = now();
+        $data->Save();
+        return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+    }
 
-                            else{
-                                return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
-                            }
+    else{
+        return redirect('/profil')->with('success', 'Sikeresen lementetted a jatekodat!');
+    }
 }
 
 
@@ -196,13 +228,29 @@ public function multi(){
     $data->Played_Game_Name = "Wordle játék";
     $data->save();
 
+    $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
+
+    $count = Player::where('User_Id', auth()->id())
+                 ->whereIn('Played_Game_Name', $requiredGames)
+                 ->distinct('Played_Game_Name')
+                 ->count();
+
+
+                 if($count == 4){
+                    $count == true;
+                 }
+                 else{
+                    $count == false;
+                 }
+
     $existingBadge = UserBadge::where('User_Id', auth()->id())
     ->where('Badges_Id', 5)
     ->exists();
 
+
     $letezobadge = UserBadge::where('User_Id', auth()->id())
-    ->where('Badges_Id', 2)
-    ->exists();
+                            ->where('Badges_Id', 2)
+                            ->exists();
 
     if(!$letezobadge){
         $data = new UserBadge;
@@ -212,7 +260,7 @@ public function multi(){
         $data->Save();
         return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
     }
-    elseif($this->checkAllGamesBadge(auth()->id()) && !$existingBadge && $letezobadge) {
+    elseif($count == true && $letezobadge && !$existingBadge) {
         $data = new UserBadge;
         $data->User_Id = auth()->id();
         $data->Badges_Id = 5;
@@ -244,9 +292,25 @@ public function multi(){
     $data->Played_Game_Name = "2048";
     $data->save();
 
+    $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
+
+    $count = Player::where('User_Id', auth()->id())
+                 ->whereIn('Played_Game_Name', $requiredGames)
+                 ->distinct('Played_Game_Name')
+                 ->count();
+
+
+                 if($count == 4){
+                    $count == true;
+                 }
+                 else{
+                    $count == false;
+                 }
+
     $existingBadge = UserBadge::where('User_Id', auth()->id())
     ->where('Badges_Id', 5)
     ->exists();
+
 
     $letezobadge = UserBadge::where('User_Id', auth()->id())
                             ->where('Badges_Id', 2)
@@ -260,7 +324,7 @@ public function multi(){
         $data->Save();
         return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
     }
-    elseif($this->checkAllGamesBadge(auth()->id()) && !$existingBadge && $letezobadge) {
+    elseif($count == true && $letezobadge && !$existingBadge) {
         $data = new UserBadge;
         $data->User_Id = auth()->id();
         $data->Badges_Id = 5;

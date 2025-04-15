@@ -10,52 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-
-//     public function index()
-// {
-//     $users = User::where('User_Id', '!=', auth()->id())
-//                ->orderBy('username')
-//                ->get();
-
-//     $chatUsers = User::whereHas('sentMessages', function($query) {
-//                     $query->where('Receiver_Id', auth()->id());
-//                 })
-//                 ->orWhereHas('receivedMessages', function($query) {
-//                     $query->where('Sender_Id', auth()->id());
-//                 })
-//                 ->with(['sentMessages' => function($query) {
-//                     $query->where('Receiver_Id', auth()->id())
-//                           ->orderBy('created_at', 'desc');
-//                 }, 'receivedMessages' => function($query) {
-//                     $query->where('Sender_Id', auth()->id())
-//                           ->orderBy('created_at', 'desc');
-//                 }])
-//                 ->get()
-//                 ->map(function($user) {
-//                     // Összesítjük a küldött és fogadott üzeneteket
-//                     $allMessages = $user->sentMessages->merge($user->receivedMessages);
-
-//                     // Rendezés dátum szerint csökkenő sorrendben
-//                     $sortedMessages = $allMessages->sortByDesc('created_at');
-
-//                     // Az utolsó üzenet kiválasztása
-//                     $user->lastMessage = $sortedMessages->first();
-
-//                     // Olvasatlan üzenetek számának kiszámítása
-//                     $user->unread = $user->receivedMessages
-//                         ->where('Sender_Id', $user->User_Id)
-//                         ->where('Receiver_Id', auth()->id())
-//                         ->where('is_read', false)
-//                         ->count();
-
-//                     return $user;
-//                 })
-//                 ->sortByDesc(function($user) {
-//                     return $user->lastMessage ? $user->lastMessage->created_at : null;
-//                 });
-
-//     return view('messages.index', compact('users', 'chatUsers'));
-// }
 public function index()
 {
     $users = User::where('User_Id', '!=', auth()->id())
@@ -77,6 +31,11 @@ public function index()
                 }])
                 ->get()
                 ->map(function($user) {
+                    $user->unread = Message::where('receiver_id', auth()->id())
+            ->where('sender_id', $user->User_id)
+            ->where('new_message', 1)
+            ->count();
+
                     $lastMessage = Message::where(function($q) use ($user) {
                         $q->where('sender_id', $user->User_id)
                           ->where('receiver_id', auth()->id());
@@ -84,6 +43,7 @@ public function index()
                     ->orWhere(function($q) use ($user) {
                         $q->where('sender_id', auth()->id())
                           ->where('receiver_id', $user->User_id);
+
                     })
                     ->latest()
                     ->first();
