@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\game_mode;
 use App\Models\Player;
 use App\Models\UserBadge;
+use App\Models\TotalPoints;
 
 class GamesController extends Controller
 {
@@ -74,7 +75,11 @@ class GamesController extends Controller
     $data->Played_Game_Name = "Memória Játék";
     $data->save();
 
+    $totalPoints = TotalPoints::firstOrNew(['User_Id' => auth()->id()]);
 
+    $totalPoints->username = $user->username;
+    $totalPoints->Total_Points += $request->points;
+    $totalPoints->save();
 
 
     $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
@@ -161,6 +166,12 @@ public function multi(){
     $data->Played_Game_Name = "Quiz Játék";
     $data->save();
 
+    $totalPoints = TotalPoints::firstOrNew(['User_Id' => auth()->id()]);
+
+    $totalPoints->username = $user->username;
+    $totalPoints->Total_Points += $request->points;
+    $totalPoints->save();
+
     $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
 
     $count = Player::where('User_Id', auth()->id())
@@ -228,6 +239,12 @@ public function multi(){
     $data->Played_Game_Name = "Wordle játék";
     $data->save();
 
+    $totalPoints = TotalPoints::firstOrNew(['User_Id' => auth()->id()]);
+
+    $totalPoints->username = $user->username;
+    $totalPoints->Total_Points += $request->points;
+    $totalPoints->save();
+
     $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
 
     $count = Player::where('User_Id', auth()->id())
@@ -291,6 +308,12 @@ public function multi(){
     $data->Player_Points = $request->score;
     $data->Played_Game_Name = "2048";
     $data->save();
+
+    $totalPoints = TotalPoints::firstOrNew(['User_Id' => auth()->id()]);
+
+    $totalPoints->username = $user->username;
+    $totalPoints->Total_Points += $request->score;
+    $totalPoints->save();
 
     $requiredGames = ["Memória Játék", "Quiz Játék", "Wordle játék", "2048"];
 
