@@ -25,7 +25,7 @@
                                     <div class="card-body">
                                         <div class="card-text">
                                             Ebben a játékban párosítanod kell az adott elemeket...
-
+                                            <span class="text-black">Készítette: CodingNepal</span>
                                         </div>
                                         @auth
                                             <a href="/memorygame" class="btn btn-primary mt-3">Játszunk</a>
@@ -50,7 +50,7 @@
                                     <div class="card-body">
                                         <div class="card-text">
                                             Ebben a játékban egy szót kell kitalálnod a magyar szótárból...
-
+                                            <span class="text-black">Készítette: Double D</span>
                                         </div>
                                         @auth
                                             <a href="/wordlegame" class="btn btn-primary mt-3">Játszunk</a>
@@ -78,7 +78,7 @@
                                         <div class="card-text">
                                             Ebben a játékban téma választást után kell kérdésekre helyes választ
                                             adnod...
-
+                                            <span class="text-black">Készítette: CodingNepal</span>
                                         </div>
                                         @auth
                                             <a href="/quizgame" class="btn btn-primary mt-3">Játszunk</a>
@@ -103,7 +103,7 @@
                                     <div class="card-body">
                                         <div class="card-text">
                                             Ebben a játékban nyilak segítségével kell azonos értékű kockákat egybe húznod
-
+                                                <span class="text-black">Készítette: Simple Coding Tutorials</span>
                                         </div>
                                         @auth
                                             <a href="/husznegyvennyolc" class="btn btn-primary mt-3">Játszunk</a>
