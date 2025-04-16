@@ -60,7 +60,12 @@ main{
     text-shadow: 1px 1px 45px #ffffff4d;
 }
 
-
+.movingtext{
+background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+-webkit-text-fill-color: transparent;
+}
 
 .welcomeblade h5{
     font-size: clamp(20px, calc(3vw + 1rem), 2rem);
@@ -85,43 +90,7 @@ main{
     }
   }
 
-  @media only screen and (max-width: 1279px){
-    .welcomeblade h1{
-        font-size: clamp(110px, calc(6vw + 1rem), 5rem);
-        text-wrap: wrap;
-        text-align: center;
-    }
-    .welcomeblade h5{
-        font-size: clamp(10px, calc(2vw + 0.5rem), 1rem);
-        text-wrap: wrap;
-        text-align: center;
-    }
-}
 
-@media only screen and (max-width: 861px){
-    .welcomeblade h1{
-        font-size: clamp(80px, calc(4vw + 1.7rem), 2rem);
-        text-wrap: wrap;
-        text-align: center;
-    }
-    .welcomeblade h5{
-        font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
-        text-wrap: wrap;
-        text-align: center;
-    }
-}
-@media only screen and (max-width: 635px){
-    .welcomeblade h1{
-        font-size: clamp(80px, calc(4vw + 1.7rem), 2rem);
-        text-wrap: balance;
-
-    }
-    .welcomeblade h5{
-        font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
-        text-wrap: wrap;
-        text-align: center;
-    }
-}
 
 .welcomeblade2, h1{
     font-size: clamp(70px, calc(7vw + 1rem), 5rem);
@@ -385,9 +354,11 @@ main{
     display: grid;
     align-content: center;
     min-height: 100vh;
-
-
 }
+
+
+
+
 .regpage h2{
     font-size: clamp(80px, calc(3vw + 2rem), 2rem);
     margin: auto;
@@ -397,9 +368,9 @@ main{
     font-family: FairyDustB;
     text-shadow: 1px 0.5px 45px #eeeeee00;
     margin-top: 40px;
-    animation: elotunik ease-in-out 1s;
+    animation: elotunik ease-in 1s;
     animation-fill-mode: forwards;
-    animation-delay: 2s;
+    animation-delay: 1s;
     overflow-wrap:break-word;
 }
 .newpostcontainer{
@@ -424,19 +395,49 @@ main{
     display: flex;
     margin: auto;
     width: 60%;
-    padding: 15px;
+    height: auto;
+    padding: auto;
+    animation: elotunik ease-in-out 1s ;
+    animation-fill-mode: forwards;
+    opacity: 0;
 
 }
 
+@keyframes elotunik{
+    from{
+        opacity: 0;
 
+    }
+    to{
+        opacity: 1;
+
+    }
+}
 
 
 @media only screen and (max-width: 768px){
     .formcard{
         height: auto;
-        max-height: 1100px;
+    }
+    .section2 h2{
+        font-size: clamp(40px, calc(2vw + 1rem), 1rem);
+    }
+    .divider{
+        display: none;
     }
 
+}
+
+@media only screen and (max-width: 560px){
+    .welcomeblade h1{
+        font-size: clamp(50px, calc(1vw + 1.7rem), .7rem);
+        text-wrap: balance;
+
+    }
+    .formcard h2{
+        font-size: clamp(15px, calc(.4vw + .4rem), .1rem);
+
+    }
 }
 
 
@@ -463,23 +464,8 @@ main{
 
 
 
-.regpage{
-    animation: elotunik ease-in-out 1s ;
-    animation-fill-mode: forwards;
-    animation-delay: 2s;
-    opacity: 0;
-}
 
-@keyframes elotunik{
-    from{
-        opacity: 0;
 
-    }
-    to{
-        opacity: 1;
-
-    }
-}
 .leftreg button{
     text-align: center;
 }
@@ -635,6 +621,12 @@ main{
     background-image: linear-gradient(0deg, #74EBD5 0%, #9FACE6 100%);
 
 }
+
+.welcomeblade h1{
+    animation: elotunik ease-in-out 1s ;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
 .welcomeblade2{
     position: relative;
     background-image: linear-gradient(180deg, #74EBD5 0%, #9FACE6 100%);
@@ -757,7 +749,6 @@ main{
 .profbag{
     display: flex;
     margin: auto;
-    max-height: 700px;
     height: auto;
     background-color: #eaeaea3f;
     box-shadow: 1px 1px 15px 1px #a4a4a48d;
@@ -766,19 +757,7 @@ main{
 
 }
 
-@media only screen and (max-width: 992px) {
-    .profbag{
-        display: grid;
-        margin: auto;
-        max-height: 700px;
-        height: auto;
-        background-color: #eaeaea3f;
-        box-shadow: 1px 1px 15px 1px #a4a4a48d;
-        border-radius: 45px;
-        padding: 55px;
 
-    }
-}
 
 
 .profbag h5{
@@ -810,7 +789,6 @@ main{
     text-align: left;
 }
 
-/* Kereső input stílus */
 .search-container {
     margin: 10px;
 }
@@ -915,7 +893,8 @@ main{
     background-color: #eaeaea3f;
     box-shadow: 1px 1px 15px 1px #bdbdbd8d;
     border-radius: 45px;
-    height: 750px;
+    max-height: 750px;
+    height: auto;
 }
 
 .rightpanel{
@@ -923,21 +902,7 @@ main{
     height: auto;
 }
 
-@media only screen and (max-width: 1200px) {
-    .rowchat{
-        display: grid;
-        justify-content: center;
-        align-items: center;
-    }
-    .leftpanel{
-        width: 100%;
-        margin-bottom: 15px;
-    }
-    .rightpanel{
-        width: 100%;
-        height: auto;
-    }
-}
+
 
 
 .conti{
@@ -963,6 +928,7 @@ main{
 
 .form-group{
     z-index: 1000;
+
 }
 
 a{
@@ -998,42 +964,11 @@ a{
     flex: 1;
 }
 
-/* .selectGame:hover{
-    animation: 1.3s sizing ease-in-out;
-    animation-fill-mode: forwards;
-}
-
-@keyframes sizing {
-    from{
-        height: 125px;
-    }
-    to{
-        height: 100%;
-    }
-}
-
-
-.selectGame:not(:hover){
-    animation: 2s backsizing ease-in-out;
-    animation-fill-mode: forwards;
-}
-
-
-@keyframes backsizing {
-    from{
-        height: 100%;
-    }
-    to{
-
-        height: 125px;
-    }
-} */
 
 
 .wrapper{
     display: grid;
     padding: 25px;
-    width: 50%;
     margin: auto;
     border-radius: 25px;
     background-color: #eaeaea3f;
@@ -1248,7 +1183,7 @@ a{
     filter: brightness(1.1) drop-shadow(0 0 5px rgba(0,0,0,0.3));
 }
 
-/* Dropbox stílusok */
+
 .dropbox {
     position: absolute;
     top: 100%;
@@ -1263,7 +1198,16 @@ a{
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease;
+    text-wrap: wrap;
 }
+.dropbox h5{
+    font-size: clamp(25px, calc(1vw + .8rem), .7rem);
+}
+.dropbox p{
+    font-size: clamp(16px, calc(.5vw + .8rem), .7rem);
+    text-wrap: wrap;
+}
+
 
 .badge:hover .dropbox {
     visibility: visible;
@@ -1271,8 +1215,7 @@ a{
     margin-top: 10px;
 }
 
-/* Görgetősáv stílus (opcionális) */
-.badges-section::-webkit-scrollbar {
+/* .badges-section::-webkit-scrollbar {
     height: 8px;
 }
 
@@ -1288,7 +1231,7 @@ a{
 
 .badges-section::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
+} */
 
 
 
@@ -1298,6 +1241,9 @@ a{
     }
     .profw{
         width: 100%;
+    }
+    .badge{
+        margin: auto;
     }
 }
 
@@ -1314,7 +1260,7 @@ a{
 
 .config-container{
     display: block;
-    width: 415px;
+    max-width: 415px;
     padding: 25px;
     margin: auto;
     margin-top: 50px;
@@ -1552,8 +1498,8 @@ a{
     background-color: #eaeaea3f;
     box-shadow: 1px 1px 15px 1px #a4a4a48d;
     border-radius: 45px;
-    width: 450px;
-    height: 500px;
+    max-width: 450px;
+    max-height: 500px;
     margin: auto;
   }
 
@@ -1609,9 +1555,16 @@ a{
 
 
 .iconka {
-    font-size: 0.75em;
+    position: relative;
+    font-size: 0.25em;
     min-width: 1.5em;
     padding: 0.25em 0.5em;
+    margin-left: 5px;
+    margin-top: 8px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50px;
+
 }
 
 .position-relative {
@@ -1644,29 +1597,13 @@ a{
     overflow-y: scroll;
 }
 
-/* .elso, .masodik, .harmadik{
-    max-width: 450px;
-    width: auto;
-    background-color: #eaeaea3f;
-    border-radius: 45px;
-    height: auto;
-    padding: auto;
+.hah img{
+    width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;
 }
 
-
-.elso{
-
-    box-shadow: 1px 2px 15px 4px #ffe6008d;
+.personal{
+    display: flex;
 }
-
-.masodik{
-    box-shadow: 1px 2px 15px 4px #9797978d;
-}
-
-.harmadik{
-    box-shadow: 1px 2px 15px 4px #ff7e068d;
-}
- */
 
 
  #leaderboard{
@@ -1707,4 +1644,308 @@ a{
     color: #666;
     margin-left: 8px;
     vertical-align: middle;
+}
+
+
+.leftpanel{
+    overflow-y: auto;
+}
+
+
+.szemelyek{
+    display: block;
+}
+
+.previouschats{
+    display: flex;
+    padding: auto;
+}
+
+.conti textarea{
+    width: 75%;
+}
+
+
+@media only screen and (max-width: 1920px){
+
+    .dropbox h5{
+        font-size: clamp(25px, calc(1vw + .8rem), .7rem);
+    }
+    .dropbox p{
+        font-size: clamp(16px, calc(.5vw + .8rem), .7rem);
+        text-wrap: wrap;
+    }
+
+}
+@media only screen and (max-width: 1625px){
+
+    .section3 h2{
+        font-size: clamp(25px, calc(2vw + .8rem), 1rem);
+    }
+    .section3 h2 a{
+        font-size: clamp(25px, calc(2vw + .8rem), 1rem);
+    }
+}
+@media only screen and (max-width: 1312px){
+
+    .section3 h2{
+        font-size: clamp(10px, calc(2vw + .8rem), 1rem);
+    }
+    .section3 h2 a{
+        font-size: clamp(10px, calc(2vw + .8rem), 1rem);
+    }
+}
+
+@media only screen and (max-width: 1279px){
+    .welcomeblade h1{
+        font-size: clamp(110px, calc(6vw + 1rem), 5rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+    .welcomeblade h5{
+        font-size: clamp(10px, calc(2vw + 0.5rem), 1rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .leftpanel{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .rightpanel{
+        width: 100%;
+        height: auto;
+    }
+    .formcard{
+        display: grid;
+    }
+    .leftreg{
+        width: 100%;
+    }
+    .rightreg{
+        width: 100%;
+    }
+    #gamesmode{
+        margin-top: 80px;
+    }
+    #leaderboard1{
+        width: 50%;
+        margin: auto;
+    }
+    #leaderboard2{
+        width: 50%;
+        margin: auto;
+    }
+}
+
+@media only screen and (max-width: 1071px){
+    .section3 h1{
+        font-size: clamp(60px, calc(4vw + 1.7rem), 2rem);
+    }
+    .section3 h2{
+        font-size: clamp(15px, calc(2vw + .8rem), 1rem);
+    }
+    .section3 h2 a{
+        font-size: clamp(15px, calc(2vw + .8rem), 1rem);
+    }
+}
+@media only screen and (max-width: 992px) {
+    .profbag{
+        display: grid;
+        margin: auto;
+        height: auto;
+        background-color: #eaeaea3f;
+        box-shadow: 1px 1px 15px 1px #a4a4a48d;
+        border-radius: 45px;
+        padding: 55px;
+
+    }
+    .leftpanel{
+        max-height: 450px;
+    }
+    #leaderboard1{
+        width: 63%;
+    }
+    #leaderboard2{
+        width: 63%;
+    }
+
+}
+
+@media only screen and (max-width: 861px){
+    .welcomeblade h1{
+        font-size: clamp(80px, calc(4vw + 1.7rem), 2rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+    .welcomeblade h5{
+        font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+    .section3 h2{
+        font-size: clamp(10px, calc(2vw + .8rem), 1rem);
+    }
+    .section3 h2 a{
+        font-size: clamp(10px, calc(2vw + .8rem), 1rem);
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .section3 h1{
+        font-size: clamp(50px, calc(4vw + 1.7rem), 2rem);
+    }
+    .section3 h2{
+        font-size: clamp(10px, calc(2vw + .8rem), 1rem);
+    }
+    .section3 h2 a{
+        font-size: clamp(10px, calc(2vw + .8rem), 1rem);
+    }
+    .rating-display {
+        font-size: 24px;
+    }
+    .hah img{
+        width: 75px;
+        height: 75px;
+    }
+    .hah h5{
+        font-size: clamp(17px, calc(2vw + .8rem), 1rem);
+    }
+    .badges{
+        display: grid;
+    }
+    .dropbox {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(+50px);
+        width: 130px;
+        border-radius: 10px;
+        padding: 15px;
+        background-color: #eaeaea3f;
+        box-shadow: 1px 1px 15px 1px #a4a4a48d;
+        z-index: 100;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    .dropbox h5{
+        font-size: clamp(10px, calc(1vw + .8rem), .7rem);
+    }
+    .dropbox p{
+        font-size: clamp(8px, calc(.5vw + .8rem), .7rem);
+        text-wrap: wrap;
+    }
+    .badge:hover .dropbox {
+        visibility: visible;
+        opacity: 1;
+        margin-top: 10px;
+    }
+    .previouschatscont{
+        display: inline-flex;
+        overflow-x: auto; /* vízszintes görgetés engedélyezése */
+        white-space: nowrap; /* megakadályozza a sortörést */
+        -webkit-overflow-scrolling: touch; /* sima görgetés mobilon */
+
+    }
+    .previouschats{
+        display: grid;
+        margin: 5px;
+        height: 150px;
+        width: 150px;
+    }
+    .szemelyek{
+        display: inline-flex;
+    }
+    .scroll-container:not(:-webkit-scrollbar) .scroll-item {
+        opacity: 0;
+        pointer-events: none;
+      }
+    .previouschats p{
+        display: none;
+    }
+    .previouschats a{
+        margin: auto;
+    }
+    .previouschats .iconka{
+        width: 20px;
+        height: 25px;
+    }
+    .form-group{
+        position: fixed;
+        padding: auto;
+    }
+    .conti textarea{
+        width: 100%;
+    }
+
+    #gamesmode{
+        font-size: clamp(60px, calc(3vw + 1.7rem), 1rem);
+
+    }
+    #leaderboard1{
+        width: 85%;
+    }
+    #leaderboard2{
+        width: 85%;
+    }
+
+}
+
+
+
+
+
+
+@media only screen and (max-width: 635px){
+    .welcomeblade h1{
+        font-size: clamp(70px, calc(3vw + 1.7rem), 1rem);
+        text-wrap: balance;
+
+    }
+    .formcard h2{
+        font-size: clamp(18px, calc(.2vw + .2rem), .1rem);
+
+    }
+    .welcomeblade h5{
+        font-size: clamp(5px, calc(1vw + 0.5rem), 1rem);
+        text-wrap: wrap;
+        text-align: center;
+    }
+    .righregcontent{
+        width: 100%;
+        margin: auto;
+
+    }
+    .righregcontent h3, .righregcontent  p{
+        font-size: clamp(15px, calc(1vw + 0.5rem), 1rem);
+    }
+    .section3 h1{
+        font-size: clamp(40px, calc(4vw + 1.7rem), 2rem);
+    }
+    .rating-display {
+        font-size: 17px;
+    }
+}
+@media only screen and (max-width: 576px){
+    .personal{
+        display: grid;
+    }
+    .box{
+        width: 50px;
+        height: 50px;
+    }
+    .config-container{
+        width: auto;
+    }
+    .hus{
+        width: 100%;
+    }
+    .card-body a{
+        font-size: clamp(9px, calc(1vw + .7rem), .3rem);
+        width: 25%;
+    }
 }

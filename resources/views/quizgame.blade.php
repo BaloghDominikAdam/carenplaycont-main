@@ -20,8 +20,8 @@
                 </div>
             </div>
 
-            <div class="row w-100 py-4">
-                <div class="col-4" id="leaderboard1">
+            <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-1 row-cols-md-1 row-cols-sm-1 w-100 mx-auto py-4">
+                <div class="col-4 mx-auto" id="leaderboard1">
                     <div class="topcontainer d-grid">
                         <p class="text-center text-black my-auto">Legjobb eredményed</p>
                         <hr class="text-black w-100">
@@ -37,7 +37,7 @@
 
                     </div>
                 </div>
-                <div class="col-4" id="mainquizs">
+                <div class="col-4 hus mx-auto" id="mainquizs">
                     <div class="config-container">
                         <h2 class="config-title">Quiz Játék</h2>
 
@@ -102,7 +102,7 @@
                         <button class="try-again-btn">Újra játszom</button>
                     </div>
                 </div>
-                <div class="col-4" id="leaderboard2">
+                <div class="col-4 mx-auto" id="leaderboard2">
                     <div class="topcontainer d-grid">
                         <p class="text-center text-black my-auto">Eredményjelző tábla</p>
                         <hr class="text-black w-100">
@@ -163,44 +163,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="row " id="leaderboard">
-                <div class="col-12 topcontainer py-4 ">
-                    <div class="row row-cols-1 row-cols-md-1 row-cols-l-2 row-cols-xl-3 ">
 
-                        <div class="top1">
-                            @foreach ($top1 as $elso)
-                                <div class="col elso">
-                                    <p class="p-5">{{ $elso->Player_Username }} - {{ $elso->Player_Points }} pontot ért
-                                        el</p>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="top2">
-                            @foreach ($top2 as $masodik)
-                                <div class="col  masodik">
-                                    <p class="p-5">{{ $masodik->Player_Username }} - {{ $masodik->Player_Points }} pontot
-                                        ért el</p>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="top3">
-                            @foreach ($top3 as $harmadik)
-                                <div class="col  harmadik">
-                                    <p class="p-5">{{ $harmadik->Player_Username }} - {{ $harmadik->Player_Points }}
-                                        pontot ért el</p>
-                                </div>
-                            @endforeach
-                        </div>
-
-
-                        @foreach ($top as $legjobbak)
-                            <div class="col mx-5 topbox">
-                                <p>{{ $legjobbak->Player_Username }} - {{ $legjobbak->Player_Points }} pontot ért el</p>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div> --}}
 
 
 
@@ -229,27 +192,6 @@
             let points = 0;
 
 
-
-            // const showQuizResult = () => {
-            //     quizContainer.style.display = "none";
-            //     resultContainer.style.display = "block"
-
-            //     const resultText = `Eltalált pontjaid: ${correctAnswerCount} a ${numberOfQuestions}-ből`;
-            //     document.querySelector(".result-message").innerHTML = resultText;
-            // }
-
-            // const showQuizResult = () => {
-            //     quizContainer.style.display = "none";
-            //     const modal = document.getElementById('modal');
-            //     const modalPoints = document.getElementById('modal-points');
-
-            //     modal.style.display = "block";
-            //     modalPoints.textContent = `Eltalált kérdések: ${correctAnswerCount}/${numberOfQuestions}`;
-            //     document.getElementById('hidden-points').value = correctAnswerCount;
-            //     let finalpoints = points;
-
-            // }
-
             const showQuizResult = () => {
                 quizContainer.style.display = "none";
                 const modal = document.getElementById('modal2');
@@ -257,7 +199,7 @@
 
                 modal.style.display = "block";
                 modalPoints.textContent = `Pontszám: ${points} (${correctAnswerCount}/${numberOfQuestions} kérdés)`;
-                document.getElementById('hidden-points').value = points; 
+                document.getElementById('hidden-points').value = points;
             };
 
 

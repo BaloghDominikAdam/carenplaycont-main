@@ -26,13 +26,14 @@ class UserController extends Controller
     public function regData(Request $req){
         if(!Auth::check()){
             $req->validate([
-                'nev'   => 'required',
+                'nev'   => 'required|unique:users,username',
                 'email' => 'required|email|unique:users,email',
                 'password' => ['required', 'confirmed', Password::min(8)->numbers()->letters()->mixedCase()],
                 'password_confirmation'             => 'required',
                 'user_profile_picture' => 'nullable|image|max:2048'
             ],[
                 'nev.required' => 'Kérem adja meg a nevét!',
+                'nev.unique'    => 'Ez a felhasználó név már foglalt!',
                 'email.required' => 'Kérem adja meg az email címét!',
                 'email.email' => 'Kérem hiteles email címet adjon meg',
                 'email.unique' => 'Ez az email cím már foglalt!',
@@ -41,8 +42,10 @@ class UserController extends Controller
                 'password.min'  => 'A jelszó minimum 8 karakter legyen!',
                 'password.numbers' => 'A jelszóban szerepeljenek számok a fokozott biztonság érdekében!',
                 'password.letters' => 'A jelszóban szerepeljenek betűk a fokozott biztonság érdekében!',
-                'password.mixedCase' => 'A jelszóban szerepeljenek kis- és nagybetűk a fokozott biztonság érdekében!',
-                'password_confirmation.required' => 'A jelszót kötelező mégegyszer megadni!'
+                'password.mixedcase' => 'A jelszóban szerepeljenek kis- és nagybetűk a fokozott biztonság érdekében!',
+                'password_confirmation.required' => 'A jelszót kötelező mégegyszer megadni!',
+                'user_profile_picture.image' => 'Profilképnek csak kép formátumú fájlt tud feltölteni',
+                'user_profile_picture.max'  => 'A kép maximum mérete nem haladhatja meg a 2MB tárhelyet'
             ]);
             $data = new User;
             $data->username = $req->nev;
@@ -193,43 +196,6 @@ class UserController extends Controller
     }
 
 
-
-    // public function update(Request $request)
-    // {
-
-    //     $request->validate([
-    //         'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-
-    //     $user = auth()->user();
-
-    //     if ($request->hasFile('profile_picture')) {
-    //         if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
-    //             Storage::disk('public')->delete($user->user_profile_picture);
-    //         }
-    //         $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-    //         $user->user_profile_picture = $path;
-    //         $user->save();
-    //     }
-
-    //     return redirect()->back()->with('success', 'Profilkép sikeresen frissítve!');
-    // }
-
-    // public function removeProfilePicture(Request $request)
-    // {
-    //     $user = auth()->user();
-
-    //     if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
-    //         Storage::disk('public')->delete($user->user_profile_picture);
-    //     }
-
-    //     $user->user_profile_picture = 'assets/img/default-avatar.jpg';
-    //     $user->save();
-
-    //     return redirect()->back()->with('success', 'Profilkép sikeresen eltávolítva!');
-    // }
-
-
     public function update(Request $request)
 {
     $request->validate([
@@ -239,13 +205,12 @@ class UserController extends Controller
     $user = auth()->user();
 
     if ($request->hasFile('profile_picture')) {
-        // Régi kép törlése (ha nem az alapértelmezett)
         if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
             Storage::disk('profile_pictures')->delete($user->user_profile_picture);
         }
 
-        // Új kép mentése
-        $path = $request->file('profile_picture')->store('', 'profile_pictures'); // Üres string = root mappa
+
+        $path = $request->file('profile_picture')->store('', 'profile_pictures');
         $user->user_profile_picture = $path;
         $user->save();
     }
@@ -257,12 +222,11 @@ public function removeProfilePicture(Request $request)
 {
     $user = auth()->user();
 
-    // Kép törlése (ha nem az alapértelmezett)
+
     if ($user->user_profile_picture && $user->user_profile_picture !== 'assets/img/default-avatar.jpg') {
         Storage::disk('profile_pictures')->delete($user->user_profile_picture);
     }
 
-    // Alapértelmezett kép beállítása
     $user->user_profile_picture = 'assets/img/default-avatar.jpg';
     $user->save();
 

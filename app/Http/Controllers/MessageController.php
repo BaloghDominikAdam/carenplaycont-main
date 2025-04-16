@@ -12,58 +12,63 @@ class MessageController extends Controller
 {
 public function index()
 {
-    $users = User::where('User_Id', '!=', auth()->id())
-               ->orderBy('username')
-               ->get();
+    if(Auth::check()){
+        $users = User::where('User_Id', '!=', auth()->id())
+        ->orderBy('username')
+        ->get();
 
-    $chatUsers = User::whereHas('sentMessages', function($query) {
-                    $query->where('receiver_id', auth()->id());
-                })
-                ->orWhereHas('receivedMessages', function($query) {
-                    $query->where('sender_id', auth()->id());
-                })
-                ->with(['sentMessages' => function($query) {
-                    $query->where('receiver_id', auth()->id())
-                          ->orderBy('created_at', 'desc');
-                }, 'receivedMessages' => function($query) {
-                    $query->where('sender_id', auth()->id())
-                          ->orderBy('created_at', 'desc');
-                }])
-                ->get()
-                ->map(function($user) {
-                    $user->unread = Message::where('receiver_id', auth()->id())
-            ->where('sender_id', $user->User_id)
-            ->where('new_message', 1)
-            ->count();
+$chatUsers = User::whereHas('sentMessages', function($query) {
+             $query->where('receiver_id', auth()->id());
+         })
+         ->orWhereHas('receivedMessages', function($query) {
+             $query->where('sender_id', auth()->id());
+         })
+         ->with(['sentMessages' => function($query) {
+             $query->where('receiver_id', auth()->id())
+                   ->orderBy('created_at', 'desc');
+         }, 'receivedMessages' => function($query) {
+             $query->where('sender_id', auth()->id())
+                   ->orderBy('created_at', 'desc');
+         }])
+         ->get()
+         ->map(function($user) {
+             $user->unread = Message::where('receiver_id', auth()->id())
+     ->where('sender_id', $user->User_id)
+     ->where('new_message', 1)
+     ->count();
 
-                    $lastMessage = Message::where(function($q) use ($user) {
-                        $q->where('sender_id', $user->User_id)
-                          ->where('receiver_id', auth()->id());
-                    })
-                    ->orWhere(function($q) use ($user) {
-                        $q->where('sender_id', auth()->id())
-                          ->where('receiver_id', $user->User_id);
+             $lastMessage = Message::where(function($q) use ($user) {
+                 $q->where('sender_id', $user->User_id)
+                   ->where('receiver_id', auth()->id());
+             })
+             ->orWhere(function($q) use ($user) {
+                 $q->where('sender_id', auth()->id())
+                   ->where('receiver_id', $user->User_id);
 
-                    })
-                    ->latest()
-                    ->first();
+             })
+             ->latest()
+             ->first();
 
-                $user->lastMessage = $lastMessage;
-                return $user;
-            })
-            ->sortByDesc(function($user) {
-                return $user->lastMessage ? $user->lastMessage->created_at : now()->subYear();
-            });
+         $user->lastMessage = $lastMessage;
+         return $user;
+     })
+     ->sortByDesc(function($user) {
+         return $user->lastMessage ? $user->lastMessage->created_at : now()->subYear();
+     });
 
-    return view('messages.index', compact('users', 'chatUsers'));
+return view('messages.index', compact('users', 'chatUsers'));
+    } else{
+        return redirect('/login')->with('error', 'Ha szeretnél üzenetet küldeni először be kell jelentkezned');
+    }
+
 }
 
     public function show(User $user)
 {
 
 
-
-    Message::where('receiver_id', auth()->id())
+    if(Auth::check()){
+        Message::where('receiver_id', auth()->id())
         ->where('sender_id', $user->User_id)
         ->update(['new_message' => 0]);
     // 1. Olvasottá jelöljük az aktuális user által fogadott üzeneteket
@@ -138,51 +143,61 @@ public function index()
     ->get();
 
     return view('messages.index', compact('users', 'messages', 'user', 'chatUsers'));
+    } else{
+        return redirect('/login')->with('error', 'Ha szeretnél üzenetet küldeni először be kell jelentkezned');
+    }
+
+
 }
 
     public function send(Request $request)
     {
-        $request->validate([
-            'receiver_id' => 'required|exists:users,User_id',
-            'message_text' => 'required|max:255',
-        ], []);
+        if(Auth::check()){
+            $request->validate([
+                'receiver_id' => 'required|exists:users,User_id',
+                'message_text' => 'required|max:255',
+            ], []);
 
-        Message::create([
-            'Sender_Id' => auth()->id(),
-            'Receiver_Id' => $request->receiver_id,
-            'Message_Text' => $request->message_text,
-            'New_Message' => 1
+            Message::create([
+                'Sender_Id' => auth()->id(),
+                'Receiver_Id' => $request->receiver_id,
+                'Message_Text' => $request->message_text,
+                'New_Message' => 1
 
-        ]);
+            ]);
 
-        $dbuzenet = Message::where('Sender_Id', auth()->id())
-        ->count();
+            $dbuzenet = Message::where('Sender_Id', auth()->id())
+            ->count();
 
-        if($dbuzenet == 10){
-            $data = new UserBadge;
-            $data->User_Id = auth()->id();
-            $data->Badges_Id = 4;
-            $data->Achieved_At = now();
-            $data->Save();
-            return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+            if($dbuzenet == 10){
+                $data = new UserBadge;
+                $data->User_Id = auth()->id();
+                $data->Badges_Id = 4;
+                $data->Achieved_At = now();
+                $data->Save();
+                return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+            }
+
+
+            $letezobadge = UserBadge::where('User_Id', auth()->id())
+            ->where('Badges_Id', 3)
+            ->exists();
+
+            if(!$letezobadge){
+                $data = new UserBadge;
+                $data->User_Id = auth()->id();
+                $data->Badges_Id = 3;
+                $data->Achieved_At = now();
+                $data->Save();
+                return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
+            }
+            else{
+                return redirect()->route('messages.show', $request->receiver_id);
+            }
+        } else{
+            return redirect('/login')->with('error', 'Ha szeretnél üzenetet küldeni először be kell jelentkezned');
         }
 
-
-        $letezobadge = UserBadge::where('User_Id', auth()->id())
-        ->where('Badges_Id', 3)
-        ->exists();
-
-        if(!$letezobadge){
-            $data = new UserBadge;
-            $data->User_Id = auth()->id();
-            $data->Badges_Id = 3;
-            $data->Achieved_At = now();
-            $data->Save();
-            return redirect('/profil')->with('success', 'Elértél egy új Badge-et.');
-        }
-        else{
-            return redirect()->route('messages.show', $request->receiver_id);
-        }
 
 
 

@@ -4,11 +4,18 @@
         <div class="home-page">
             <div class="content" id="content">
                 <div class="regpage">
-                    <div class="row" id="animatedDiv">
-                        <h2>Válassz játékot!</h2>
-                        <hr>
-                        <div class="col-md-3 ">
-                            <div class="card mx-auto">
+                    @auth
+                        <h2 id="gamesmode">Válassz játékot!</h2>
+                    @else
+                        <h2 id="gamesmode">Előzetes betekintés a játékokról</h2>
+                    @endauth
+
+                    <hr>
+                    <div class="row row-cols-xs-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4" id="animatedDiv">
+
+
+                        <div class="col-3 py-2">
+                            <div class="card h-100 mx-auto w-100">
                                 <video class="rounded-top-only" muted loop>
                                     <source src="{{ asset('assets/img/previewgames/memoria.mp4') }}" class="w-100"
                                         type="video/mp4" style="border-radius: 15px">
@@ -20,14 +27,20 @@
                                             Ebben a játékban párosítanod kell az adott elemeket...
 
                                         </div>
-                                        <a href="/memorygame" class="btn btn-primary mt-3">Játszunk</a>
+                                        @auth
+                                            <a href="/memorygame" class="btn btn-primary mt-3">Játszunk</a>
+                                        @else
+                                            <a href="/login" class="btn btn-primary mt-3 w-100">Ha szeretne játszani,
+                                                először
+                                                jelentkezzen be!</a>
+                                        @endauth
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card mx-auto">
+                        <div class="col-3 py-2">
+                            <div class="card h-100 mx-auto w-100">
                                 <video class="rounded-top-only" muted loop>
                                     <source src="{{ asset('assets/img/previewgames/wordle.mp4') }}" class="w-100"
                                         type="video/mp4">
@@ -39,7 +52,12 @@
                                             Ebben a játékban egy szót kell kitalálnod a magyar szótárból...
 
                                         </div>
-                                        <a href="/wordlegame" class="btn btn-primary mt-3">Játszunk</a>
+                                        @auth
+                                            <a href="/wordlegame" class="btn btn-primary mt-3">Játszunk</a>
+                                        @else
+                                            <a href="/login" class="btn btn-primary mt-3 w-100">Ha szeretne játszani, először
+                                                jelentkezzen be!</a>
+                                        @endauth
                                     </div>
                                 </div>
 
@@ -48,8 +66,8 @@
 
                         {{-- </div>
                     <div class="row h-50" id="animatedDiv"> --}}
-                        <div class="col-md-3 ">
-                            <div class="card mx-auto">
+                        <div class="col-3  py-2">
+                            <div class="card h-100 mx-auto w-100">
                                 <video class="rounded-top-only" muted loop>
                                     <source src="{{ asset('assets/img/previewgames/quiz.mp4') }}" class="w-100"
                                         type="video/mp4">
@@ -62,15 +80,20 @@
                                             adnod...
 
                                         </div>
-                                        <a href="/quizgame" class="btn btn-primary mt-3">Játszunk</a>
+                                        @auth
+                                            <a href="/quizgame" class="btn btn-primary mt-3">Játszunk</a>
+                                        @else
+                                            <a href="/login" class="btn btn-primary mt-3 w-100">Ha szeretne játszani, először
+                                                jelentkezzen be!</a>
+                                        @endauth
                                     </div>
                                 </div>
 
                             </div>
 
                         </div>
-                        <div class="col-md-3 ">
-                            <div class="card mx-auto">
+                        <div class="col-3  py-2">
+                            <div class="card h-100 mx-auto w-100">
                                 <video class="rounded-top-only" muted loop>
                                     <source src="{{ asset('assets/img/previewgames/negyvennyolc.mp4') }}" class="w-100"
                                         type="video/mp4" style="border-radius: 15px">
@@ -82,7 +105,12 @@
                                             Ebben a játékban nyilak segítségével kell azonos értékű kockákat egybe húznod
 
                                         </div>
-                                        <a href="/husznegyvennyolc" class="btn btn-primary mt-3">Játszunk</a>
+                                        @auth
+                                            <a href="/husznegyvennyolc" class="btn btn-primary mt-3">Játszunk</a>
+                                        @else
+                                            <a href="/login" class="btn btn-primary mt-3 w-100">Ha szeretne játszani, először
+                                                jelentkezzen be!</a>
+                                        @endauth
                                     </div>
                                 </div>
 

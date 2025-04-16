@@ -4,17 +4,19 @@
         <div class="section3 container">
             <div class="profbag">
                 <div class="row w-100 badgesek">
-                    <div class="col-md-6 profw">
-                        <div class="d-grid">
+                    <div class="col-md-6 profw m-auto">
+                        <div class="d-grid hah">
 
                             @if ($user->user_profile_picture == 'assets/img/profile_picture/default-avatar.jpg')
-                                <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}"
-                                    style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                <img src="{{ asset('assets/img/profile_picture/default-avatar.jpg') }}">
                             @else
-                                <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}"
-                                    style="width: 100px; height: 100px; border-radius: 50px; cursor: pointer; object-fit: cover;">
+                                <img src="{{ asset('assets/img/profile_picture/' . $user->user_profile_picture) }}">
                             @endif
-                            <a href="{{ route('messages.show', $user->User_id) }}"><i class="fa-solid fa-comments"></i></a>
+
+                            @auth
+                                <a href="{{ route('messages.show', $user->User_id) }}"><i class="fa-solid fa-comments"></i></a>
+
+                            @endauth
 
 
                             <h5 class="pt-3 text-nowrap">{{ $user->username }} Profilja</h5>
@@ -27,7 +29,7 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6 profw ">
+                    <div class="col-md-6 profw m-auto">
 
                         <div class="badges-section mx-auto">
                             <h2 class="text-center text-white">{{ $user->username }} Elért Badgejei!</h2>
@@ -44,8 +46,8 @@
                                         @endif
 
                                         <div class="dropbox">
-                                            <h5 class="fw-bold mb-2 fs-3">{{ $badge->Badge_Name }}</h5>
-                                            <p class="small fs-5 text-wrap">{{ $badge->Badge_Description }}</p>
+                                            <h5>{{ $badge->Badge_Name }}</h5>
+                                            <p>{{ $badge->Badge_Description }}</p>
                                         </div>
 
                                     </div>
@@ -59,16 +61,14 @@
             </div>
             <h5 class="text-white py-3 text-center display-6" style="font-family:FairyDustB">Véleményei</h5>
             @foreach ($posts as $post)
-                <div class="row newpost">
+                <div class="row newpost m-auto">
                     <div class="col-md-12">
                         <div class="post">
                             <div class="row py-2">
                                 <div class="col-md-12">
-                                    <div class="rating-display d-flex" style="float: right; font-style:italic">
-                                        <div class="star-rating" data-rating="{{ $post->Games_Review }}"></div>
-                                        <span class="rating-text my-auto">({{ $post->Games_Review }} /5)</span>
-                                    </div>
-                                    <div class="personal d-flex ">
+
+                                    <div class="personal ">
+
                                         @if (auth()->id() == $post->Games_Review_User_Id)
                                             @if ($post->user->user_profile_picture == 'assets/img/default-avatar.jpg')
                                                 <a href="/profil"><img src="{{ asset('assets/img/default-avatar.jpg') }}"
@@ -103,7 +103,12 @@
 
 
                                     </div>
+                                    <div class="rating-display d-flex">
+                                        <div class="star-rating" data-rating="{{ $post->Games_Review }}"></div>
+                                        <span class="rating-text my-auto">({{ $post->Games_Review }} /5)</span>
+                                    </div>
                                     <p class="my-3" style="font-style: italic">{{ $post->Game_Review_Name }}</p>
+
                                     <p>{{ $post->Games_Review_Text }}</p>
 
 

@@ -29,39 +29,15 @@
                     <div class="szoveg">
                         <div class="szovegsliding" id="tranc">
                             <div class="szoveg-item ">
-                                <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Jövő</span>
-                                Produktív <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
-    -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;">Törödés</span>
-                                Foglalkozás Szeretet <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Jövő</span>
-                                Produktív <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Törödés</span>
+                                <span class="movingtext">Jövő</span>
+                                Produktív <span class="movingtext">Törödés</span>
+                                Foglalkozás Szeretet <span class="movingtext">Jövő</span>
+                                Produktív <span class="movingtext">Törödés</span>
                                 Foglalkozás
-                                Szeretet <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Jövő</span>
-                                Produktív <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Törödés</span>
-                                Foglalkozás Szeretet <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Jövő</span>
-                                Produktív <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Törödés</span>
+                                Szeretet <span class="movingtext">Jövő</span>
+                                Produktív <span class="movingtext">Törödés</span>
+                                Foglalkozás Szeretet <span class="movingtext">Jövő</span>
+                                Produktív <span class="movingtext">Törödés</span>
                                 Foglalkozás
                                 Szeretet
                             </div>
@@ -71,58 +47,28 @@
                     <div class="szoveg">
                         <div class="szovegsliding " id="tranb">
                             <div class="szoveg-item ">
-                                Egymásért Lehetőség Bizalom Közösség <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Ajándék</span>
+                                Egymásért Lehetőség Bizalom Közösség <span class="movingtext">Ajándék</span>
                                 Egymásért Lehetőség Bizalom Közösség
-                                <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Ajándék</span>
-                                Egymásért Lehetőség Bizalom Közösség <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Ajándék</span>
+                                <span class="movingtext">Ajándék</span>
+                                Egymásért Lehetőség Bizalom Közösség <span class="movingtext">Ajándék</span>
                                 Egymásért Lehetőség
                                 Bizalom Közösség
-                                <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Ajándék</span><br>
+                                <span class="movingtext">Ajándék</span><br>
                             </div>
                         </div>
                     </div>
                     <div class="szoveg">
                         <div class="szovegsliding" id="trana">
                             <div class="szoveg-item ">
-                                Kreatív Ösztönző <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Esélyek</span>
-                                Kihívások Kreatív Ösztönző <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Esélyek</span>
+                                Kreatív Ösztönző <span class="movingtext">Esélyek</span>
+                                Kihívások Kreatív Ösztönző <span class="movingtext">Esélyek</span>
                                 Kihívások
-                                Csodák <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Célok</span>
-                                Előre Játék Tartalom Kreatív Ösztönző <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Esélyek</span>
+                                Csodák <span class="movingtext">Célok</span>
+                                Előre Játék Tartalom Kreatív Ösztönző <span class="movingtext">Esélyek</span>
                                 Kihívások Kreatív
-                                Ösztönző <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Esélyek</span>
+                                Ösztönző <span class="movingtext">Esélyek</span>
                                 Kihívások
-                                Csodák <span
-                                    style="background: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;">Célok</span>
+                                Csodák <span class="movingtext">Célok</span>
                                 Előre Játék Tartalom
                             </div>
 
@@ -187,7 +133,8 @@
             </div>
 
             <h2>Partnereink</h2>
-            <div class="logos">
+            <hr class="text-black w-50">
+            <div class="logos mb-3">
                 <div class="logo"><img src="{{ asset('assets/img/cartylogo.png') }}" alt=""></div>
                 <div class="logo kettes"><img src="{{ asset('assets/img/everyone.png') }}" alt=""></div>
                 <div class="divider"></div>
@@ -195,9 +142,6 @@
                 <div class="logo"><img src="{{ asset('assets/img/hand.png') }}" alt=""></div>
             </div>
         </div>
-
-
-
 
     </main>
 @endsection

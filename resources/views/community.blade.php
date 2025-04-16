@@ -81,14 +81,9 @@
             <div class="container">
                 @foreach ($result as $row)
                     <div class="newpostcontainer">
-                        <div class="row newpost">
+                        <div class="row newpost mx-auto">
                             <div class="col-md-12">
-                                <div class="rating-display d-flex" style="float: right; font-style:italic">
-                                    <div class="star-rating" data-rating="{{ $row->Games_Review }}"></div>
 
-
-                                    <span class="rating-text my-auto">({{ $row->Games_Review }} /5)</span>
-                                </div>
                                 <div class="personal d-flex ">
                                     @if (auth()->id() == $row->Games_Review_User_Id)
                                         @if ($row->user->user_profile_picture == 'assets/img/default-avatar.jpg')
@@ -123,6 +118,10 @@
                                     </div>
 
 
+                                </div>
+                                <div class="rating-display d-flex">
+                                    <div class="star-rating" data-rating="{{ $row->Games_Review }}"></div>
+                                    <span class="rating-text my-auto">({{ $row->Games_Review }} /5)</span>
                                 </div>
                                 <p class="my-3" style="font-style: italic">{{ $row->Game_Review_Name }}</p>
                                 <p>{{ $row->Games_Review_Text }}</p>
