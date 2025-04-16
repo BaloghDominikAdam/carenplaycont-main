@@ -1185,7 +1185,7 @@ a{
 
 
 .dropbox {
-    position: absolute;
+
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
@@ -1738,6 +1738,9 @@ a{
     #leaderboard2{
         width: 50%;
         margin: auto;
+    }
+    .dropbox{
+        position: absolute;
     }
 }
 

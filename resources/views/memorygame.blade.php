@@ -8,14 +8,17 @@
                     <h2>Gratulálok!</h2>
                     <h5>Minden párt megtaláltál!</h5>
                     <h5 id="modal-points">Pontjaid: 0</h5>
-                    <form action="/memorygame" method="post">
-                        @csrf
-                        <input type="hidden" name="points" id="hidden-points" value="0">
-                        <input type="hidden" name="game_name" value="Memória Játék">
-                        <button type="submit" class="btn btn-info" id="save-btn">Mentés</button>
-                    </form>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <form action="/memorygame" method="post">
+                            @csrf
+                            <input type="hidden" name="points" id="hidden-points" value="0">
+                            <input type="hidden" name="game_name" value="Memória Játék">
+                            <button type="submit" class="btn btn-info" id="save-btn">Mentés</button>
+                        </form>
 
-                    <button class="btn-info" id="restart-btn">Újra játszani</button>
+                        <button class="btn btn-info" onClick="window.location.reload();" id="restart-btn">Újra játszani</button>
+                    </div>
+
                 </div>
             </div>
 
